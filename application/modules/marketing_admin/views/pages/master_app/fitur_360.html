@@ -1,0 +1,201 @@
+<section id="basic-form-layouts">
+    <div class="row match-height">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title" id="title_profil">Fitur 360</h5>
+                    <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
+                    <div class="heading-elements">
+                        <ul class="list-inline mb-0">
+                            <li><a data-action="expand"><i class="icon-expand2"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card-body collapse in">
+                    <div class="card-block pt-1">
+                        <div class="form-body">
+                            <div class="row">
+                                <div class="offset-md-3 col-md-6">
+                                    <form id="form" class="form">
+                                        <div class="form-group row mb-1">
+                                            <label class="col-sm-3">Brand</label>
+                                            <div class="col-sm-9">
+                                                <select id="brand" name="brand" class="form-control" required>
+                                                    <option value=""></option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row mb-1">
+                                            <label class="col-sm-3">Model</label>
+                                            <div class="col-sm-9">
+                                                <select id="model" name="model" class="form-control" required>
+                                                    <option value=""></option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row mb-1">
+                                            <label class="col-sm-3">Video Test Drive</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" name="test_drive" id="test_drive"
+                                                    class="form-control" placeholder="Video Test Drive" required>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row mb-1">
+                                            <label class="col-sm-3">Interior</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" name="interior" id="interior" class="form-control"
+                                                    autocomplete="off" placeholder="Link embedded momento" required>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row mb-1">
+                                            <label class="col-sm-3">Exterior <small class="text-danger">*Maks
+                                                    300kB</small></label>
+                                            <div class="col-sm-9">
+                                                <input type="file" id="exterior" name="exterior[]"
+                                                    class="form-control-file" multiple>
+                                            </div>
+                                        </div>
+                                        <div class="form-actions center">
+                                            <button id="submit" class="btn btn-primary">
+                                                <i class="icon-check2"></i> Simpan
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    $(document).ready(function () {
+        $('#brand').select2({
+            placeholder: '-- Pilih Brand --'
+        })
+        $.ajax({
+            url: location,
+            data: {
+                _getBrand: true
+            },
+            dataType: 'json',
+            success: function (response) {
+                $('#brand').select2({
+                    data: response,
+                    placeholder: '-- Pilih Brand --'
+                })
+            }
+        })
+
+        $('#model').select2({
+            placeholder: '-- Pilih Model --'
+        })
+    })
+
+    $('#brand').on('change', function () {
+        let ini = $(this)
+        let model = $('#model')
+
+        $.ajax({
+            url: location,
+            data: {
+                _getModel: true,
+                brand: ini.val()
+            },
+            dataType: 'json',
+            beforeSend: function () {
+                model.empty().append(`<option value=""></option>`)
+                $('#test_drive').val('')
+                $('#interior').val('')
+            },
+            success: function (response) {
+                model.select2({
+                    data: response,
+                    placeholder: '-- Pilih Model --'
+                })
+            }
+        })
+    })
+
+    $('#model').on('change', function () {
+        let ini = $(this)
+        let testDrive = $('#test_drive')
+        let interior = $('#interior')
+
+        $.ajax({
+            url: location,
+            data: {
+                _getData: true,
+                unit: ini.val()
+            },
+            dataType: 'json',
+            beforeSend: function () {
+                testDrive.val('')
+                interior.val('')
+            },
+            success: function (response) {
+                testDrive.val(response[0].deskripsi)
+                interior.val(response[1].deskripsi)
+            }
+        });
+    })
+
+    $('#submit').on('click', function (event) {
+        event.preventDefault()
+
+        let ini = $(this)
+        let form = $('#form')
+
+        if (form.valid()) {
+            let exterior = $('#exterior')[0].files
+            let allowed_types = ['jpg', 'jpeg', 'png']
+
+            if (exterior.length != 0) {
+                for (let index = 0; index < exterior.length; index++) {
+                    let ini = exterior[index]
+
+                    var ext = ini.name.split('.').pop().toLowerCase()
+
+                    if ($.inArray(ext, allowed_types) == -1) {
+                        alert('Silahkan pilih file gambar!')
+                        return false
+                    }
+
+                    if (ini.size / 1048576 > 0.3) {
+                        alert('Ukuran file melebihi 300kB!')
+                        return false
+                    }
+                }
+            }
+
+            let formData = new FormData(document.getElementById('form'))
+
+            formData.append('_submit', true)
+
+            $.ajax({
+                type: 'post',
+                url: location,
+                data: formData,
+                contentType: false,
+                processData: false,
+                dataType: 'json',
+                beforeSend: function () {
+                    ini.html(`<i class="fa fa-spinner fa-spin"></i> Loading`)
+                    ini.prop('disabled', true)
+                },
+                success: function (response) {
+                    ini.html(`<i class="icon-check2"></i> Simpan`)
+                    ini.prop('disabled', false)
+
+                    if (response.status === 'success') {
+                        $('#exterior').val('');
+                    }
+
+                    alert(response.msg)
+                }
+            })
+        }
+    })
+</script>

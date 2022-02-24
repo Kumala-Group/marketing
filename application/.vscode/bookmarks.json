@@ -1,0 +1,27 @@
+[
+	{
+		"path": "$ROOTPATH$\\modules\\honda_kasir_service\\views\\claim_service\\view.php",
+		"bookmarks": [
+			{
+				"line": 140,
+				"column": 0,
+				"label": "Modal html"
+			}
+		]
+	},
+	{
+		"path": "$ROOTPATH$\\modules\\honda_admin_partcounter\\views\\item\\view.php",
+		"bookmarks": [
+			{
+				"line": 141,
+				"column": 1,
+				"label": "Validasi java"
+			},
+			{
+				"line": 300,
+				"column": 1,
+				"label": "Javascript function format harga"
+			}
+		]
+	}
+]

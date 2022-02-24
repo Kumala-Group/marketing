@@ -1,0 +1,56 @@
+/*================================================================================
+	Item Name: Robust - Responsive Admin Theme
+	Version: 1.0
+	Author: PIXINVENT
+	Author URL: http://www.themeforest.net/user/pixinvent
+================================================================================
+
+NOTE:
+------
+PLACE HERE YOUR OWN SCSS CODES AND IF NEEDED, OVERRIDE THE STYLES FROM THE OTHER STYLESHEETS.
+WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BETTER LIKE THIS.  */
+
+/* #content{min-height: 900px;} */
+.load{font-size: 80px;color: #005fa3;display: block;position: absolute;top: 0px;left: 0%;z-index: 3000;width: 100%;height: 100%;background-repeat: no-repeat;background-position: center;background-color: #00000014;border-radius: 0; height: 100%;}
+.loading {display: block;position: absolute;top: 0;left: 0%;z-index: 1;width: 100%;height: 100%;background-image: url("loading.gif");background-repeat: no-repeat;background-position: center;background-color: #08020200;border-radius: 11px;}
+.loading-input {background-color: #ffffff;background-image: url("loading_input.gif");background-size: 25px 25px;background-position:right center;background-repeat: no-repeat;}
+.load-spinner{margin-left: 55%;margin-top: 20%; position: absolute; -webkit-animation:spin 4s linear infinite;
+    -moz-animation:spin 4s linear infinite;
+    animation:spin 4s linear infinite;}
+@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+form .form-section {
+    color:#626C75 !important;
+    border-bottom: 1px solid #ACAEB0 !important;
+}
+/* .dark{font-size: 12px;} */
+.dark thead{
+    background-color: #bbb;
+}
+.dark thead th{
+    text-align: center;
+}
+.center{
+    vertical-align: middle !important;
+    text-align: center !important;
+}
+
+@media only screen and (max-width: 744px) {
+    .load {
+        top: 56px !important;
+        z-index: 1029 !important;
+    }
+    .load-spinner {
+        margin-left: 38% !important;
+        margin-top: 40% !important;
+    }
+
+
+}
+
+
+/*mencegah text wrapping*/
+.nowrap {
+    white-space: nowrap;
+}

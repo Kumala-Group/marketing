@@ -1,0 +1,185 @@
+<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+
+class Model_kumalagroup_data_spk extends CI_Model
+{
+
+    private function nama_database_brand()
+    {
+        $id_user_ = $this->session->userdata('id_user');
+        $id_brand_view = $this->db->select("id_brand_view")->get_where('users', "id_user = $id_user_")->row('id_brand_view');
+        $data_tabel = array("3" => "db_hino", "4" => "", "5" => "db_wuling", "7" => "", "8" => "", "11" => "", "13" => "", "15" => "", "26" => "", "17" => "db_honda", "18" => "db_mercedes", "19" => "", "20" => "", "21" => "");
+        return $data_tabel[$id_brand_view];
+    }
+
+    public function cabang()
+    {
+        $id_user_ = $this->session->userdata('id_user');
+        $id_brand_view = $this->db->select("id_brand_view")->get_where('users', "id_user = $id_user_")->row('id_brand_view');
+        $data =  $this->db->select('*')
+            ->from('perusahaan')
+            ->where('id_brand', $id_brand_view)
+            ->get();
+        return $data->result();
+    }
+
+
+    public function get_audit_data_spk()
+    {
+        $nama_tabel = $this->nama_database_brand();
+        $post = $this->input->post();
+        $dari_tgl = tgl_sql($post['dari_tgl']);
+        $sampai_tgl = tgl_sql($post['sampai_tgl']);
+        $cabang = $post['cabang'];
+        if ($nama_tabel == "db_hino") {
+            $null = null;
+            $select = [null, "sspk.no_spk", "sspk.tgl_spk", "tp.status_c", "tp.id_customer", "adm.id_leader", "tp.sales", "tp.cara_bayar", "sspk.no_spk", "sspk.keterangan"];
+            $table  = $nama_tabel . '.s_spk sspk';
+            $join   = [
+                $nama_tabel . '.tahapan_prospek tp' => 'tp.id_prospek = sspk.id_prospek',
+                $nama_tabel . '.adm_sales adm' => 'adm.id_sales = tp.sales',
+                $nama_tabel . '.s_do_child sdc' => 'sdc.no_spk = sspk.no_spk',
+            ];
+            $where = "sspk.batal = 'n' and sspk.tgl_spk >= '$dari_tgl' and sspk.tgl_spk <= '$sampai_tgl' and sspk.id_perusahaan = '$cabang' and sdc.tgl_do = $null";
+        } else {
+            $select = [null, "sspk.no_spk", "sspk.tgl_spk", "sc.nama", "adm.id_leader", "sc.sales", "sc.cara_bayar", "sspk.no_spk", "sspk.keterangan"];
+            $table  = $nama_tabel . '.s_spk sspk';
+            $join   = [
+                $nama_tabel . '.s_customer sc' => 'sc.id_prospek = sspk.id_prospek',
+                $nama_tabel . '.adm_sales adm' => 'adm.id_sales = sc.sales',
+            ];
+            $where = "sspk.batal = 'n' and sspk.tgl_spk >= '$dari_tgl' and sspk.tgl_spk <= '$sampai_tgl' and sspk.id_perusahaan = '$cabang' and (sc.status != 'do' and sc.status != 'lost' and (sc.status = 'spk' OR sc.status = 'ado'))";
+        }
+        $list = q_data_datatable(
+            $select,
+            $table,
+            $join,
+            $where
+        );
+        foreach ($list as $i => $dt) {
+            $nama_tabel = $this->nama_database_brand();
+            if ($nama_tabel == "db_hino") {
+                $nama_ = $this->GetNamaCustomer($dt->status_c, $dt->id_customer);
+            } else {
+                $nama_ = $dt->nama;
+            }
+            $data_array[] = [
+                'no_spk'        => $this->GetClearXNoSPK($dt->no_spk),
+                'tgl_spk'       => tgl_sql($dt->tgl_spk),
+                'customer'      => $nama_,
+                'supervisor'    => $this->GetNamaSupervisor($dt->id_leader),
+                'sales'         => $this->model_data->get_nama_karyawan($dt->sales),
+                'cara_bayar'    => $this->GetCaraBayar($dt->cara_bayar),
+                'status'        => $this->GetStatusTandaJadi($dt->no_spk, $cabang),
+                'keterangan'    => $dt->keterangan,
+            ];
+        }
+        return q_result_datatable($select, $table, $join, $where, empty($data_array) ? [] : $data_array);
+    }
+
+    private function GetClearXNoSPK($no_spk)
+    {
+        $x = (string)$no_spk;
+        if (strpos($x, 'x') == true) {
+            $no_spk_ = substr($x, 0, strpos($x, "x"));
+        } else {
+            $no_spk_ = $x;
+        }
+        return $no_spk_;
+    }
+
+    public function GetNamaSupervisor($id_leader)
+    {
+        $nama_tabel = $this->nama_database_brand();
+        $data = $this->$nama_tabel->select("nama_team")->from("adm_team_supervisor")->where("id_team_supervisor", $id_leader)->get();
+        if ($data->num_rows() > 0) {
+            $rows = $data->row("nama_team");
+        } else {
+            $rows = "-";
+        }
+        return $rows;
+    }
+
+    public function GetCaraBayar($cara_bayar)
+    {
+        if ($cara_bayar == 'k') {
+            $cara_bayar_ = 'Kredit';
+        } else {
+            $cara_bayar_ = 'Cash';
+        }
+        return $cara_bayar_;
+    }
+
+    public function GetStatusTandaJadi($no_spk, $cabang)
+    {
+        $nama_tabel = $this->nama_database_brand();
+        $limit_tjd = $this->$nama_tabel->select('value')->where("id_perusahaan = '$cabang'")->get('setting_tanda_jadi')->row("value");
+        // $select_distinct = "(SELECT DISTINCT no_transaksi,jb FROM buku_besar) bb";
+        // $where = array("pu.no_ref" => $no_spk, "bb.jb <>" => "1", "pu.batal" => "n");
+        // $tanda_jadi_penerimaan_unit = (int) $this->$nama_tabel->select("SUM(pu.total) as jumlah_tdj")->from("penerimaan_unit pu")->join($select_distinct, "pu.no_penerimaan = bb.no_transaksi")->where($where)->get()->row("jumlah_tdj");
+        // $tanda_jadi_pengeluaran_unit = (int) $this->$nama_tabel->select("SUM(pu.total) as jumlah_tdj")->from("pengeluaran_unit pu")->join($select_distinct, "pu.no_bukti_bku = bb.no_transaksi")->where($where)->get()->row("jumlah_tdj");
+        $tanda_jadi_penerimaan_unit = $this->penerimaan_unit($no_spk, $nama_tabel);
+        $tanda_jadi_pengeluaran_unit = $this->pengeluaran_unit($no_spk, $nama_tabel);
+
+        $tjd = $tanda_jadi_penerimaan_unit - $tanda_jadi_pengeluaran_unit;
+        if ($tjd >= $limit_tjd) {
+            $tanda_jadi = "<div class='tag tag-success'>Rp. " . separator_harga($tjd) . "</div>";
+        } else {
+            $tanda_jadi = "<div class='tag tag-danger'>Rp. " . separator_harga($tjd) . "</div>";
+        }
+        return $tanda_jadi;
+    }
+
+    public function GetNamaCustomer($status_c, $id_customer)
+    {
+        $nama_tabel = $this->nama_database_brand();
+        if ($status_c == 's') {
+            $table_c = 't_customer';
+        } else {
+            $table_c = 'customer';
+        }
+        // $nama = $this->$nama_tabel->select("nama")->from($table_c)->where("id_customer", $id_customer)->get()->row('nama');
+        $nama = $this->$nama_tabel->get_where($table_c, array('id_customer' => $id_customer))->row('nama');
+        return $nama;
+    }
+
+    private function penerimaan_unit($no_spk, $nama_tabel)
+    {
+        $where = array("pu.no_ref" => $no_spk, "bb.jb <>" => "1", "pu.batal" => "n");
+
+        $this->$nama_tabel->select('pu.no_penerimaan, pu.no_ref, pu.total');
+        $this->$nama_tabel->from('penerimaan_unit pu');
+        $this->$nama_tabel->join('buku_besar bb', 'pu.no_penerimaan = bb.no_transaksi');
+        $this->$nama_tabel->where($where);
+        $this->$nama_tabel->group_by('pu.no_penerimaan');
+
+        $data = $this->$nama_tabel->get();
+        foreach ($data->result() as $row) {
+            $pu_penerimaan[] = $row->total;
+        }
+        if (empty($pu_penerimaan)) {
+            return 0;
+        } else {
+            return  array_sum($pu_penerimaan);
+        }
+    }
+
+    private function pengeluaran_unit($no_spk, $nama_tabel)
+    {
+        $where = array("pu.no_ref" => $no_spk, "bb.jb <>" => "1", "pu.batal" => "n");
+        $this->$nama_tabel->select('pu.no_pengeluaran, pu.no_ref, pu.total');
+        $this->$nama_tabel->from('pengeluaran_unit pu');
+        $this->$nama_tabel->join('buku_besar bb', 'pu.no_pengeluaran = bb.no_transaksi');
+        $this->$nama_tabel->where($where);
+        $this->$nama_tabel->group_by('pu.no_pengeluaran');
+
+        $data = $this->$nama_tabel->get();
+        foreach ($data->result() as $row) {
+            $pu_pengeluran[] = $row->total;
+        }
+        if (empty($pu_pengeluran)) {
+            return 0;
+        } else {
+            return  array_sum($pu_pengeluran);
+        }
+    }
+}

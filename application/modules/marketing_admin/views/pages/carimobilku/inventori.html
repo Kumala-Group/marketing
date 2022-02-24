@@ -1,0 +1,481 @@
+<section id="basic-form-layouts">
+    <div class="row match-height">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title" style="padding: 7px 0 5px 0;">Inventori</h5>
+                    <div class="heading-elements">
+                        <button class="btn btn-outline-primary" id="buttonModal">Tambah data</button>
+                    </div>
+                </div>
+                <div class="card-body collapse in">
+                    <div class="card-block pt-1">
+                        <div class="form-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-sm" id="datatable" width="100%"></table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="modal fade text-xs-left" id="modalForm">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Form inventori</h5>
+            </div>
+            <div class="modal-body">
+                <form id="form" class="form">
+                    <div class="form-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input type="hidden" name="id" id="id">
+                                <div class="form-group mb-1">
+                                    <input type="text" id="nama" name="nama" class="form-control"
+                                        placeholder="Nama Unit" data-toggle="tooltip" data-trigger="hover"
+                                        data-placement="top" data-title="Nama Unit" required>
+                                </div>
+                                <div class="form-group mb-1">
+                                    <input type="text" id="brand" name="brand" class="form-control" placeholder="Brand"
+                                        data-toggle="tooltip" data-trigger="hover" data-placement="top"
+                                        data-title="Brand" required>
+                                </div>
+                                <div class="form-group mb-1">
+                                    <input type="text" id="warna" name="warna" class="form-control" placeholder="Warna"
+                                        data-toggle="tooltip" data-trigger="hover" data-placement="top"
+                                        data-title="Warna" required>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group mb-1">
+                                            <input type="text" id="harga" name="harga" class="form-control"
+                                                onkeydown="input_number(event)"
+                                                onkeyup="$(this).val(format_rupiah($(this).val()))" placeholder="Harga"
+                                                data-toggle="tooltip" data-trigger="hover" data-placement="top"
+                                                data-title="Harga" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group mb-1">
+                                            <input type="text" id="lokasi" name="lokasi" class="form-control"
+                                                placeholder="Lokasi" data-toggle="tooltip" data-trigger="hover"
+                                                data-placement="top" data-title="Lokasi" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group mb-1">
+                                    <input type="text" id="video" name="video" class="form-control"
+                                        placeholder="Link Youtube" data-toggle="tooltip" data-trigger="hover"
+                                        data-placement="top" data-title="Link Youtube" required>
+                                </div>
+                                <div class="form-group mb-1">
+                                    <input type="file" id="gambar" name="gambar" class="form-control-file"
+                                        data-toggle="tooltip" data-trigger="hover" data-placement="top"
+                                        data-original-title="Gambar Thumbnail <small>*Maks 50kB</small>"
+                                        data-html="true" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group mb-1">
+                                            <input type="text" id="tahun" name="tahun" class="form-control"
+                                                placeholder="Tahun Kendaraan" data-toggle="tooltip" data-trigger="hover"
+                                                data-placement="top" data-title="Tahun Kendaraan" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group mb-1">
+                                            <input type="text" id="kilometer" name="kilometer" class="form-control"
+                                                onkeydown="input_number(event)"
+                                                onkeyup="$(this).val(format_rupiah($(this).val()))"
+                                                placeholder="Kilometer" data-toggle="tooltip" data-trigger="hover"
+                                                data-placement="top" data-title="Kilometer" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group mb-1">
+                                    <input type="text" id="transmisi" name="transmisi" class="form-control"
+                                        placeholder="Jenis Transmisi" data-toggle="tooltip" data-trigger="hover"
+                                        data-placement="top" data-title="Jenis Transmisi" required>
+                                </div>
+                                <div class="form-group mb-1">
+                                    <input type="text" id="bahan_bakar" name="bahan_bakar" class="form-control"
+                                        placeholder="Bahan Bakar" data-toggle="tooltip" data-trigger="hover"
+                                        data-placement="top" data-title="Bahan Bakar" required>
+                                </div>
+                                <div class="form-group mb-1">
+                                    <input type="text" id="tempat_duduk" name="tempat_duduk" class="form-control"
+                                        placeholder="Tempat Duduk" data-toggle="tooltip" data-trigger="hover"
+                                        data-placement="top" data-title="Tempat Duduk" required>
+                                </div>
+                                <div class="form-group mb-1">
+                                    <input type="text" id="dimensi" name="dimensi" class="form-control"
+                                        placeholder="Dimensi" data-toggle="tooltip" data-trigger="hover"
+                                        data-placement="top" data-title="Dimensi" required>
+                                </div>
+                                <div class="form-group mb-1">
+                                    <input type="file" id="galeri" name="galeri[]" multiple class="form-control-file"
+                                        data-toggle="tooltip" data-trigger="hover" data-placement="top"
+                                        data-original-title="Gambar Galeri <small>*Maks 300kB</small>" data-html="true"
+                                        required>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group mb-1">
+                                    <label for="deskripsi">Deskripsi</label>
+                                    <textarea id="deskripsi" name="deskripsi" rows="2" class="form-control"
+                                        required></textarea>
+                                    <p class="error" id="deskripsiError" hidden>This field is required.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="galeri_container">
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h5 class="card-title">Daftar Foto Galeri</h5>
+                                    <div class="row" id="galeri_content"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Tutup</button>
+                <button type="button" id="submit" class="btn btn-outline-primary">Simpan</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade text-xs-left" id="modalGaleri">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Daftar Foto Galeri</h5>
+            </div>
+            <div class="modal-body">
+                <form id="form" class="form">
+                    <div class="form-body">
+                        <div class="row" id="galeri_list"></div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Tutup</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let datatable
+    let id_galeri = []
+
+    //init variables
+    let form = $('#form')
+    let id = $('#id')
+    let nama = $('#nama')
+    let brand = $('#brand')
+    let warna = $('#warna')
+    let harga = $('#harga')
+    let lokasi = $('#lokasi')
+    let deskripsi = $('#deskripsi')
+    let deskripsiError = $('#deskripsiError')
+    let video = $('#video')
+    let tahun = $('#tahun')
+    let kilometer = $('#kilometer')
+    let transmisi = $('#transmisi')
+    let bahan_bakar = $('#bahan_bakar')
+    let tempat_duduk = $('#tempat_duduk')
+    let dimensi = $('#dimensi')
+    let gambar = $('#gambar')
+    let galeri = $('#galeri')
+    let galeri_container = $('#galeri_container')
+    let galeri_content = $('#galeri_content')
+    let hapus_galeri = $('#hapus_galeri')
+    let galeri_list = $('#galeri_list')
+    let modal = $('#modalForm')
+    let modal_galeri = $('#modalGaleri')
+
+    let options = {
+        processing: true,
+        serverSide: true,
+        responsive: true,
+        order: [],
+        ajax: {
+            type: 'post',
+            url: location,
+            data: function (data) { data._getDatatable = true }
+        },
+        columns: [{
+            data: 'tanggal',
+            title: 'Tanggal'
+        }, {
+            data: 'nama',
+            title: 'Nama Unit',
+        }, {
+            data: 'brand',
+            title: 'Brand',
+        }, {
+            data: 'warna',
+            title: 'Warna',
+        }, {
+            data: 'tahun',
+            title: 'Tahun Kendaraan',
+        }, {
+            data: 'kilometer',
+            title: 'Kilometer',
+        }, {
+            data: 'gambar',
+            title: 'Gambar',
+            orderable: false
+        }, {
+            data: 'aksi',
+            title: 'Aksi',
+            orderable: false,
+            responsivePriority: -1,
+        }],
+    }
+
+    $(document).ready(function () {
+        deskripsi.summernote({ dialogsInBody: true })
+
+        //fix summernote popover
+        $(document).on('show.bs.modal', '.modal', function (event) {
+            let zIndex = 100000 + (10 * $('.modal:visible').length)
+            $(this).css('z-index', zIndex)
+            setTimeout(function () {
+                $('.modal-backdrop').not('.modal-stack').first().css('z-index', zIndex - 1).addClass('modal-stack')
+            }, 0)
+        }).on('hidden.bs.modal', '.modal', function (event) {
+            $('.modal:visible').length && $('body').addClass('modal-open')
+        })
+        $(document).on('inserted.bs.tooltip', function (event) {
+            let zIndex = 100000 + (10 * $('.modal:visible').length)
+            let tooltipId = $(event.target).attr('aria-describedby')
+            $('#' + tooltipId).css('z-index', zIndex)
+        })
+        $(document).on('inserted.bs.popover', function (event) {
+            let zIndex = 100000 + (10 * $('.modal:visible').length)
+            let popoverId = $(event.target).attr('aria-describedby')
+            $('#' + popoverId).css('z-index', zIndex)
+        })
+
+        datatable = $('#datatable').DataTable(options)
+    })
+
+    $(document).on('click', '#buttonModal', function () {
+        form.trigger('reset')
+        form.validate().resetForm()
+        id.val('')
+        deskripsi.summernote('code', '')
+        deskripsiError.prop('hidden', true)
+        gambar.prop('required', true)
+        galeri.prop('required', true)
+        id_galeri = []
+        galeri_container.prop('hidden', true)
+        galeri_content.children().remove()
+
+        modal.modal('show')
+    })
+
+    $(document).on('click', '#submit', function () {
+        let ini = $('#submit')
+
+        if (deskripsi.val().length === 0) {
+            deskripsiError.prop('hidden', false)
+        } else {
+            deskripsiError.prop('hidden', true)
+        }
+
+        if (form.valid() && deskripsi.val().length > 0) {
+            let gambarImg = $('#gambar')[0].files
+            let galeriImg = $('#galeri')[0].files
+            let allowed_types = ['jpg', 'jpeg', 'png']
+
+            if (gambarImg.length != 0) {
+                let ext = gambarImg[0].name.split('.').pop().toLowerCase()
+
+                if ($.inArray(ext, allowed_types) == -1) {
+                    alert('Silahkan pilih file gambar!')
+                    gambar.focus()
+                    return false
+                }
+
+                if (gambarImg[0].size / 1048576 > 0.05) {
+                    alert('Ukuran file melebihi 50kB!')
+                    gambar.focus()
+                    return false
+                }
+            }
+
+            if (galeriImg.length != 0) {
+                if (galeriImg.length > 20) {
+                    alert('Jumlah file tidak boleh lebih dari 20 item!')
+                    galeri.focus()
+                    return false
+                }
+
+                for (let index = 0; index < galeriImg.length; index++) {
+                    let element = galeriImg[index]
+                    let ext = element.name.split('.').pop().toLowerCase()
+
+                    if ($.inArray(ext, allowed_types) == -1) {
+                        alert('Silahkan pilih file gambar!')
+                        galeri.focus()
+                        return false
+                    }
+
+                    if (element.size / 1048576 > 0.3) {
+                        alert('Ukuran file melebihi 300kB!')
+                        galeri.focus()
+                        return false
+                    }
+                }
+            }
+
+            let formData = new FormData(document.getElementById('form'))
+
+            formData.append('_submit', true)
+
+            id_galeri.forEach(element => {
+                formData.append('id_galeri[]', element)
+            })
+
+            $.ajax({
+                type: 'post',
+                url: location,
+                data: formData,
+                contentType: false,
+                processData: false,
+                dataType: 'json',
+                beforeSend: function () {
+                    ini.html(`<i class="fa fa-spinner fa-spin"></i> Loading`)
+                    ini.prop('disabled', true)
+                },
+                success: function (response) {
+                    ini.html(`<i class="icon-check2"></i> Simpan`)
+                    ini.prop('disabled', false)
+
+                    alert(response.msg)
+
+                    if (response.status === true) {
+                        datatable.draw()
+                        modal.modal('hide')
+                    }
+                }
+            })
+        }
+    })
+
+    $(document).on('click', '.ubah', function () {
+        let ini = $(this)
+
+        $.ajax({
+            url: location,
+            data: {
+                _getDetail: true,
+                id: ini.data('id')
+            },
+            dataType: 'json',
+            beforeSend: function () {
+                form.trigger('reset')
+                form.validate().resetForm()
+                deskripsi.summernote('code', '')
+                deskripsiError.prop('hidden', true)
+                gambar.prop('required', false)
+                galeri.prop('required', false)
+                id_galeri = []
+                galeri_container.prop('hidden', false)
+                galeri_content.children().remove()
+            },
+            success: function (response) {
+                id.val(ini.data('id'))
+                nama.val(response.unit.nama)
+                brand.val(response.unit.brand)
+                warna.val(response.unit.warna)
+                harga.val(response.unit.harga)
+                lokasi.val(response.unit.lokasi)
+                deskripsi.summernote('code', response.unit.deskripsi)
+                video.val(response.unit.video)
+                tahun.val(response.unit.tahun)
+                kilometer.val(response.unit.kilometer)
+                transmisi.val(response.unit.transmisi)
+                bahan_bakar.val(response.unit.bahan_bakar)
+                tempat_duduk.val(response.unit.tempat_duduk)
+                dimensi.val(response.unit.dimensi)
+
+                if (response.hasOwnProperty('galeri')) {
+                    response.galeri.forEach(element => {
+                        galeri_content.append(element)
+                    })
+                }
+
+                modal.modal('show')
+            }
+        })
+    })
+
+    $(document).on('click', '.hapus', function () {
+        let ini = $(this)
+
+        let konfirmasi = confirm('Apakah anda yakin?')
+
+        if (konfirmasi) {
+            $.ajax({
+                type: 'delete',
+                url: location,
+                data: { id: ini.data('id') },
+                dataType: 'json',
+                success: function (response) {
+                    alert(response.msg)
+
+                    if (response.status === true) {
+                        datatable.draw()
+                    }
+                }
+            })
+        }
+    })
+
+    $(document).on('click', '.lihat_galeri', function () {
+        let ini = $(this)
+
+        $.ajax({
+            url: location,
+            data: {
+                _getGaleri: true,
+                id: ini.data('id')
+            },
+            dataType: 'json',
+            beforeSend: function () {
+                galeri_list.children().remove()
+            },
+            success: function (response) {
+                response.forEach(element => {
+                    galeri_list.append(element)
+                })
+
+                modal_galeri.modal('show')
+            }
+        });
+    })
+
+    $(document).on('click', '.hapus_galeri', function () {
+        let ini = $(this)
+
+        id_galeri.push(ini.data('id'))
+        ini.closest('.col-md-4').remove()
+    })
+</script>

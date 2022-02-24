@@ -1,0 +1,320 @@
+<section id="basic-form-layouts">
+    <div class="row match-height">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <ul class="nav nav-pills">
+                        <li class="nav-item">
+                            <a class="nav-link btn btn-outline-primary active" data-type="berita"
+                                data-toggle="pill">Berita</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link btn btn-outline-primary" data-type="tips" data-toggle="pill">Tips</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link btn btn-outline-primary" data-type="promo" data-toggle="pill">Promo</a>
+                        </li>
+                    </ul>
+                    <div class="heading-elements">
+                        <button class="btn btn-outline-primary" id="buttonModal">Tambah data</button>
+                    </div>
+                </div>
+                <div class="card-body collapse in">
+                    <div class="card-block pt-1">
+                        <div class="form-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-sm" id="datatable" width="100%"></table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="modal fade text-xs-left" id="modalForm">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Form blog & promo</h5>
+            </div>
+            <div class="modal-body">
+                <form id="form" class="form">
+                    <div class="form-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <input type="hidden" name="id" id="id">
+                                <div class="form-group mb-1">
+                                    <input type="text" id="judul" name="judul" class="form-control" placeholder="Judul"
+                                        data-toggle="tooltip" data-trigger="hover" data-placement="top"
+                                        data-title="Judul" required>
+                                </div>
+                                <div class="form-group mb-1">
+                                    <select id="type" name="type" class="form-control" data-toggle="tooltip"
+                                        data-trigger="hover" data-placement="top" data-title="Tipe" required>
+                                        <option value="" selected disabled>-- Silahkan pilih tipe --</option>
+                                        <option value="berita">Berita</option>
+                                        <option value="promo">Promo</option>
+                                        <option value="tips">Tips</option>
+                                    </select>
+                                </div>
+                                <div class="form-group mb-1">
+                                    <label for="deskripsi">Deskripsi</label>
+                                    <textarea id="deskripsi" name="deskripsi" rows="2" class="form-control"
+                                        required></textarea>
+                                    <p class="error" id="deskripsiError" hidden>This field is required.</p>
+                                </div>
+                                <div class="form-group mb-1">
+                                    <input type="file" id="thumb" name="thumb" class="form-control-file"
+                                        data-toggle="tooltip" data-trigger="hover" data-placement="top"
+                                        data-original-title="Gambar Thumbnail <small>*Maks 50kB</small>"
+                                        data-html="true" required>
+                                </div>
+                                <div class="form-group mb-1">
+                                    <input type="file" id="gambar" name="gambar" class="form-control-file"
+                                        data-toggle="tooltip" data-trigger="hover" data-placement="top"
+                                        data-original-title="Gambar <small>*Maks 300kB</small>" data-html="true"
+                                        required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Tutup</button>
+                <button type="button" id="submit" class="btn btn-outline-primary">Simpan</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let datatable
+    let typeData
+
+    //init variables
+    let form = $('#form')
+    let id = $('#id')
+    let type = $('#type')
+    let judul = $('#judul')
+    let deskripsi = $('#deskripsi')
+    let deskripsiError = $('#deskripsiError')
+    let thumb = $('#thumb')
+    let gambar = $('#gambar')
+    let modal = $('#modalForm')
+
+    let options = {
+        processing: true,
+        serverSide: true,
+        responsive: true,
+        order: [],
+        ajax: {
+            type: 'post',
+            url: location,
+            data: function (data) {
+                data._getDatatable = true
+                data.type = typeData
+            }
+        },
+        columns: [{
+            data: 'tanggal',
+            title: 'Tanggal'
+        }, {
+            data: 'judul',
+            title: 'Judul',
+        }, {
+            data: 'deskripsi',
+            title: 'Isi',
+        }, {
+            data: 'gambar',
+            title: 'Gambar',
+            orderable: false
+        }, {
+            data: 'aksi',
+            title: 'Aksi',
+            orderable: false,
+            responsivePriority: -1,
+        }],
+    }
+
+    $(document).ready(function () {
+        deskripsi.summernote({ dialogsInBody: true })
+
+        //fix summernote popover
+        $(document).on('show.bs.modal', '.modal', function (event) {
+            let zIndex = 100000 + (10 * $('.modal:visible').length)
+            $(this).css('z-index', zIndex)
+            setTimeout(function () {
+                $('.modal-backdrop').not('.modal-stack').first().css('z-index', zIndex - 1).addClass('modal-stack')
+            }, 0)
+        }).on('hidden.bs.modal', '.modal', function (event) {
+            $('.modal:visible').length && $('body').addClass('modal-open')
+        })
+        $(document).on('inserted.bs.tooltip', function (event) {
+            let zIndex = 100000 + (10 * $('.modal:visible').length)
+            let tooltipId = $(event.target).attr('aria-describedby')
+            $('#' + tooltipId).css('z-index', zIndex)
+        })
+        $(document).on('inserted.bs.popover', function (event) {
+            let zIndex = 100000 + (10 * $('.modal:visible').length)
+            let popoverId = $(event.target).attr('aria-describedby')
+            $('#' + popoverId).css('z-index', zIndex)
+        })
+
+        typeData = 'berita'
+        datatable = $('#datatable').DataTable(options)
+    })
+
+    $(document).on('click', '.nav-link', function () {
+        let ini = $(this)
+
+        typeData = ini.data('type')
+        datatable.draw()
+    })
+
+    $('#buttonModal').on('click', function () {
+        form.trigger('reset')
+        form.validate().resetForm()
+        id.val('')
+        deskripsi.summernote('code', '')
+        deskripsiError.prop('hidden', true)
+        thumb.prop('required', true)
+        gambar.prop('required', true)
+
+        modal.modal('show')
+    })
+
+    $('#submit').on('click', function () {
+        let ini = $('#submit')
+
+        if (deskripsi.val().length === 0) {
+            deskripsiError.prop('hidden', false)
+        } else {
+            deskripsiError.prop('hidden', true)
+        }
+
+        if (form.valid() && deskripsi.val().length > 0) {
+            let thumbImg = $('#thumb')[0].files
+            let gambarImg = $('#gambar')[0].files
+            let allowed_types = ['jpg', 'jpeg', 'png']
+
+            if (thumbImg.length != 0) {
+                let ext = thumbImg[0].name.split('.').pop().toLowerCase()
+
+                if ($.inArray(ext, allowed_types) == -1) {
+                    alert('Silahkan pilih file gambar!')
+                    thumb.focus()
+                    return false
+                }
+
+                if (thumbImg[0].size / 1048576 > 0.05) {
+                    alert('Ukuran file melebihi 50kB!')
+                    thumb.focus()
+                    return false
+                }
+            }
+
+            if (gambarImg.length != 0) {
+                let ext = gambarImg[0].name.split('.').pop().toLowerCase()
+
+                if ($.inArray(ext, allowed_types) == -1) {
+                    alert('Silahkan pilih file gambar!')
+                    gambar.focus()
+                    return false
+                }
+
+                if (gambarImg[0].size / 1048576 > 0.3) {
+                    alert('Ukuran file melebihi 300kB!')
+                    gambar.focus()
+                    return false
+                }
+            }
+
+            let formData = new FormData(document.getElementById('form'))
+
+            formData.append('_submit', true)
+
+            $.ajax({
+                type: 'post',
+                url: location,
+                data: formData,
+                contentType: false,
+                processData: false,
+                dataType: 'json',
+                beforeSend: function () {
+                    ini.html(`<i class="fa fa-spinner fa-spin"></i> Loading`)
+                    ini.prop('disabled', true)
+                },
+                success: function (response) {
+                    ini.html(`<i class="icon-check2"></i> Simpan`)
+                    ini.prop('disabled', false)
+
+                    alert(response.msg)
+
+                    if (response.status === true) {
+                        datatable.draw()
+                        modal.modal('hide')
+                    }
+                }
+            })
+        }
+    })
+
+    $('#datatable').on('click', '.ubah', function () {
+        let ini = $(this)
+
+        $.ajax({
+            url: location,
+            data: {
+                _getDetail: true,
+                id: ini.data('id')
+            },
+            dataType: 'json',
+            beforeSend: function () {
+                form.trigger('reset')
+                form.validate().resetForm()
+                deskripsi.summernote('code', '')
+                deskripsiError.prop('hidden', true)
+                thumb.prop('required', false)
+                gambar.prop('required', false)
+            },
+            success: function (response) {
+                id.val(ini.data('id'))
+                judul.val(response.judul)
+                type.val(response.type)
+                deskripsi.summernote('code', response.deskripsi)
+
+                modal.modal('show')
+            }
+        })
+    })
+
+
+    $('#datatable').on('click', '.hapus', function () {
+        let ini = $(this)
+
+        let konfirmasi = confirm('Apakah anda yakin?')
+
+        if (konfirmasi) {
+            $.ajax({
+                type: 'delete',
+                url: location,
+                data: { id: ini.data('id') },
+                dataType: 'json',
+                success: function (response) {
+                    alert(response.msg)
+
+                    if (response.status === true) {
+                        datatable.draw()
+                    }
+                }
+            })
+        }
+    })
+</script>
