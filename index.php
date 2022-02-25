@@ -58,7 +58,7 @@
 // Domain-based environment
 
 
-if ($_SERVER['SERVER_NAME'] == '192.140.10.245' || $_SERVER['SERVER_NAME'] == '192.140.10.244'  || $_SERVER['SERVER_NAME'] == '180.178.93.116' || $_SERVER['SERVER_NAME'] == 'dev.kumalagroup.co.id') {
+if ($_SERVER['SERVER_NAME'] == '192.140.10.245' || $_SERVER['SERVER_NAME'] == '192.140.10.244'  || $_SERVER['SERVER_NAME'] == '180.178.93.116' || $_SERVER['SERVER_NAME'] == 'marketing.local.dev') {
 	define('ENVIRONMENT', 'development');
 } elseif ($_SERVER['SERVER_NAME'] == 'localhost') {
 	define('ENVIRONMENT', 'development');

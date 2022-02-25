@@ -34,8 +34,11 @@
 	<script type="text/javascript" src="<?= base_url('assets/robust/app-assets/js/core/libraries/jquery.min.js') ?>"></script>
 	<script type="text/javascript" src="<?= base_url('assets/img_marketing/dist/jstree.min.js') ?>"></script>
 	
-	<script type="text/javascript" src="<?= base_url('assets/DataTables-bs4-1.11.4/datatables.min.js')?>"></script>
-	<link rel="stylesheet" type="text/css" href="<?= base_url('assets/DataTables-bs4-1.11.4/datatables.min.css')?>"/>
+	<script type="text/javascript" src="<?= base_url('assets/datatables-1.10.25/jquery.dataTables.min.js')?>"></script>
+	<link rel="stylesheet" type="text/css" href="<?= base_url('assets/datatables-1.10.25/jquery.dataTables.min.css')?>"/>
+
+	<!-- <script type="text/javascript" src="<?= base_url('assets/DataTables-bs4-1.11.4/datatables.min.js')?>"></script>
+	<link rel="stylesheet" type="text/css" href="<?= base_url('assets/DataTables-bs4-1.11.4/datatables.min.css')?>"/> -->
 	
 	<script src="<?= base_url('assets/img_marketing/dist/bootstrap-datepicker.js') ?>"></script>
 	<link rel="stylesheet" type="text/css" href="<?= base_url('assets/img_marketing/dist/themes/default/style.min.css') ?>"/>
@@ -54,6 +57,13 @@
 
 	<script src="<?= base_url('assets/bootstrap-multiselect-0.9.16/bootstrap-multiselect.min.js')?>" ></script>
 	<link rel="stylesheet" type="text/css" href="<?= base_url('assets/bootstrap-multiselect-0.9.16/bootstrap-multiselect.min.css')?>"  />
+
+	<!-- Magnific Popup  -->
+	<!-- <link rel="stylesheet" href="<?= base_url("assets/Magnific-Popup-master/css/magnific-popup.css"); ?>">
+	<script src="<?= base_url("assets/Magnific-Popup-master/js/jquery.magnific-popup.js"); ?>"></script> -->
+	
+	<link rel="stylesheet" href="<?= base_url('assets/colorbox/colorbox.css')?>" />
+	<script src="<?= base_url('assets/colorbox/jquery.colorbox-min.js')?>"></script>
 	
 	
 	<style>
@@ -98,6 +108,49 @@
 				width: 20px;
 			}
 		}
+		ol li, ul li, dl li {
+			line-height: 1.4;
+		}
+		.page-link {	
+			padding: 0.3rem 0.75rem;			
+		}
+		#cboxClose {
+			background: 0;
+			text-indent: 0;
+			width: 20px;
+			height: 20px;
+			line-height: 14px;
+			padding: 0 0;
+			text-align: center;
+			border: 2px solid #999;
+			border-radius: 16px;
+			color: #666;
+			font-size: 12px;
+			margin-left: 7px;
+			margin-bottom: 7px;
+		} 
+
+		#cboxClose {
+			background-color: #000;
+			color: #fff;
+			border: 2px solid #fff;
+			border-radius: 32px;
+			font-size: 20px;
+			height: 24px;
+			width: 24px;
+			/* padding-bottom: 2px; */
+			right: -14px;
+			top: -14px;
+			margin-left: 0;
+		}
+		#cboxContent {	
+			overflow: unset;
+		}
+
+		.nowrap {
+			white-space: nowrap;
+		}
+	
 	</style>
 </head>
 
@@ -134,7 +187,8 @@
 								</li>
 								<li class="list-group scrollable-container" id="notifikasi"></li>
 								<li class="dropdown-menu-footer" style="display: none;">
-									<a href="<?= base_url("notifikasi") ?>" class="dropdown-item text-muted text-xs-center">Lihat semua notifikasi</a>
+									<!-- <a href="<?= base_url("notifikasi") ?>" class="dropdown-item text-muted text-xs-center">Lihat semua notifikasi</a> -->
+									<a href="<?= base_url("notifikasi/read_all") ?>" class="dropdown-item text-muted text-xs-center">Tandai semua sudah dibaca</a>
 								</li>
 							</ul>
 						</li>
@@ -194,12 +248,13 @@
 				refresh_notifikasi();
 			}, (60 * 1000));
 		<?php } ?>
-		$('a[data-toggle="tab"]').on('show.bs.tab', function() {
-			if ($(this).attr('href') != "#tab1")
-				localStorage.setItem('active', $(this).attr('href'));
-		});
-		var active = localStorage.getItem('active');
-		if (active) $('.nav-tabs a[href="' + active + '"]').tab('show');
+
+		// $('a[data-toggle="tab"]').on('show.bs.tab', function() {
+		// 	if ($(this).attr('href') != "#tab2")
+		// 		localStorage.setItem('active', $(this).attr('href'));
+		// });
+		// var active = localStorage.getItem('active');
+		// if (active) $('.nav-tabs a[href="' + active + '"]').tab('show');
 
 		function input_number(e) {
 			if ($.inArray(e.which, [187, 107, 8, 37, 39, 46, 190]) != -1) {
@@ -226,7 +281,7 @@
 			$.post("<?= base_url("notifikasi") ?>", {
 				'load': true
 			}, function(r) {
-				$('.counter').html(r.count + " Baru");
+				$('.counter').html('<a href="<?= base_url("notifikasi") ?>">' + r.count + " Baru</a>");
 				if (r.notifikasi == undefined) {
 					html = '<a href="javascript:void(0)" class="list-group-item"><p class="notification-text text-muted m-0">Tidak ada notifikasi untuk saat ini.</p></a>';
 					$('.dropdown-menu-footer').css('display', "none");

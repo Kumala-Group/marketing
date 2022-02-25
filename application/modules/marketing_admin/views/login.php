@@ -64,7 +64,7 @@
                     <div class="offset-xs-1 col-lg-4 col-xl-3 col-md-5 col-sm-6 col-xs-10 p-0" style="margin-bottom: 100px;">
                         <div class="card m-0" style="border-radius: 25px;">
                             <div class="p-2 text-xs-center">
-                                <img src="<?= base_url() ?>assets/img_marketing/img/logo_kumala_group.png" width="170" alt="branding logo"></div>
+                                <img src="<?= base_url('assets/images/kmg-logo.png') ?>" xwidth="170" alt="branding logo"></div>
                             <div class="card-body collapse in">
                                 <div class="card-block">
                                     <form class="form-horizontal form-simple" id="form">
