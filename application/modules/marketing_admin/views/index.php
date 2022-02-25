@@ -150,6 +150,17 @@
 		.nowrap {
 			white-space: nowrap;
 		}
+
+		.dataTables_wrapper .dataTables_paginate .paginate_button {		
+			padding: 0.2em 0.8em;			
+		}
+		.dataTables_wrapper .dataTables_paginate {			
+			padding-top: 0.6em;
+		}
+		.dataTables_processing {
+			top: 64px !important;
+			z-index: 11000 !important;
+		}
 	
 	</style>
 </head>

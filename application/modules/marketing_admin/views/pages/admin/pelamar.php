@@ -19,7 +19,7 @@
 									<!-- <div class="table-responsive"> -->
 										<!-- <table class="table table-sm table_aplikasi"> -->
 										<table id="table_pelamar" class="table stripe hover table-bordered nowrap">	
-											<thead>
+											<!-- <thead>
 												<tr>
 													<th class="nowrap">Posisi</th>
 													<th>Nama</th>
@@ -34,29 +34,29 @@
 												</tr>
 											</thead>
 											<tbody>
-												<?php foreach ($data as $v) : ?>
+												< ?php foreach ($data as $v) : ?>
 													<tr>
-														<td class="nowrap"><?= $v->posisi ?></td>
-														<td><?= $v->nama ?></td>
-														<td><?= $v->email ?></td>
-														<td><?= $v->alamat ?></td>
-														<td><?= $v->telepon ?></td>
-														<td><?= $v->pendidikan ?></td>
+														<td class="nowrap">< ?= $v->posisi ?></td>
+														<td>< ?= $v->nama ?></td>
+														<td>< ?= $v->email ?></td>
+														<td>< ?= $v->alamat ?></td>
+														<td>< ?= $v->telepon ?></td>
+														<td>< ?= $v->pendidikan ?></td>
 														<td class="foto-karyawan">															
-															<a class="btn btn-sm btn-blue" href="<?= $img_server ?>assets/img_marketing/pelamar/<?= $v->foto ?>" title="<?= $v->nama ?>" data-rel="colorbox"><i class="icon-user"></i></a>
+															<a class="btn btn-sm btn-blue" href="< ?= $img_server ?>assets/img_marketing/pelamar/<?= $v->foto ?>" title="<?= $v->nama ?>" data-rel="colorbox"><i class="icon-user"></i></a>
 														</td>
 														<td>
-															<a class="btn btn-sm btn-primary" download href="<?= $img_server ?>assets/img_marketing/pelamar/<?= $v->cv ?>" target="_blank"><i class="icon-file"></i></a>
+															<a class="btn btn-sm btn-primary" download href="< ?= $img_server ?>assets/img_marketing/pelamar/<?= $v->cv ?>" target="_blank"><i class="icon-file"></i></a>
 														</td>
 														<td>
-															<a class="btn btn-sm btn-primary" download href="<?= $img_server ?>assets/img_marketing/pelamar/<?= $v->surat_lamaran ?>" target="_blank"><i class="icon-file"></i></a>
+															<a class="btn btn-sm btn-primary" download href="< ?= $img_server ?>assets/img_marketing/pelamar/<?= $v->surat_lamaran ?>" target="_blank"><i class="icon-file"></i></a>
 														</td>
 														<td>															
-															<button type="button" onclick="hapus_data(<?= $v->id ?>,'<?= $v->nama ?>');" class="btn btn-sm btn-danger"><i class="icon-ios-trash"></i></button>
+															<button type="button" onclick="hapus_data(< ?= $v->id ?>,'<?= $v->nama ?>');" class="btn btn-sm btn-danger"><i class="icon-ios-trash"></i></button>
 														</td>
 													</tr>
-												<?php endforeach ?>
-											</tbody>
+												< ?php endforeach ?>
+											</tbody> -->
 										</table>
 									<!-- </div> -->
 								<!-- </div> -->
@@ -92,26 +92,131 @@
 	}
 
 	$(function() {
+		 //datatable10
+		 $.fn.dataTable.ext.errMode = 'none';
 		table_pelamar = $("#table_pelamar").DataTable({
+			serverSide: true,
 			processing: true,
-			//serverSide: true,
-			//destroy: true,
 			order: [],
-			// responsive: true,
-			autoWidth: true,
-			initComplete: function (settings, json) {  
-				$("#table_pelamar").wrap("<div style='overflow:auto; width:100%;position:relative;'></div>");            
+			autoWidth: false,
+			ajax: {
+				type: "POST",
+				url: "<?= site_url('admin/pelamar/get') ?>",				
 			},
-		});
+			language: {
+				"processing": "Memproses, silahkan tunggu...",
+				"emptyTable": "Data masih kosong..."
+			},
+			columns: [
+				{
+					data: "posisi",
+					title: "Posisi",					
+				},
+				{
+					data: "nama",
+					title: "Nama",					
+				},
+				{
+					data: "email",
+					title: "Email",
+					className: "center",
+				},
+				{
+					data: "alamat",
+					title: "Alamat",					
+				},
+				{
+					data: "telepon",
+					title: "Telepon",
+					// className: "center",
+					// render: function ( data, type, row, meta ) {
+					// 	return `${data} hari`;
+					// }
+				},
+				{
+					data: "pendidikan",
+					title: "Pendidikan",
+					// className: "center",
+					// render: function ( data, type, row, meta ) {
+					// 	var html = '';
+					// 	if(data=='k'){
+					// 		html = 'Kredit';
+					// 	} else {
+					// 		html = 'Cash';
+					// 	}
+					// 	return html;
+					// }
+				},
+				{
+					data: "foto",
+					title: "Foto",
+					className: "foto-karyawan",
+					orderable: false,
+					render: function ( data, type, row, meta ) {
+					// 	var no_spk = row.no_spk, 
+					// 		status = data[0], tanda_jadi = data[1], html = '';                                
+					// 	if(status===true){
+					// 		html = `<span class='label label-success'>Rp${autoseparator(tanda_jadi)}</span>`
+					// 	} else {
+					// 		html = `<span class='label label-danger'>Rp${autoseparator(tanda_jadi)}</span>`
+					// 	}                                
+					// 	return html;
+						return `<a class="btn btn-sm btn-blue btn-foto" href="${data}" title="${row.nama}" data-rel="colorbox"><i class="icon-user"></i></a>`;
+					},
+				},
+				{
+					data: "cv",
+					title: "CV",
+					className: "center",
+					orderable: false,				
+				},
+				{
+					data: "surat_lamaran",
+					title: "Surat Lamaran",
+					className: "center",
+					orderable: false,				
+				},				
+				{
+					data: "id",
+					title: "Aksi",
+					className: "center",
+					width: "70px",
+					orderable: false,
+					render: function ( data, type, row, meta ) {
+						var no_spk = row.no_spk, html = '';
+						// html = `<button type="button" class="red btn-view-spk" data-no-spk="${no_spk}" title="Detail" data-rel="tooltip"><i class="icon-eye-open"></i></button>`;
+						html = `<a class="btn btn-primary btn-mini" title="Detail" href="wuling_adm_sales_spk/detail/${no_spk}"><i class="icon-eye-open"></i></a>`;
+						return html;
+					},
+				},
+				
+			],				
+			initComplete: function(settings, json) {
+				//if (json.level == 'hino_gm') {
+				//table_pelamar.columns(10).visible(false);
+				//} else {
+				// table_pelamar.columns(10).visible(true);
+				//}
+				$("#table_pelamar").wrap("<div style='overflow:auto; width:100%;position:relative;'></div>");
+				
+
+				$("#cboxLoadingGraphic").append("<i class='icon-spinner orange'></i>"); //let's add a custom loading icon
+			},
+		}).on('error.dt', function(e, settings, techNote, message) {
+			pesan('error', message);
+			console.log('Error DataTables: ', message);
+		}); //table_pelamar
 
 		var colorbox_params = {
 			reposition: true,
 			scalePhotos: true,
 			scrolling: false,
+			//loop: false, //ini disable looping
+			rel: 'nofollow', //disable ambil semua foto
 			//previous: '<i class="icon-arrow-left"></i>',
 			//next: '<i class="icon-arrow-right"></i>',
-			previous: 'x',
-			next: 'x',
+			previous: '',
+			next: '',
 			close: '&times;',
 			// current: '{current} of {total}',
 			current: false,
@@ -126,10 +231,12 @@
 			onComplete: function() {
 				$.colorbox.resize();
 			}
-		};
+		};		
+			
+		$('#table_pelamar').on('click', '.btn-foto', function(){
+			$('.foto-karyawan [data-rel="colorbox"]').colorbox(colorbox_params);
+			$("#cboxLoadingGraphic").append("<i class='icon-spinner orange'></i>"); 
+		});
 
-		$('.foto-karyawan [data-rel="colorbox"]').colorbox(colorbox_params);
-
-		$("#cboxLoadingGraphic").append("<i class='icon-spinner orange'></i>"); //let's add a custom loading icon
 	});
 </script>

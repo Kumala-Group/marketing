@@ -1,7 +1,11 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
+use app\libraries\Datatable;
+
 class Pelamar extends CI_Controller
 {
+
+	public $img_server = "https://kumalagroup.id/";
 
 	public function __construct()
 	{
@@ -19,12 +23,74 @@ class Pelamar extends CI_Controller
 			} else {
 				$d['content'] = "pages/admin/pelamar";
 				$d['index'] = $index;
-				$d['img_server'] = $this->m_marketing->img_server;
-				$d['data'] = q_data("*", 'kumalagroup.pelamars', [], "updated_at", false, 10)->result();
+				// $d['img_server'] = $this->m_marketing->img_server;
+				// $d['data'] = q_data("*", 'kumalagroup.pelamars', [], "updated_at", false, false)->result();
 				//function q_data($select, $table, $where, $order = false, $group = false, $limit = false)
 				$this->load->view('index', $d);
 			}
 		}
+	}
+
+	public function get()
+	{
+	
+		$datatable = new Datatable;
+				
+		//* query utama *//
+		//id	email	nama	posisi	telepon	alamat	pendidikan	pengalaman	training	alasan	status	foto	cv	surat_lamaran	created_at	updated_at
+		$datatable->query = $this->db
+			->select("id, email, nama, posisi, telepon, alamat, pendidikan, foto, cv, surat_lamaran")
+			->from('kumalagroup.pelamars');
+		
+		//* untuk filtering */		
+		$datatable->setColumns(
+			"email",
+			"nama",
+			"posisi",
+			"telepon",
+			"alamat",
+			"pendidikan",
+			"foto",
+			"cv",
+			"surat_lamaran"
+		);
+
+		//* untuk ordering by, kalo ndak dipake jangan dipanggil, komen saja
+		$datatable->orderBy('created_at');
+
+		//* output result datatable  
+		//* sudah format datatable_serverside
+		//* untuk langsung ke format json, gunakan getJson(); untuk langsung parsing ke view
+		$raw = $datatable->get();	
+		
+		//* untuk customisasi array */
+		//* datanya dibentuk ulang, terserah berapa field
+		//* pastikan untuk menyesuaikan dengan filtering setColumn
+        $recordsData = [];
+        foreach ($raw['data'] as $key => $value) {   			 									
+            $recordsData[] = [				
+                'posisi'       	=> $value->posisi,
+                'email'       	=> $value->email,
+				'nama' 			=> $value->nama,
+                'telepon'      	=> $value->telepon,
+                'alamat'      	=> $value->alamat,
+                'pendidikan'    => $value->pendidikan,
+                'foto'      	=> $this->img_server.'assets/img_marketing/pelamar/'.$value->foto,
+                'surat_lamaran' => $this->img_server.'assets/img_marketing/pelamar/'.$value->surat_lamaran,            
+                'cv' 			=> $this->img_server.'assets/img_marketing/pelamar/'.$value->cv,            
+            ];
+        }
+		
+        //* buat ulang response datatable_serverside
+        $response = [
+            'draw'            => $raw['draw'],
+            'recordsTotal'    => $raw['recordsTotal'],
+            'recordsFiltered' => $raw['recordsFiltered'],
+            'data'            => $recordsData
+        ];
+        return responseJson($response);	
+		// return $response;
+
 	}
 
 	public function simpan()

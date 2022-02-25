@@ -31,30 +31,30 @@ class Konfigurasi_user extends CI_Controller
 				$d['wuling'] = q_data("*", 'kmg.perusahaan', ['id_brand' => 5])->result();
 				$on = q_data("*", 'kumalagroup.users', ['status_aktif' => "on"])->result();
 				foreach ($on as $v) {
-					$p = q_data("*", 'kmg.perusahaan', ['id_perusahaan' => $v->id_perusahaan])->row();
-					$arr['id'] = $v->id;
-					$arr['status_aktif'] = $v->status_aktif;
-					$arr['nik'] = $v->nik;
-					$arr['username'] = $v->username;
-					$arr['nama_level'] = q_data("*", 'kumalagroup.p_level', ['id' => $v->id_level])->row()->nama_level;
-					$arr['nama_lengkap'] = $v->nama_lengkap;
-					$arr['nama_jabatan'] = q_data("*", 'kmg.jabatan', ['id_jabatan' => $v->id_jabatan])->row()->nama_jabatan;
-					$arr['perusahaan'] = "$p->singkat-$p->lokasi";
-					$d['on'][] = $arr;
+					// $p = q_data("*", 'kmg.perusahaan', ['id_perusahaan' => $v->id_perusahaan])->row();
+					// $arr['id'] = $v->id;
+					// $arr['status_aktif'] = $v->status_aktif;
+					// $arr['nik'] = $v->nik;
+					// $arr['username'] = $v->username;
+					// $arr['nama_level'] = q_data("*", 'kumalagroup.p_level', ['id' => $v->id_level])->row()->nama_level;
+					// $arr['nama_lengkap'] = $v->nama_lengkap;
+					// $arr['nama_jabatan'] = q_data("*", 'kmg.jabatan', ['id_jabatan' => $v->id_jabatan])->row()->nama_jabatan;
+					// $arr['perusahaan'] = "$p->singkat-$p->lokasi";
+					// $d['on'][] = $arr;
 				}
 				$arr = [];
 				$off = q_data("*", 'kumalagroup.users', ['status_aktif' => "off"])->result();
 				foreach ($off as $v) {
-					$p = q_data("*", 'kmg.perusahaan', ['id_perusahaan' => $v->id_perusahaan])->row();
-					$arr['id'] = $v->id;
-					$arr['status_aktif'] = $v->status_aktif;
-					$arr['nik'] = $v->nik;
-					$arr['username'] = $v->username;
-					$arr['nama_level'] = q_data("*", 'kumalagroup.p_level', ['id' => $v->id_level])->row()->nama_level;
-					$arr['nama_lengkap'] = $v->nama_lengkap;
-					$arr['nama_jabatan'] = q_data("*", 'kmg.jabatan', ['id_jabatan' => $v->id_jabatan])->row()->nama_jabatan;
-					$arr['perusahaan'] = "$p->singkat-$p->lokasi";
-					$d['off'][] = $arr;
+					// $p = q_data("*", 'kmg.perusahaan', ['id_perusahaan' => $v->id_perusahaan])->row();
+					// $arr['id'] = $v->id;
+					// $arr['status_aktif'] = $v->status_aktif;
+					// $arr['nik'] = $v->nik;
+					// $arr['username'] = $v->username;
+					// $arr['nama_level'] = q_data("*", 'kumalagroup.p_level', ['id' => $v->id_level])->row()->nama_level;
+					// $arr['nama_lengkap'] = $v->nama_lengkap;
+					// $arr['nama_jabatan'] = q_data("*", 'kmg.jabatan', ['id_jabatan' => $v->id_jabatan])->row()->nama_jabatan;
+					// $arr['perusahaan'] = "$p->singkat-$p->lokasi";
+					// $d['off'][] = $arr;
 				}
 				$this->load->view('index', $d);
 			}

@@ -65,6 +65,7 @@ $route['admin/bantuan/ubah_status']                                  	= "marketi
 $route['api/(:any)/bantuan']                                         	= "marketing_admin/admin/bantuan/simpan";
 
 $route['admin/pelamar']                                              	= "marketing_admin/admin/pelamar";
+$route['admin/pelamar/get']                                             = "marketing_admin/admin/pelamar/get";
 $route['api/(:any)/pelamar']                                         	= "marketing_admin/admin/pelamar/simpan";
 
 $route['admin/tiket']                                                	= "marketing_admin/admin/tiket";
