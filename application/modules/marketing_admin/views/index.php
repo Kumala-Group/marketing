@@ -31,11 +31,9 @@
 	<link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/robust/app-assets/css/core/menu/menu-types/vertical-menu.css">
 	<link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/robust/app-assets/css/core/menu/menu-types/vertical-overlay-menu.css">
 	
-	
 	<script type="text/javascript" src="<?= base_url('assets/robust/app-assets/js/core/libraries/jquery.min.js') ?>"></script>
 	<script type="text/javascript" src="<?= base_url('assets/img_marketing/dist/jstree.min.js') ?>"></script>
-	<!-- <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.21/r-2.2.5/datatables.min.js"></script> -->
-	<!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.21/r-2.2.5/datatables.min.css" /> -->
+	
 	<script type="text/javascript" src="<?= base_url('assets/DataTables-bs4-1.11.4/datatables.min.js')?>"></script>
 	<link rel="stylesheet" type="text/css" href="<?= base_url('assets/DataTables-bs4-1.11.4/datatables.min.css')?>"/>
 	
@@ -48,23 +46,16 @@
 	<link rel="stylesheet" type="text/css" href="<?= base_url('assets/robust/app-assets/vendors/css/extensions/toastr.css') ?>">
 	<link rel="stylesheet" type="text/css" href="<?= base_url('assets/robust/app-assets/vendors/css/extensions/toastr.min.css') ?>">
 
-	<!-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css"  /> -->
-
 	<script type="text/javascript" src="<?= base_url('assets/select2-4.0.13/js/select2.min.js')?>"></script>
 	<link rel="stylesheet" type="text/css" href="<?= base_url('assets/select2-4.0.13/css/select2.min.css')?>" />
-
-	<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+	
 	<link rel="stylesheet" type="text/css" href="<?= base_url('assets/font-awesome/font-awesome.min.css')?> "/>
 	
 
-	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.16/js/bootstrap-multiselect.min.js" integrity="sha512-ljeReA8Eplz6P7m1hwWa+XdPmhawNmo9I0/qyZANCCFvZ845anQE+35TuZl9+velym0TKanM2DXVLxSJLLpQWw==" crossorigin="anonymous"></script>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.16/css/bootstrap-multiselect.min.css" integrity="sha512-wHTuOcR1pyFeyXVkwg3fhfK46QulKXkLq1kxcEEpjnAPv63B/R49bBqkJHLvoGFq6lvAEKlln2rE1JfIPeQ+iw==" crossorigin="anonymous" /> -->
 	<script src="<?= base_url('assets/bootstrap-multiselect-0.9.16/bootstrap-multiselect.min.js')?>" ></script>
 	<link rel="stylesheet" type="text/css" href="<?= base_url('assets/bootstrap-multiselect-0.9.16/bootstrap-multiselect.min.css')?>"  />
 	
-	<!-- <script src="https://code.highcharts.com/highcharts.src.js"></script>
-	<script src="https://code.highcharts.com/modules/variable-pie.js"></script> -->
+	
 	<style>
 		.border-secondary {
 			border-color: #eee;
@@ -185,8 +176,7 @@
 	<script src="<?= base_url('assets/robust/app-assets/vendors/js/extensions/toastr.min.js') ?>"></script>
 	<script src="<?= base_url('assets/robust/app-assets/vendors/js/extensions/toastr-custom.js') ?>"></script>
 
-	<!-- sweetalert2 -->
-	<!-- <script src="< ?= base_url('assets/robust/app-assets/vendors/js/sweetalert2/sweetalert2.all.min.js') ?>"></script> -->
+	
 
 	<script>
 		$('.table_aplikasi').DataTable({
