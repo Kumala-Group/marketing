@@ -11,6 +11,9 @@ $route['notifikasi']                                                   	= "marke
 $route['notifikasi/read_all']                                           = "marketing_admin/notifikasi/read_all";
 
 $route['konfigurasi_user']                                             	= "marketing_admin/konfigurasi_user";
+$route['konfigurasi_user/get_user_aktif']                               = "marketing_admin/konfigurasi_user/get_user_aktif";
+$route['konfigurasi_user/get_user_non_aktif']                           = "marketing_admin/konfigurasi_user/get_user_non_aktif";
+
 $route['user_profil']                                                   = "marketing_admin/user_profil";
 $route['aplikasi/slider']                                               = "marketing_admin/master_app/slider";
 $route['aplikasi/heading']                                              = "marketing_admin/master_app/heading";

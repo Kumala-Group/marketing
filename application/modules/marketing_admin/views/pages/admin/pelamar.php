@@ -110,83 +110,69 @@
 			columns: [
 				{
 					data: "posisi",
-					title: "Posisi",					
+					title: "Posisi",	
+					className: "dt-head-center",
 				},
 				{
 					data: "nama",
-					title: "Nama",					
+					title: "Nama",
+					className: "dt-head-center",	
 				},
 				{
 					data: "email",
 					title: "Email",
-					className: "center",
+					className: "dt-head-center",
 				},
 				{
 					data: "alamat",
-					title: "Alamat",					
+					title: "Alamat",
+					className: "dt-head-center",		
 				},
 				{
 					data: "telepon",
 					title: "Telepon",
-					// className: "center",
-					// render: function ( data, type, row, meta ) {
-					// 	return `${data} hari`;
-					// }
+					className: "dt-head-center",
 				},
 				{
 					data: "pendidikan",
 					title: "Pendidikan",
-					// className: "center",
-					// render: function ( data, type, row, meta ) {
-					// 	var html = '';
-					// 	if(data=='k'){
-					// 		html = 'Kredit';
-					// 	} else {
-					// 		html = 'Cash';
-					// 	}
-					// 	return html;
-					// }
+					className: "dt-head-center",
 				},
 				{
 					data: "foto",
 					title: "Foto",
-					className: "foto-karyawan",
+					className: "dt-body-center foto-karyawan",
 					orderable: false,
-					render: function ( data, type, row, meta ) {
-					// 	var no_spk = row.no_spk, 
-					// 		status = data[0], tanda_jadi = data[1], html = '';                                
-					// 	if(status===true){
-					// 		html = `<span class='label label-success'>Rp${autoseparator(tanda_jadi)}</span>`
-					// 	} else {
-					// 		html = `<span class='label label-danger'>Rp${autoseparator(tanda_jadi)}</span>`
-					// 	}                                
-					// 	return html;
+					render: function ( data, type, row, meta ) {				
 						return `<a class="btn btn-sm btn-blue btn-foto" href="${data}" title="${row.nama}" data-rel="colorbox"><i class="icon-user"></i></a>`;
 					},
 				},
 				{
 					data: "cv",
 					title: "CV",
-					className: "center",
-					orderable: false,				
+					className: "dt-body-center",
+					orderable: false,
+					render: function ( data, type, row, meta ) {
+						return `<a class="btn btn-sm btn-primary" download href="${data}" target="_blank"><i class="icon-file"></i></a>`;						
+					},
 				},
 				{
 					data: "surat_lamaran",
 					title: "Surat Lamaran",
-					className: "center",
-					orderable: false,				
+					className: "dt-body-center",
+					orderable: false,
+					render: function ( data, type, row, meta ) {
+						return `<a class="btn btn-sm btn-primary" download href="${data}" target="_blank"><i class="icon-file"></i></a>`;						
+					},
 				},				
 				{
 					data: "id",
 					title: "Aksi",
-					className: "center",
+					className: "dt-body-center",
 					width: "70px",
 					orderable: false,
-					render: function ( data, type, row, meta ) {
-						var no_spk = row.no_spk, html = '';
-						// html = `<button type="button" class="red btn-view-spk" data-no-spk="${no_spk}" title="Detail" data-rel="tooltip"><i class="icon-eye-open"></i></button>`;
-						html = `<a class="btn btn-primary btn-mini" title="Detail" href="wuling_adm_sales_spk/detail/${no_spk}"><i class="icon-eye-open"></i></a>`;
-						return html;
+					render: function ( data, type, row, meta ) {						
+						return `<span style="text-align:center"><button type="button" onclick="hapus_data('${data}','${row.nama}');" class="btn btn-sm btn-danger"><i class="icon-trash2"></i></button></span>`;
 					},
 				},
 				

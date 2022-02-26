@@ -79,9 +79,10 @@
 								</form>
 							</div>
 							<div class="tab-pane" id="tab2">
-								<div class="table-responsive">
-									<table class="table table-sm table_aplikasi">
-										<thead>
+								<!-- <div class="table-responsive"> -->
+									<!-- <table class="table table-sm table_aplikasi" id="table_user_aktif"> -->
+									<table id="table_user_aktif" class="table stripe hover table-bordered nowrap">	
+										<!-- <thead>
 											<tr>
 												<th>Status</th>
 												<th>NIK</th>
@@ -125,14 +126,15 @@
 													</td>
 												</tr>
 											<?php endforeach ?>
-										</tbody>
+										</tbody> -->
 									</table>
-								</div>
+								<!-- </div> -->
 							</div>
 							<div class="tab-pane" id="tab3">
-								<div class="table-responsive">
-									<table class="table table-sm table_aplikasi">
-										<thead>
+								<!-- <div class="table-responsive"> -->
+									<!-- <table class="table table-sm table_aplikasi" id="table_user_tidak_aktif"> -->
+									<table id="table_user_tidak_aktif" class="table stripe hover table-bordered nowrap">	
+										<!-- <thead>
 											<tr>
 												<th>Status</th>
 												<th>NIK</th>
@@ -176,9 +178,9 @@
 													</td>
 												</tr>
 											<?php endforeach ?>
-										</tbody>
+										</tbody> -->
 									</table>
-								</div>
+								<!-- </div> -->
 							</div>
 						</div>
 					</div>
@@ -190,6 +192,7 @@
 
 
 <script type="text/javascript">
+
 	var coverage = [];
 	$('.coverage').click(function() {
 		if ($(this).is(':checked')) coverage.push($(this).val());
@@ -311,7 +314,9 @@
 					'id': id
 				}, function() {
 					swal("", "User berhasil dihapus!", "success").then(function() {
-						location.reload();
+						//location.reload();
+						table_user_aktif.ajax.reload(null,false);
+						table_user_tidak_aktif.ajax.reload(null,false);
 					});
 				});
 			}
@@ -363,4 +368,122 @@
 		});
 		tree.jstree(true).close_all();
 	}
+
+	$(document).ready(function() {
+		//datatable10
+		$.fn.dataTable.ext.errMode = 'none';
+		table_user_aktif = $("#table_user_aktif").DataTable({
+			serverSide: true,
+			processing: true,
+			destroy: true,
+			order: [],
+			autoWidth: false,
+			pagingType: 'simple', 
+			ajax: {
+				type: "POST",
+				url: "<?= site_url('konfigurasi_user/get_user_aktif') ?>",				
+			},
+			language: {
+				"processing": "Memproses, silahkan tunggu...",
+				"emptyTable": "Data masih kosong..."
+			},
+			columns: [
+				{
+					data: "nik",
+					title: "NIK",	
+					className: "dt-head-center",
+				},
+				{
+					data: "username",
+					title: "Username",
+					className: "dt-head-center",	
+				},
+				{
+					data: "nama_lengkap",
+					title: "Nama Lengkap",
+					className: "dt-head-center",
+				},						
+				{
+					data: "id",
+					title: "Aksi",
+					className: "dt-body-center",
+					width: "70px",
+					orderable: false,
+					render: function ( data, type, row, meta ) {						
+						let html = '';
+						html = `<button type="button" onclick="edit_data('${data}');" class="btn btn-sm btn-info"><i class="icon-ios-compose"></i></button>
+								<button type="button" onclick="hapus_data('${data}','${row.username}');" class="btn btn-sm btn-danger"><i class="icon-trash2"></i></button>`;						
+						// return `<span style="text-align:center"><button type="button" onclick="hapus_data('${data}','${row.nama}');" class="btn btn-sm btn-danger"><i class="icon-trash2"></i></button></span>`;
+						return html;
+					},
+				},				
+			],				
+			initComplete: function(settings, json) {			
+				$("#table_user_aktif").wrap("<div style='overflow:auto; width:100%;position:relative;'></div>");
+				
+
+				$("#cboxLoadingGraphic").append("<i class='icon-spinner orange'></i>"); //let's add a custom loading icon
+			},
+		}).on('error.dt', function(e, settings, techNote, message) {
+			pesan('error', message);
+			console.log('Error DataTables: ', message);
+		}); //table_user_aktif	
+		table_user_tidak_aktif = $("#table_user_tidak_aktif").DataTable({
+			serverSide: true,
+			processing: true,
+			destroy: true,
+			order: [],
+			autoWidth: false,
+			pagingType: 'simple', 
+			ajax: {
+				type: "POST",
+				url: "<?= site_url('konfigurasi_user/get_user_non_aktif') ?>",				
+			},
+			language: {
+				"processing": "Memproses, silahkan tunggu...",
+				"emptyTable": "Data masih kosong..."
+			},
+			columns: [
+				{
+					data: "nik",
+					title: "NIK",	
+					className: "dt-head-center",
+				},
+				{
+					data: "username",
+					title: "Username",
+					className: "dt-head-center",	
+				},
+				{
+					data: "nama_lengkap",
+					title: "Nama Lengkap",
+					className: "dt-head-center",
+				},						
+				{
+					data: "id",
+					title: "Aksi",
+					className: "dt-body-center",
+					width: "70px",
+					orderable: false,
+					render: function ( data, type, row, meta ) {						
+						let html = '';
+						html = `<button type="button" onclick="edit_data('${data}');" class="btn btn-sm btn-info"><i class="icon-ios-compose"></i></button>
+								<button type="button" onclick="hapus_data('${data}','${row.username}');" class="btn btn-sm btn-danger"><i class="icon-trash2"></i></button>`;						
+						// return `<span style="text-align:center"><button type="button" onclick="hapus_data('${data}','${row.nama}');" class="btn btn-sm btn-danger"><i class="icon-trash2"></i></button></span>`;
+						return html;
+					},
+				},				
+			],				
+			initComplete: function(settings, json) {			
+				$("#table_user_tidak_aktif").wrap("<div style='overflow:auto; width:100%;position:relative;'></div>");
+				
+
+				$("#cboxLoadingGraphic").append("<i class='icon-spinner orange'></i>"); //let's add a custom loading icon
+			},
+		}).on('error.dt', function(e, settings, techNote, message) {
+			pesan('error', message);
+			console.log('Error DataTables: ', message);
+		}); //table_user_tidak_aktif	
+	});
+
 </script>

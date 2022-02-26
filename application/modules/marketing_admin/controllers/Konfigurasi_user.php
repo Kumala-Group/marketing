@@ -1,5 +1,7 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
+use app\libraries\Datatable;
+
 class Konfigurasi_user extends CI_Controller
 {
 
@@ -21,44 +23,142 @@ class Konfigurasi_user extends CI_Controller
 				elseif (!empty($post['update'])) $this->update($post);
 				elseif (!empty($post['load'])) $this->load($post);
 			} else {
-				$d['content'] = "pages/konfigurasi_user";
-				$d['index'] = $index;
-				$d['level'] = q_data("*", 'kumalagroup.p_level', [])->result();
-				$d['hino'] = q_data("*", 'kmg.perusahaan', ['id_brand' => 3])->result();
-				$d['honda'] = q_data("*", 'kmg.perusahaan', ['id_brand' => 17])->result();
-				$d['mazda'] = q_data("*", 'kmg.perusahaan', ['id_brand' => 4])->result();
-				$d['mercedes'] = q_data("*", 'kmg.perusahaan', ['id_brand' => 18])->result();
-				$d['wuling'] = q_data("*", 'kmg.perusahaan', ['id_brand' => 5])->result();
-				$on = q_data("*", 'kumalagroup.users', ['status_aktif' => "on"])->result();
+				$d['content'] 	= "pages/konfigurasi_user";
+				$d['index']	 	= $index;
+				$d['level'] 	= q_data("*", 'kumalagroup.p_level', [])->result();
+				$d['hino'] 		= q_data("*", 'kmg.perusahaan', ['id_brand' => 3])->result();
+				$d['honda'] 	= q_data("*", 'kmg.perusahaan', ['id_brand' => 17])->result();
+				$d['mazda'] 	= q_data("*", 'kmg.perusahaan', ['id_brand' => 4])->result();
+				$d['mercedes'] 	= q_data("*", 'kmg.perusahaan', ['id_brand' => 18])->result();
+				$d['wuling'] 	= q_data("*", 'kmg.perusahaan', ['id_brand' => 5])->result();
+				$on  			= q_data("*", 'kumalagroup.users', ['status_aktif' => "on"])->result();
 				foreach ($on as $v) {
-					// $p = q_data("*", 'kmg.perusahaan', ['id_perusahaan' => $v->id_perusahaan])->row();
-					// $arr['id'] = $v->id;
-					// $arr['status_aktif'] = $v->status_aktif;
-					// $arr['nik'] = $v->nik;
-					// $arr['username'] = $v->username;
-					// $arr['nama_level'] = q_data("*", 'kumalagroup.p_level', ['id' => $v->id_level])->row()->nama_level;
-					// $arr['nama_lengkap'] = $v->nama_lengkap;
-					// $arr['nama_jabatan'] = q_data("*", 'kmg.jabatan', ['id_jabatan' => $v->id_jabatan])->row()->nama_jabatan;
-					// $arr['perusahaan'] = "$p->singkat-$p->lokasi";
-					// $d['on'][] = $arr;
+					$p = q_data("*", 'kmg.perusahaan', ['id_perusahaan' => $v->id_perusahaan])->row();
+					$arr['id'] 				= $v->id;
+					$arr['status_aktif'] 	= $v->status_aktif;
+					$arr['nik'] 			= $v->nik;
+					$arr['username'] 		= $v->username;
+					$arr['nama_level'] 		= q_data("*", 'kumalagroup.p_level', ['id' => $v->id_level])->row()->nama_level;
+					$arr['nama_lengkap'] 	= $v->nama_lengkap;
+					$arr['nama_jabatan'] 	= q_data("*", 'kmg.jabatan', ['id_jabatan' => $v->id_jabatan])->row()->nama_jabatan;
+					$arr['perusahaan'] 		= "$p->singkat-$p->lokasi";
+					$d['on'][] = $arr;
 				}
 				$arr = [];
 				$off = q_data("*", 'kumalagroup.users', ['status_aktif' => "off"])->result();
 				foreach ($off as $v) {
-					// $p = q_data("*", 'kmg.perusahaan', ['id_perusahaan' => $v->id_perusahaan])->row();
-					// $arr['id'] = $v->id;
-					// $arr['status_aktif'] = $v->status_aktif;
-					// $arr['nik'] = $v->nik;
-					// $arr['username'] = $v->username;
-					// $arr['nama_level'] = q_data("*", 'kumalagroup.p_level', ['id' => $v->id_level])->row()->nama_level;
-					// $arr['nama_lengkap'] = $v->nama_lengkap;
-					// $arr['nama_jabatan'] = q_data("*", 'kmg.jabatan', ['id_jabatan' => $v->id_jabatan])->row()->nama_jabatan;
-					// $arr['perusahaan'] = "$p->singkat-$p->lokasi";
-					// $d['off'][] = $arr;
+					$p = q_data("*", 'kmg.perusahaan', ['id_perusahaan' => $v->id_perusahaan])->row();
+					$arr['id'] = $v->id;
+					$arr['status_aktif'] = $v->status_aktif;
+					$arr['nik'] = $v->nik;
+					$arr['username'] = $v->username;
+					$arr['nama_level'] = q_data("*", 'kumalagroup.p_level', ['id' => $v->id_level])->row()->nama_level;
+					$arr['nama_lengkap'] = $v->nama_lengkap;
+					$arr['nama_jabatan'] = q_data("*", 'kmg.jabatan', ['id_jabatan' => $v->id_jabatan])->row()->nama_jabatan;
+					$arr['perusahaan'] = "$p->singkat-$p->lokasi";
+					$d['off'][] = $arr;
 				}
 				$this->load->view('index', $d);
 			}
 		}
+	}
+
+	public function get_user_aktif()
+	{
+		$datatable = new Datatable;
+				
+		//* query utama *//		
+		$datatable->query = $this->db
+			->select("id, nik, username, nama_lengkap")
+			->from('kumalagroup.users')
+			->where('status_aktif','on');
+		
+		//* untuk filtering */		
+		$datatable->setColumns(
+			"id",
+			"nik",
+			"username",
+			"nama_lengkap"	
+		);
+
+		//* untuk ordering by, kalo ndak dipake jangan dipanggil, komen saja
+		$datatable->orderBy('nik');
+
+		//* output result datatable  
+		//* sudah format datatable_serverside
+		//* untuk langsung ke format json, gunakan getJson(); untuk langsung parsing ke view
+		$raw = $datatable->get();	
+		
+		//* untuk customisasi array */
+		//* datanya dibentuk ulang, terserah berapa field
+		//* pastikan untuk menyesuaikan dengan filtering setColumn
+        $recordsData = [];
+        foreach ($raw['data'] as $key => $value) {   			 									
+            $recordsData[] = [				
+                'id'       			=> $value->id,
+                'nik'       		=> $value->nik,
+                'username'       	=> $value->username,
+                'nama_lengkap'    	=> $value->nama_lengkap,				
+            ];
+        }
+		
+        //* buat ulang response datatable_serverside
+        $response = [
+            'draw'            => $raw['draw'],
+            'recordsTotal'    => $raw['recordsTotal'],
+            'recordsFiltered' => $raw['recordsFiltered'],
+            'data'            => $recordsData
+        ];
+        return responseJson($response);
+	}
+
+	public function get_user_non_aktif()
+	{
+		$datatable = new Datatable;
+				
+		//* query utama *//		
+		$datatable->query = $this->db
+			->select("id, nik, username, nama_lengkap")
+			->from('kumalagroup.users')
+			->where('status_aktif','off');
+		
+		//* untuk filtering */		
+		$datatable->setColumns(
+			"id",
+			"nik",
+			"username",
+			"nama_lengkap"	
+		);
+
+		//* untuk ordering by, kalo ndak dipake jangan dipanggil, komen saja
+		$datatable->orderBy('nik');
+
+		//* output result datatable  
+		//* sudah format datatable_serverside
+		//* untuk langsung ke format json, gunakan getJson(); untuk langsung parsing ke view
+		$raw = $datatable->get();	
+		
+		//* untuk customisasi array */
+		//* datanya dibentuk ulang, terserah berapa field
+		//* pastikan untuk menyesuaikan dengan filtering setColumn
+        $recordsData = [];
+        foreach ($raw['data'] as $key => $value) {   			 									
+            $recordsData[] = [				
+                'id'       			=> $value->id,
+                'nik'       		=> $value->nik,
+                'username'       	=> $value->username,
+                'nama_lengkap'    	=> $value->nama_lengkap,				
+            ];
+        }
+		
+        //* buat ulang response datatable_serverside
+        $response = [
+            'draw'            => $raw['draw'],
+            'recordsTotal'    => $raw['recordsTotal'],
+            'recordsFiltered' => $raw['recordsFiltered'],
+            'data'            => $recordsData
+        ];
+        return responseJson($response);
 	}
 
 	function simpan($post)

@@ -69,6 +69,7 @@ class Pelamar extends CI_Controller
         $recordsData = [];
         foreach ($raw['data'] as $key => $value) {   			 									
             $recordsData[] = [				
+                'id'       		=> $value->id,
                 'posisi'       	=> $value->posisi,
                 'email'       	=> $value->email,
 				'nama' 			=> $value->nama,
