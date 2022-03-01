@@ -38,7 +38,7 @@ class Konfigurasi_user extends CI_Controller
 					$arr['status_aktif'] 	= $v->status_aktif;
 					$arr['nik'] 			= $v->nik;
 					$arr['username'] 		= $v->username;
-					$arr['nama_level'] 		= q_data("*", 'kumalagroup.p_level', ['id' => $v->id_level])->row()->nama_level;
+					$arr['nama_level'] 		= '-';//q_data("*", 'kumalagroup.p_level', ['id' => $v->id_level])->row()->nama_level;
 					$arr['nama_lengkap'] 	= $v->nama_lengkap;
 					$arr['nama_jabatan'] 	= q_data("*", 'kmg.jabatan', ['id_jabatan' => $v->id_jabatan])->row()->nama_jabatan;
 					$arr['perusahaan'] 		= "$p->singkat-$p->lokasi";
@@ -48,14 +48,14 @@ class Konfigurasi_user extends CI_Controller
 				$off = q_data("*", 'kumalagroup.users', ['status_aktif' => "off"])->result();
 				foreach ($off as $v) {
 					$p = q_data("*", 'kmg.perusahaan', ['id_perusahaan' => $v->id_perusahaan])->row();
-					$arr['id'] = $v->id;
-					$arr['status_aktif'] = $v->status_aktif;
-					$arr['nik'] = $v->nik;
-					$arr['username'] = $v->username;
-					$arr['nama_level'] = q_data("*", 'kumalagroup.p_level', ['id' => $v->id_level])->row()->nama_level;
-					$arr['nama_lengkap'] = $v->nama_lengkap;
-					$arr['nama_jabatan'] = q_data("*", 'kmg.jabatan', ['id_jabatan' => $v->id_jabatan])->row()->nama_jabatan;
-					$arr['perusahaan'] = "$p->singkat-$p->lokasi";
+					$arr['id'] 				= $v->id;
+					$arr['status_aktif'] 	= $v->status_aktif;
+					$arr['nik'] 			= $v->nik;
+					$arr['username'] 		= $v->username;
+					$arr['nama_level'] 		= '-';//q_data("*", 'kumalagroup.p_level', ['id' => $v->id_level])->row()->nama_level;
+					$arr['nama_lengkap'] 	= $v->nama_lengkap;
+					$arr['nama_jabatan'] 	= q_data("*", 'kmg.jabatan', ['id_jabatan' => $v->id_jabatan])->row()->nama_jabatan;
+					$arr['perusahaan'] 		= "$p->singkat-$p->lokasi";
 					$d['off'][] = $arr;
 				}
 				$this->load->view('index', $d);
@@ -167,31 +167,30 @@ class Konfigurasi_user extends CI_Controller
 		$where = $post['id'];
 		$hash = password_hash($post['password'], PASSWORD_DEFAULT);
 		$q_user = q_data("*", 'kumalagroup.users', ['nik' => $post['nik']]);
-		if ($q_user->num_rows() == 0) {
-			$q_kmg = q_data("*", 'kmg.karyawan', ['nik' => $post['nik'], 'status_aktif' => "Aktif"]);
-			if ($q_kmg->num_rows() > 0) {
-				$data['id_level'] = $post['level'];
-				$data['id_perusahaan'] = $q_kmg->row()->id_perusahaan;
-				$data['id_jabatan'] = $q_kmg->row()->id_jabatan;
-				$data['coverage'] = $post['coverage'];
-				$data['username'] = $post['nik'];
-				$data['password'] = $hash;
-				$data['nama_lengkap'] = $q_kmg->row()->nama_karyawan;
-				$data['nik'] = $post['nik'];
-				$data['status_aktif'] = "on";
-				$data['tgl_insert'] = date('Y-m-d H:i:s');
-				$data['tgl_update'] = date('Y-m-d H:i:s');
-				$this->kumalagroup->insert("users", $data);
-				$data = [];
-				$data['id_user'] = $this->kumalagroup->insert_id();
-				$data['akses_menu'] = $post['akses_menu'];
-				$this->kumalagroup->insert("menu_akses", $data);
-				$status = 1;
-			}
+		if ($q_user->num_rows() == 0) {			
+			$data	= [
+				'nama_lengkap'	=> $post['nama_lengkap'],
+				'nik'			=> $post['nik'],
+				//'id_perusahaan'	=> $q_user->row('id_perusahaan'),
+				// 'id_level' 		=> $post['level'],
+				//'id_jabatan'	=> $q_user->row('id_jabatan'),
+				'coverage'		=> $post['coverage'],
+				'username'		=> $post['nik'],
+				'password'		=> $hash,
+				'status_aktif'	=> 'on',
+				'tgl_insert'	=> date('Y-m-d H:i:s'),
+				'tgl_update'	=> date('Y-m-d H:i:s'),
+			];
+			$this->kumalagroup->insert("users", $data);
+			$data = [];
+			$data['id_user'] 	= $this->kumalagroup->insert_id();
+			$data['akses_menu'] = $post['akses_menu'];
+			$this->kumalagroup->insert("menu_akses", $data);
+			$status = 1;			
 		} elseif ($q_user->num_rows() > 0 && !empty($where)) {
-			$data['id_level'] = $post['level'];
+			//$data['id_level'] = $post['level'];
 			if (!empty($post['password'])) $data['password'] = $hash;
-			$data['coverage'] = $post['coverage'];
+			//$data['coverage'] = $post['coverage'];
 			$data['tgl_update'] = date('Y-m-d H:i:s');
 			$this->kumalagroup->update("users", $data, ['id' => $where]);
 			$data = [];

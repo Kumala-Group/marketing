@@ -37,33 +37,35 @@
 										<div class="row">
 											<div class="col-md-3">
 												<div class="form-group mb-1">
+													<input type="text" id="nama_lengkap" name="nama_lengkap" class="form-control" placeholder="Nama Lengkap" autocomplete="off">
+												</div>
+												<div class="form-group mb-1">
 													<input type="text" id="nik" name="nik" onkeydown="input_number(event)" class="form-control" placeholder="NIK" required>
 												</div>
 												<div class="form-group mb-1">
-													<input type="text" id="username" name="username" class="form-control" placeholder="Username" disabled>
+													<input type="text" id="username" name="username" class="form-control" placeholder="Username" autocomplete="off" readonly>
 												</div>
-												<div class="form-group mb-1">
+												<!-- <div class="form-group mb-1">
 													<select id="level" name="level" class="form-control" required>
 														<option value="" selected disabled>-- Silahkan Pilih Profil --</option>
 														<?php foreach ($level as $v) : ?>
 															<option value="<?= $v->id ?>"><?= $v->nama_level ?></option>
 														<?php endforeach ?>
 													</select>
-												</div>
+												</div> -->
 												<div class="form-group mb-1">
-													<input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+													<input type="password" id="password" name="password" class="form-control" placeholder="Password" required autocomplete="off" readonly>
 												</div>
-												<div class="form-group mb-1">
-													<input type="password" id="r_password" name="r_password" class="form-control" placeholder="Ulangi Password" required>
-												</div>
+												<!-- <div class="form-group mb-1">
+													<input type="password" id="r_password" name="r_password" class="form-control" placeholder="Ulangi Password" required autocomplete="off">
+												</div> -->
 												<input type="hidden" id="coverage" name="coverage">
 												<input type="hidden" id="akses_menu" name="akses_menu">
 												<input type="hidden" id="id" name="id">
 												<input type="hidden" name="simpan" value="true">
 											</div>											
 											<div class="col-md-9">
-												<h5 class="card-title" style="text-align: center;">Hak Akses Menu</h5>
-												<!-- <div class="col-md-12" id="load_menu_akses"></div> -->
+												<h5 class="card-title" style="text-align: center;">Hak Akses Menu</h5>												
 												<div class="row-fluid" id="load_menu_akses"></div>
 											</div>
 										</div>																		
@@ -213,17 +215,26 @@
 		change_tree();
 	});
 
+	$("#nama_lengkap").keyup(function() {
+		$('#submit').removeAttr('disabled');
+		generate_username();
+	});
 	$("#nik").keyup(function() {
 		$('#submit').removeAttr('disabled');
-		var nik = $("#nik").val();
-		$("#username").val(nik);
+		generate_username();
 	});
+	// $("#username").keyup(function() {
+	// 	$('#submit').removeAttr('disabled');
+	// 	//var nik = $("#nik").val();
+	// 	//$("#username").val(nik);
+	// });
 	var form = $('#form');
 	$('#submit').click(function(e) {
 		e.preventDefault();
 		var password = $('#password').val();
-		var r_password = $('#r_password').val();
-		if (password == r_password) {
+		//var r_password = $('#r_password').val();
+		//if (password == r_password) {
+		if (password != '') {
 			$('#coverage').val(coverage.toString());
 			$('#akses_menu').val(val.toString());
 			var data = form.serialize();
@@ -244,7 +255,7 @@
 					});
 				});
 			}
-		} else swal("", "Password yang anda masukkan salah!", "error");
+		} else swal("", "Password tidak boleh kosong!", "error");
 	});
 
 	function update_status(id, status) {
@@ -367,6 +378,52 @@
 			tree.jstree('check_node', $(this));
 		});
 		tree.jstree(true).close_all();
+	}
+
+	function generate_username($element)
+	{
+		let nama_lengkap = $("#nama_lengkap").val(),
+			suku_kata = nama_lengkap.split(" "),
+			nik = $('#nik').val(),
+			username = '';
+		if (nama_lengkap != '') {
+			switch(suku_kata.length) {
+				case 1:
+					//alert('satu');
+					// while (username.length < 3) {
+  					// 	username += nama_lengkap[Math.floor(Math.random() * nama_lengkap.length)];
+					// } 	
+					//for (var i = 0; i < 5; i++) 
+    				//	text += nama_lengkap.charAt(Math.floor(Math.random() * nama_lengkap.length));
+					username = nama_lengkap.substring(0, 3);
+					break;
+				case 2:
+					username = suku_kata[0].substring(0, 1) + suku_kata[1].substring(0, 2);					
+					break;
+				case 3:
+					username = suku_kata[0].substring(0, 1) + suku_kata[1].substring(0, 1) + suku_kata[2].substring(0, 1);					
+					break;
+				default:
+					username = 'wrong';
+					break;
+			}
+		}
+		$("#username").val(username+nik);
+		//$(element).val(username+nik);
+		//console.log(username+nik);
+		//return userna
+	}
+
+	function generate_password()
+	{
+		let karakter = "0123456789abcdefghijklmnopqrstuvwxyz!@#$%^&*()ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+		 	panjang_password = 8,
+			password = "";
+		for (var i = 0; i <= panjang_password; i++) {
+			var randomNumber = Math.floor(Math.random() * karakter.length);
+			password += karakter.substring(randomNumber, randomNumber +1);
+		}
+		$("#password").val(password);
 	}
 
 	$(document).ready(function() {
