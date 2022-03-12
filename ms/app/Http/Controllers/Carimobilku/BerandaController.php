@@ -12,7 +12,7 @@ class BerandaController extends Controller
     private static $website = 'carimobilku';
     public function index()
     {
-        $sliders = SliderModel::whereKategori(self::$website)
+        $sliders = SliderModel::where('kategori','like','%'.self::$website.'%')
             ->orderBy('created_at', 'desc')
             ->take(5)
             ->get();

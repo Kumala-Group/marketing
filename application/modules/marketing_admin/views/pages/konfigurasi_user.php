@@ -71,9 +71,12 @@
 										</div>																		
 									</div>
 									<div class="form-actions center">
-										<a href="" class="btn btn-warning mr-1">
-											<i class="icon-reload"></i> Reset
-										</a>
+										<button id="btn-reset-form" class="btn btn-warning mr-1">
+											<i class="icon-reload"></i> Reset Form
+										</button>
+										<button id="btn-generate" class="btn btn-info mr-1">
+											<i class="icon-undo"></i> Reset Username/Password
+										</button>
 										<button id="submit" class="btn btn-primary" disabled>
 											<i class="icon-check2"></i> Simpan
 										</button>
@@ -228,6 +231,13 @@
 	// 	//var nik = $("#nik").val();
 	// 	//$("#username").val(nik);
 	// });
+
+	$('#btn-generate').click(function(e){
+		e.preventDefault();
+		generate_username();
+		generate_password();
+	});
+	
 	var form = $('#form');
 	$('#submit').click(function(e) {
 		e.preventDefault();
@@ -286,7 +296,8 @@
 			},
 			function(r) {
 				$('#nik').val(r.nik);
-				$("#username").val(r.nik);
+				$("#username").val(r.username);
+				$("#nama_lengkap").val(r.nama_lengkap);
 				$('#level').val(r.level);
 				if (r.coverage != null) {
 					coverage.length = 0;
@@ -305,8 +316,8 @@
 					load_tree($('#d_l'));
 					change_tree();
 					open_tree($('#m_a'));
-					open_tree($('#m_s'));
-					open_tree($('#d_l'));
+					// open_tree($('#m_s'));
+					// open_tree($('#d_l'));
 				});
 			}, "json"
 		);
@@ -382,7 +393,7 @@
 
 	function generate_username($element)
 	{
-		let nama_lengkap = $("#nama_lengkap").val(),
+		let nama_lengkap = $("#nama_lengkap").val().toLowerCase().trim(),			
 			suku_kata = nama_lengkap.split(" "),
 			nik = $('#nik').val(),
 			username = '';

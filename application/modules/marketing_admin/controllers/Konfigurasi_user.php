@@ -40,8 +40,8 @@ class Konfigurasi_user extends CI_Controller
 					$arr['username'] 		= $v->username;
 					$arr['nama_level'] 		= '-';//q_data("*", 'kumalagroup.p_level', ['id' => $v->id_level])->row()->nama_level;
 					$arr['nama_lengkap'] 	= $v->nama_lengkap;
-					$arr['nama_jabatan'] 	= q_data("*", 'kmg.jabatan', ['id_jabatan' => $v->id_jabatan])->row()->nama_jabatan;
-					$arr['perusahaan'] 		= "$p->singkat-$p->lokasi";
+					$arr['nama_jabatan'] 	= '-';//q_data("*", 'kmg.jabatan', ['id_jabatan' => $v->id_jabatan])->row()->nama_jabatan;
+					$arr['perusahaan'] 		= '-';// "$p->singkat-$p->lokasi";
 					$d['on'][] = $arr;
 				}
 				$arr = [];
@@ -54,8 +54,8 @@ class Konfigurasi_user extends CI_Controller
 					$arr['username'] 		= $v->username;
 					$arr['nama_level'] 		= '-';//q_data("*", 'kumalagroup.p_level', ['id' => $v->id_level])->row()->nama_level;
 					$arr['nama_lengkap'] 	= $v->nama_lengkap;
-					$arr['nama_jabatan'] 	= q_data("*", 'kmg.jabatan', ['id_jabatan' => $v->id_jabatan])->row()->nama_jabatan;
-					$arr['perusahaan'] 		= "$p->singkat-$p->lokasi";
+					$arr['nama_jabatan'] 	= '-';//q_data("*", 'kmg.jabatan', ['id_jabatan' => $v->id_jabatan])->row()->nama_jabatan;
+					$arr['perusahaan'] 		= '-';//"$p->singkat-$p->lokasi";
 					$d['off'][] = $arr;
 				}
 				$this->load->view('index', $d);
@@ -211,14 +211,16 @@ class Konfigurasi_user extends CI_Controller
 
 	function edit($post)
 	{
-		$where = $post['id'];
-		$q_user = q_data("*", 'kumalagroup.users', ['id' => $where])->row();
-		$q_akses = q_data("*", 'kumalagroup.menu_akses', ['id_user' => $where])->row();
-		$d['nik'] = $q_user->nik;
-		$d['level'] = $q_user->id_level;
-		$d['coverage'] = !empty($q_user->coverage) ? explode(",", $q_user->coverage) : null;
-		$d['menu_akses'] = $q_akses->akses_menu;
-		echo json_encode($d);
+		$where 				= $post['id'];
+		$q_user 			= q_data("*", 'kumalagroup.users', ['id' => $where])->row();
+		$q_akses 			= q_data("*", 'kumalagroup.menu_akses', ['id_user' => $where])->row();
+		$d['nik'] 			= $q_user->nik;
+		$d['level'] 		= $q_user->id_level;
+		$d['nama_lengkap'] 	= $q_user->nama_lengkap;
+		$d['username'] 		= $q_user->username;
+		$d['coverage'] 		= !empty($q_user->coverage) ? explode(",", $q_user->coverage) : null;
+		$d['menu_akses']	= $q_akses->akses_menu;
+		responseJson($d);
 	}
 
 	function hapus($post)
