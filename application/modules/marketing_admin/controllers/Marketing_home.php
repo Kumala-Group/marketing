@@ -47,7 +47,7 @@ class Marketing_home extends CI_Controller
 				if ($this->session->userdata('logged_in') == "marketing_admin") redirect($this->session->userdata('url'), 'refresh');
 				else {
 					$d['logo'] = q_data("*", 'kumk6797_kumalagroup.partners', [])->result();
-					$d['version'] = $this->db->select('versi_update')->where('brand', 'MARKETING')->order_by('id_versi', 'desc')->limit('1')->get('db_helpdesk.update_versi')->row();
+					$d['version'] = $this->db->select('versi_update')->where('brand', 'MARKETING')->order_by('id_versi', 'desc')->limit('1')->get('kumk6797_helpdesk.update_versi')->row();
 
 					$this->load->view('login', $d);
 				}
