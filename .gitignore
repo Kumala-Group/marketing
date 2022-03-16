@@ -18,3 +18,7 @@ application/logs/*
 
 
 .DS_Store 
+
+
+#environment
+**M_marketing.php
