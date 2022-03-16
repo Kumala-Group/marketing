@@ -26,35 +26,35 @@ class Konfigurasi_user extends CI_Controller
 				$d['content'] 	= "pages/konfigurasi_user";
 				$d['index']	 	= $index;
 				$d['level'] 	= q_data("*", 'kumk6797_kumalagroup.p_level', [])->result();
-				$d['hino'] 		= q_data("*", 'kmg.perusahaan', ['id_brand' => 3])->result();
-				$d['honda'] 	= q_data("*", 'kmg.perusahaan', ['id_brand' => 17])->result();
-				$d['mazda'] 	= q_data("*", 'kmg.perusahaan', ['id_brand' => 4])->result();
-				$d['mercedes'] 	= q_data("*", 'kmg.perusahaan', ['id_brand' => 18])->result();
-				$d['wuling'] 	= q_data("*", 'kmg.perusahaan', ['id_brand' => 5])->result();
+				$d['hino'] 		= q_data("*", 'kumk6797_kmg.perusahaan', ['id_brand' => 3])->result();
+				$d['honda'] 	= q_data("*", 'kumk6797_kmg.perusahaan', ['id_brand' => 17])->result();
+				$d['mazda'] 	= q_data("*", 'kumk6797_kmg.perusahaan', ['id_brand' => 4])->result();
+				$d['mercedes'] 	= q_data("*", 'kumk6797_kmg.perusahaan', ['id_brand' => 18])->result();
+				$d['wuling'] 	= q_data("*", 'kumk6797_kmg.perusahaan', ['id_brand' => 5])->result();
 				$on  			= q_data("*", 'kumk6797_kumalagroup.users', ['status_aktif' => "on"])->result();
 				foreach ($on as $v) {
-					$p = q_data("*", 'kmg.perusahaan', ['id_perusahaan' => $v->id_perusahaan])->row();
+					$p = q_data("*", 'kumk6797_kmg.perusahaan', ['id_perusahaan' => $v->id_perusahaan])->row();
 					$arr['id'] 				= $v->id;
 					$arr['status_aktif'] 	= $v->status_aktif;
 					$arr['nik'] 			= $v->nik;
 					$arr['username'] 		= $v->username;
 					$arr['nama_level'] 		= '-';//q_data("*", 'kumk6797_kumalagroup.p_level', ['id' => $v->id_level])->row()->nama_level;
 					$arr['nama_lengkap'] 	= $v->nama_lengkap;
-					$arr['nama_jabatan'] 	= '-';//q_data("*", 'kmg.jabatan', ['id_jabatan' => $v->id_jabatan])->row()->nama_jabatan;
+					$arr['nama_jabatan'] 	= '-';//q_data("*", 'kumk6797_kmg.jabatan', ['id_jabatan' => $v->id_jabatan])->row()->nama_jabatan;
 					$arr['perusahaan'] 		= '-';// "$p->singkat-$p->lokasi";
 					$d['on'][] = $arr;
 				}
 				$arr = [];
 				$off = q_data("*", 'kumk6797_kumalagroup.users', ['status_aktif' => "off"])->result();
 				foreach ($off as $v) {
-					$p = q_data("*", 'kmg.perusahaan', ['id_perusahaan' => $v->id_perusahaan])->row();
+					$p = q_data("*", 'kumk6797_kmg.perusahaan', ['id_perusahaan' => $v->id_perusahaan])->row();
 					$arr['id'] 				= $v->id;
 					$arr['status_aktif'] 	= $v->status_aktif;
 					$arr['nik'] 			= $v->nik;
 					$arr['username'] 		= $v->username;
 					$arr['nama_level'] 		= '-';//q_data("*", 'kumk6797_kumalagroup.p_level', ['id' => $v->id_level])->row()->nama_level;
 					$arr['nama_lengkap'] 	= $v->nama_lengkap;
-					$arr['nama_jabatan'] 	= '-';//q_data("*", 'kmg.jabatan', ['id_jabatan' => $v->id_jabatan])->row()->nama_jabatan;
+					$arr['nama_jabatan'] 	= '-';//q_data("*", 'kumk6797_kmg.jabatan', ['id_jabatan' => $v->id_jabatan])->row()->nama_jabatan;
 					$arr['perusahaan'] 		= '-';//"$p->singkat-$p->lokasi";
 					$d['off'][] = $arr;
 				}

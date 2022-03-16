@@ -20,7 +20,7 @@ class Home_service extends CI_Controller
                 $d['index'] = $index;;
                 $data = q_data("*", 'kumk6797_kumalagroup.home_service', [], "updated_at")->result();
                 foreach ($data as $v) {
-                    $perusahaan = q_data("*", 'kmg.perusahaan', ['id_perusahaan' => $v->id_perusahaan])->row();
+                    $perusahaan = q_data("*", 'kumk6797_kmg.perusahaan', ['id_perusahaan' => $v->id_perusahaan])->row();
 
                     $d['id'][]              = $v->id;
                     $d['tanggal_service'][] = $v->tanggal_service;

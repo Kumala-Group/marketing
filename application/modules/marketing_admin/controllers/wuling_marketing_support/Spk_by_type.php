@@ -18,7 +18,7 @@ class Spk_by_type extends CI_Controller
             } else {
                 $d['content'] = "pages/marketing_support/wuling/spk_by_type";
                 $d['index'] = $index;
-                $d['lokasi'] = q_data("*", 'kmg.perusahaan', ['id_brand' => 5])->result();
+                $d['lokasi'] = q_data("*", 'kumk6797_kmg.perusahaan', ['id_brand' => 5])->result();
                 $this->load->view('index', $d);
             }
         }

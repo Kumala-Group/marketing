@@ -145,7 +145,7 @@ class Api_apps_get extends CI_Controller
     public function m_provinsi()
     {
         if ($this->m_marketing->auth_api()) {
-            $data = q_data("*", 'kmg.perusahaan', ['id_brand' => $this->uri->segment(4)], [], "id_provinsi")->result();
+            $data = q_data("*", 'kumk6797_kmg.perusahaan', ['id_brand' => $this->uri->segment(4)], [], "id_provinsi")->result();
             foreach ($data as $v) {
                 $arr['id'] = $v->id_provinsi;
                 $arr['provinsi'] = q_data("*", 'db_honda.provinsi', ['id_provinsi' => $v->id_provinsi])->row()->nama;
@@ -180,7 +180,7 @@ class Api_apps_get extends CI_Controller
     {
         if ($this->m_marketing->auth_api()) {
             $d = [];
-            $cek = q_data("*", 'kmg.perusahaan', ['id_brand' => $this->uri->segment(4), [], 'id_provinsi' =>  $this->uri->segment(5)], "id_perusahaan")->result();
+            $cek = q_data("*", 'kumk6797_kmg.perusahaan', ['id_brand' => $this->uri->segment(4), [], 'id_provinsi' =>  $this->uri->segment(5)], "id_perusahaan")->result();
             foreach ($cek as $v) $id[] = $v->id_perusahaan;
             if ($this->uri->segment(4) == 3) {
                 $tipe = q_data("*", 'db_hino.p_varian', "varian LIKE '%" . $this->uri->segment(6) . "%'")->result();

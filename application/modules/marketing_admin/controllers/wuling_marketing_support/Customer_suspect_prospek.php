@@ -20,14 +20,14 @@ class Customer_suspect_prospek extends CI_Controller
                         [
                             'db_wuling.adm_sales as' => "as.id_sales = c.sales",
                             'db_wuling.s_suspect ss' => "ss.id_prospek = c.id_prospek",
-                            'kmg.karyawan k'         => "c.sales = k.id_karyawan",
+                            'kumk6797_kmg.karyawan k'         => "c.sales = k.id_karyawan",
                         ],
                         "as.id_perusahaan='" . $post['perusahaan'] . "' and (ss.tgl_suspect between '" . tgl_sql($post['tanggal_awal']) . "' and '" . tgl_sql($post['tanggal_akhir']) . "')"
                     );
             } else {
                 $d['content'] = "pages/marketing_support/wuling/customer_suspect_prospek";
                 $d['index'] = $index;
-                $d['lokasi'] = q_data("*", 'kmg.perusahaan', ['id_brand' => 5])->result();
+                $d['lokasi'] = q_data("*", 'kumk6797_kmg.perusahaan', ['id_brand' => 5])->result();
                 $this->load->view('index', $d);
             }
         }

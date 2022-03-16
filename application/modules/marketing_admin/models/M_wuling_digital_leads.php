@@ -129,7 +129,7 @@ class M_wuling_digital_leads extends CI_Model
         $data = $this->db_wuling
             ->select('k.nama_karyawan,as.id_sales')
             ->from('adm_sales as')
-            ->join('kmg.karyawan k', 'k.id_karyawan = as.id_sales')
+            ->join('kumk6797_kmg.karyawan k', 'k.id_karyawan = as.id_sales')
             ->where('as.id_jabatan', '22')
             ->get()
             ->result();

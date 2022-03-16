@@ -18,7 +18,7 @@ class Customer_spk extends CI_Controller
             } else {
                 $d['content'] = "pages/marketing_support/wuling/customer_spk";
                 $d['index'] = $index;
-                $d['lokasi'] = q_data("*", 'kmg.perusahaan', ['id_brand' => 5])->result();
+                $d['lokasi'] = q_data("*", 'kumk6797_kmg.perusahaan', ['id_brand' => 5])->result();
                 $this->load->view('index', $d);
             }
         }

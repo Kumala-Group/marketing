@@ -163,7 +163,7 @@ class M_honda_laporan_survei_do extends CI_Model
 	{
 		$hasil = '';
 		if (!empty($id_perusahaan)) {
-			$hasil = $this->db->select('lokasi')->from('kmg.perusahaan')->where("id_perusahaan", $id_perusahaan)->get()->row()->lokasi;
+			$hasil = $this->db->select('lokasi')->from('kumk6797_kmg.perusahaan')->where("id_perusahaan", $id_perusahaan)->get()->row()->lokasi;
 		}
 		return $hasil;
 	}

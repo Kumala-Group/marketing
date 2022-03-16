@@ -34,9 +34,9 @@ class Wuling_ctrl_survey_do extends CI_Controller
             )
                 ->from('db_wuling.s_prospek AS prospek')
                 ->join('db_wuling.s_customer AS customer', 'prospek.id_prospek = customer.id_prospek', 'LEFT')
-                ->join('kmg.karyawan AS sales', 'customer.sales = sales.id_karyawan', 'LEFT')
+                ->join('kumk6797_kmg.karyawan AS sales', 'customer.sales = sales.id_karyawan', 'LEFT')
                 ->join('db_wuling.s_do AS sdo', 'prospek.id_prospek = sdo.id_prospek', 'LEFT')
-                ->join('kmg.perusahaan AS dealer', 'prospek.id_perusahaan = dealer.id_perusahaan', 'LEFT')
+                ->join('kumk6797_kmg.perusahaan AS dealer', 'prospek.id_perusahaan = dealer.id_perusahaan', 'LEFT')
                 ->where("sdo.tgl_do != 'null'")
                 ->where("prospek.status_survei = 0");
 

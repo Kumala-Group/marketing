@@ -34,7 +34,7 @@ class List_transaksi extends \MX_Controller
                     $table  = 'kumk6797_kumalagroup.konfirmasi_pembayaran kp';
                     $join   = array(
                         'kumk6797_kumalagroup.checkout c' => 'c.kode = kp.kode_checkout',
-                        'kmg.perusahaan p' => 'p.id_perusahaan = c.cabang_tujuan',
+                        'kumk6797_kmg.perusahaan p' => 'p.id_perusahaan = c.cabang_tujuan',
                         'kumk6797_kumalagroup.customer cs' => 'cs.customer = c.customer',
                         'kumk6797_kumalagroup.reg_customer rs' => 'rs.id = cs.customer',
                     );
@@ -87,7 +87,7 @@ class List_transaksi extends \MX_Controller
                 } elseif ($this->request->has('getCabang')) {
                     $dbname = dbname(strtolower($this->request->brand));
                     $result = DB::table($dbname . '.bank as b')
-                        ->join('kmg.perusahaan as p', 'p.id_perusahaan', '=', 'b.id_perusahaan')
+                        ->join('kumk6797_kmg.perusahaan as p', 'p.id_perusahaan', '=', 'b.id_perusahaan')
                         ->where('b.jenis', '=', 'penr_unit')
                         ->where('b.bank', 'like', 'MCU%')
                         ->where('b.bank', 'not like', 'MCU HO%')

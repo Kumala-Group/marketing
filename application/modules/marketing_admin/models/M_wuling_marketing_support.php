@@ -25,7 +25,7 @@ class M_wuling_marketing_support extends CI_Model
             'db_wuling.s_customer c'           => "c.id_prospek = s.id_prospek",
             'db_wuling.adm_sales as'           => "as.id_sales = c.sales",
             'db_wuling.adm_team_supervisor at' => "at.id_team_supervisor = as.id_leader",
-            'kmg.karyawan k'                   => "c.sales = k.id_karyawan",
+            'kumk6797_kmg.karyawan k'                   => "c.sales = k.id_karyawan",
         ];
         $where = "as.status_aktif='A' and as.id_perusahaan='" . $id_perusahaan . "' and (c.status!='lost' and c.status in('spk'))";
 
@@ -83,7 +83,7 @@ class M_wuling_marketing_support extends CI_Model
                     $follow = 'Foreman';
                 } else if ($sr == '2' and $sc == '2' and $ss == '2' and $sf == '2' and $sm == '1') {
                     $pesan   = 'No. Rangka sedang dalam peninjauan PDI 2';
-                    $mekanik = q_data("*", 'kmg.karyawan', ['id_karyawan' => $v->id_karyawan])->row('nama_karyawan');
+                    $mekanik = q_data("*", 'kumk6797_kmg.karyawan', ['id_karyawan' => $v->id_karyawan])->row('nama_karyawan');
                     $follow  = 'Mechanic : ' . $mekanik;
                 } else if ($sr == '2' and $sc == '0' and $ss == '0' and $sf == '0' and $sm == '0') {
                     $pesan  = 'No. Rangka sedang dalam peninjauan PDI 2';
@@ -114,7 +114,7 @@ class M_wuling_marketing_support extends CI_Model
             'db_wuling.s_do d'                 => "d.id_prospek = s.id_prospek",
             'db_wuling.adm_sales as'           => "as.id_sales = c.sales",
             'db_wuling.adm_team_supervisor at' => "at.id_team_supervisor = as.id_leader",
-            'kmg.karyawan k'                   => "c.sales = k.id_karyawan",
+            'kumk6797_kmg.karyawan k'                   => "c.sales = k.id_karyawan",
         ];
         $where  = ['as.status_aktif' => "A", 'as.id_perusahaan' => $id_perusahaan, 'c.status' => "do"];
 
@@ -146,7 +146,7 @@ class M_wuling_marketing_support extends CI_Model
             'db_wuling.p_model m'            => "m.id_model = v.id_model",
             'db_wuling.p_warna w'            => "w.id_warna = u.id_warna",
             'db_wuling.adm_sales as'         => "as.id_sales = c.sales",
-            'kmg.karyawan k'                 => "c.sales = k.id_karyawan",
+            'kumk6797_kmg.karyawan k'                 => "c.sales = k.id_karyawan",
         ];
         $where = empty($id_perusahaan) ? ['as.status_aktif' => "A", 'um.no_mesin!=' => null]
             : ['as.status_aktif' => "A", 'as.id_perusahaan' => $id_perusahaan, 'um.no_mesin!=' => null];
@@ -168,12 +168,12 @@ class M_wuling_marketing_support extends CI_Model
             'db_wuling.p_model m'            => "m.id_model = v.id_model",
             'db_wuling.p_warna w'            => "w.id_warna = u.id_warna",
             'db_wuling.adm_sales as'         => "as.id_sales = c.sales",
-            'kmg.karyawan k'                 => "c.sales = k.id_karyawan",
+            'kumk6797_kmg.karyawan k'                 => "c.sales = k.id_karyawan",
             'db_wuling.provinsi pro'         => "pro.id_provinsi = c.id_provinsi",
             'db_wuling.kabupaten kab'        => "kab.id_kabupaten = c.id_kabupaten",
             'db_wuling.kecamatan kec'        => "kec.id_kecamatan = c.id_kecamatan",
             'db_wuling.kelurahan kel'        => "kel.id_kelurahan = c.id_kelurahan",
-            'kmg.perusahaan p'               => "p.id_perusahaan = s.id_perusahaan"
+            'kumk6797_kmg.perusahaan p'               => "p.id_perusahaan = s.id_perusahaan"
         ];
         $where = empty($id_perusahaan) ? ['as.status_aktif' => "A", 'um.no_mesin!=' => null]
             : ['as.status_aktif' => "A", 'as.id_perusahaan' => $id_perusahaan, 'um.no_mesin!=' => null];
@@ -188,7 +188,7 @@ class M_wuling_marketing_support extends CI_Model
         $join   = [
             'db_wuling.s_prospek p'  => "p.id_prospek = c.id_prospek",
             'db_wuling.adm_sales as' => "as.id_sales = c.sales",
-            'kmg.karyawan k'         => "c.sales = k.id_karyawan",
+            'kumk6797_kmg.karyawan k'         => "c.sales = k.id_karyawan",
         ];
         $where = empty($id_perusahaan) ? ['as.status_aktif' => "A", 'c.status' => "do"]
             :  ['as.status_aktif' => "A", 'as.id_perusahaan' => $id_perusahaan, 'c.status' => "do"];
@@ -215,7 +215,7 @@ class M_wuling_marketing_support extends CI_Model
             'db_wuling.s_do sdo'        => 'sdo.id_prospek = c.id_prospek',
             'db_wuling.s_survei sv'     => 'sv.id_prospek = c.id_prospek',
             'db_wuling.adm_sales as'   => 'as.id_sales = c.sales',
-            'kmg.karyawan k'            => 'c.sales = k.id_karyawan',
+            'kumk6797_kmg.karyawan k'            => 'c.sales = k.id_karyawan',
         ];
         if (!empty($id_perusahaan)) {
             $where  = ['as.status_aktif' => "A", 'as.id_perusahaan' => $id_perusahaan, 'c.status' => "do", 'MONTH(sdo.tgl_do)' => $bulan, 'YEAR(sdo.tgl_do)' => $tahun];
@@ -295,7 +295,7 @@ class M_wuling_marketing_support extends CI_Model
     public function get_nama_perusahaan($id_perusahaan)
     {
         if (!empty($id_perusahaan)) {
-            $hasil = $this->db->select('lokasi')->from('kmg.perusahaan')->where("id_perusahaan", $id_perusahaan)->get()->row()->lokasi;
+            $hasil = $this->db->select('lokasi')->from('kumk6797_kmg.perusahaan')->where("id_perusahaan", $id_perusahaan)->get()->row()->lokasi;
             return $hasil;
         }
     }
@@ -322,7 +322,7 @@ class M_wuling_marketing_support extends CI_Model
             ->join('db_wuling.s_do sdo', 'sdo.id_prospek = c.id_prospek')
             ->join('db_wuling.s_survei sv', 'sv.id_prospek = c.id_prospek')
             ->join('db_wuling.adm_sales as', 'as.id_sales = c.sales')
-            ->join('kmg.karyawan k', 'c.sales = k.id_karyawan')
+            ->join('kumk6797_kmg.karyawan k', 'c.sales = k.id_karyawan')
             ->get();
 
         if ($query_survei->num_rows() > 0) {
@@ -411,7 +411,7 @@ class M_wuling_marketing_support extends CI_Model
         $join   = [
             'db_wuling.s_prospek p'   => "p.id_prospek = c.id_prospek",
             'db_wuling.adm_sales as'  => "as.id_sales = c.sales",
-            'kmg.karyawan k'          => "c.sales = k.id_karyawan",
+            'kumk6797_kmg.karyawan k'          => "c.sales = k.id_karyawan",
             'db_wuling.provinsi pro'  => "pro.id_provinsi = c.id_provinsi",
             'db_wuling.kabupaten kab' => "kab.id_kabupaten = c.id_kabupaten",
             'db_wuling.kecamatan kec' => "kec.id_kecamatan = c.id_kecamatan",
@@ -737,8 +737,8 @@ class M_wuling_marketing_support extends CI_Model
         $join   = [
             'db_wuling.adm_sales as'     => 'as.id_sales = c.sales',
             'db_wuling.s_suspect ss'     => 'ss.id_prospek = c.id_prospek',
-            'kmg.karyawan k'             => 'c.sales = k.id_karyawan',
-            'kmg.perusahaan p'            => 'p.id_perusahaan = as.id_perusahaan',
+            'kumk6797_kmg.karyawan k'             => 'c.sales = k.id_karyawan',
+            'kumk6797_kmg.perusahaan p'            => 'p.id_perusahaan = as.id_perusahaan',
             'db_wuling.s_test_drive td'    => 'td.id_prospek = c.id_prospek',
             'db_wuling.p_model pm'         => 'pm.id_model = td.id_model',
             'db_wuling.p_varian pv'     => 'pv.id_varian = td.id_varian',
@@ -747,7 +747,7 @@ class M_wuling_marketing_support extends CI_Model
             $where     = "YEAR(DATE_FORMAT(td.tgl_jam, '%Y-%m-%d'))='$tahun' AND MONTH(DATE_FORMAT(td.tgl_jam, '%Y-%m-%d'))='$bulan' AND as.id_perusahaan='$id_perusahaan' AND td.status='1' ";
             //$where 	= "td.status='1' AND YEAR(DATE_FORMAT(td.tgl_jam, '%Y-%m-%d'))='$tahun' AND MONTH(DATE_FORMAT(td.tgl_jam, '%Y-%m-%d'))='$bulan' AND as.id_perusahaan='$id_perusahaan'";
         } else {
-            //$id_perusahaan = q_data("GROUP_CONCAT(id_perusahaan)", 'kmg.perusahaan', ['id_brand' => 5])->result();
+            //$id_perusahaan = q_data("GROUP_CONCAT(id_perusahaan)", 'kumk6797_kmg.perusahaan', ['id_brand' => 5])->result();
             $id_perusahaan = $this->db->query("SELECT GROUP_CONCAT(id_perusahaan) as id FROM perusahaan WHERE id_brand='5'")->row('id');
             $where     = "YEAR(DATE_FORMAT(td.tgl_jam, '%Y-%m-%d'))='$tahun' AND MONTH(DATE_FORMAT(td.tgl_jam, '%Y-%m-%d'))='$bulan' AND as.id_perusahaan IN($id_perusahaan) AND td.status='1' ";
             //$where 	= "td.status='1' AND YEAR(DATE_FORMAT(td.tgl_jam, '%Y-%m-%d'))='$tahun' AND MONTH(DATE_FORMAT(td.tgl_jam, '%Y-%m-%d'))='$bulan' AND as.id_perusahaan IN($id_perusahaan)";

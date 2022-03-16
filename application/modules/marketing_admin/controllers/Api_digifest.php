@@ -313,7 +313,7 @@ class Api_digifest extends \MX_Controller
                         'kumk6797_kumalagroup.reg_customer rc' => "rc.id=c.customer",
                         'kumk6797_kumalagroup.customer cs' => "rc.id=cs.customer",
                         'db_honda.provinsi p' => "p.id_provinsi=c.provinsi",
-                        'kmg.perusahaan kp' => 'kp.id_perusahaan=c.cabang_tujuan',
+                        'kumk6797_kmg.perusahaan kp' => 'kp.id_perusahaan=c.cabang_tujuan',
                         'kumk6797_kumalagroup.brands b' => 'b.id=kp.id_brand'
                     ],
                     ['c.kode' => $kdinvdg[0]]
@@ -322,7 +322,7 @@ class Api_digifest extends \MX_Controller
                 $rekening = q_data_join(
                     "*",
                     $dbname . '.bank b',
-                    ['kmg.perusahaan p' => 'b.id_perusahaan=p.id_perusahaan'],
+                    ['kumk6797_kmg.perusahaan p' => 'b.id_perusahaan=p.id_perusahaan'],
                     "b.jenis = 'penr_unit' AND b.bank LIKE 'MCU%' AND b.bank NOT LIKE '%LAMA%'
                     AND b.bank NOT LIKE 'MCU HO%' AND b.id_perusahaan={$detail->cabang_tujuan}"
                 )->row();
@@ -371,7 +371,7 @@ class Api_digifest extends \MX_Controller
             $q = q_data_join(
                 "*",
                 $dbname . '.bank b',
-                ['kmg.perusahaan p' => 'b.id_perusahaan=p.id_perusahaan'],
+                ['kumk6797_kmg.perusahaan p' => 'b.id_perusahaan=p.id_perusahaan'],
                 "b.jenis = 'penr_unit' AND b.bank LIKE 'MCU%' AND b.bank NOT LIKE 'MCU HO%'",
                 null,
                 'b.id_perusahaan'

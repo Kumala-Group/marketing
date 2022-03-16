@@ -54,7 +54,7 @@ class Api_website extends CI_Controller
                 // $id_brand = q_data("*",'kumk6797_kumalagroup.brands', ['jenis' => $this->uri->segment(4)])->row()->id;
                 // $d['dealer'] = q_data("*",'kumk6797_kumalagroup.dealers', ['brand' => $id_brand])->result();
                 // $arr = [];
-                // $provinsi = q_data("*",'kmg.perusahaan', ['id_brand' => $id_brand],[], "id_provinsi")->result();
+                // $provinsi = q_data("*",'kumk6797_kmg.perusahaan', ['id_brand' => $id_brand],[], "id_provinsi")->result();
                 // foreach ($provinsi as $v) {
                 //     $arr['id'] = $v->id_provinsi;
                 //     $arr['provinsi'] = q_data("*",'db_honda.provinsi', ['id_provinsi' => $v->id_provinsi])->row()->nama;

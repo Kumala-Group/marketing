@@ -20,7 +20,7 @@ class Aktivitas_prospek extends CI_Controller
             } else {
                 $d['content'] = "pages/marketing_support/wuling/aktivitas_prospek";
                 $d['index'] = $index;
-                $d['lokasi'] = q_data("*", 'kmg.perusahaan', ['id_brand' => 5])->result();
+                $d['lokasi'] = q_data("*", 'kumk6797_kmg.perusahaan', ['id_brand' => 5])->result();
                 $this->load->view('index', $d);
             }
         }
@@ -108,7 +108,7 @@ class Aktivitas_prospek extends CI_Controller
             $output .= '<td class="center">' . $nama . '</td>';
         }
         $output .= '</tr></thead><tbody>';
-        $q_sales = $this->db->select('sl.id_sales,ats.nama_team,k.nama_karyawan')->from('db_wuling.adm_sales sl')->join('kmg.karyawan k', 'sl.id_sales = k.id_karyawan')->join('db_wuling.adm_team_supervisor ats', 'sl.id_leader = ats.id_team_supervisor')->where("sl.status_aktif='A' AND sl.id_perusahaan='$id_perusahaan' AND sl.status_leader='n'")->group_by('sl.id_sales')->order_by('sl.id_leader')->get();
+        $q_sales = $this->db->select('sl.id_sales,ats.nama_team,k.nama_karyawan')->from('db_wuling.adm_sales sl')->join('kumk6797_kmg.karyawan k', 'sl.id_sales = k.id_karyawan')->join('db_wuling.adm_team_supervisor ats', 'sl.id_leader = ats.id_team_supervisor')->where("sl.status_aktif='A' AND sl.id_perusahaan='$id_perusahaan' AND sl.status_leader='n'")->group_by('sl.id_sales')->order_by('sl.id_leader')->get();
         foreach ($q_sales->result() as $dt) {
             $output .= '<tr><td class="center">' . $dt->nama_karyawan . '</td>';
             $output .= '<td class="center">' . $dt->nama_team . '</td>';

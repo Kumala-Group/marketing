@@ -18,7 +18,7 @@ class Master_survei_do extends CI_Controller
 			} else {
 				$d['content'] = "pages/marketing_support/wuling/master_survei_do";
 				$d['index']  = $index;
-				$d['lokasi'] = q_data("*", 'kmg.perusahaan', ['id_brand' => 5])->result();
+				$d['lokasi'] = q_data("*", 'kumk6797_kmg.perusahaan', ['id_brand' => 5])->result();
 				$this->load->view('index', $d);
 			}
 		}
@@ -243,7 +243,7 @@ class Master_survei_do extends CI_Controller
 		$this->_format_excel($objget);
 		$objget->setTitle("Master");
 		$objset;
-		$nama_perusahaan = empty($id_perusahaan) ? "_(ALL)" : "_(" . q_data("lokasi", 'kmg.perusahaan', ['id_perusahaan' => $id_perusahaan])->row('lokasi') . ")";
+		$nama_perusahaan = empty($id_perusahaan) ? "_(ALL)" : "_(" . q_data("lokasi", 'kumk6797_kmg.perusahaan', ['id_perusahaan' => $id_perusahaan])->row('lokasi') . ")";
 		$filename = "Master-Survei-DO$nama_perusahaan" . "_" . date("Y-m-d") . ".xls";
 		header('Content-Type: application/vnd.ms-excel');
 		header('Content-Disposition: attachment;filename="' . $filename . '"');

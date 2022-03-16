@@ -95,7 +95,7 @@ class M_hino_laporan_survei_do extends CI_Model
 				// ->join('db_hino.s_do sdo', 'sdo.id_prospek = c.id_prospek')
 				// ->join('db_hino.s_survei sv', 'sv.id_prospek = c.id_prospek')
 				// ->join('db_hino.adm_sales as', 'as.id_sales = c.sales')
-				// ->join('kmg.karyawan k', 'c.sales = k.id_karyawan')
+				// ->join('kumk6797_kmg.karyawan k', 'c.sales = k.id_karyawan')
 				// ->where('db')
 				// ->get();	
 					
@@ -177,7 +177,7 @@ class M_hino_laporan_survei_do extends CI_Model
 	{
 		$hasil = '';
 		if (!empty($id_perusahaan)) {
-			$hasil = $this->db->select('lokasi')->from('kmg.perusahaan')->where("id_perusahaan", $id_perusahaan)->get()->row()->lokasi;
+			$hasil = $this->db->select('lokasi')->from('kumk6797_kmg.perusahaan')->where("id_perusahaan", $id_perusahaan)->get()->row()->lokasi;
 		}
 		return $hasil;
 	}

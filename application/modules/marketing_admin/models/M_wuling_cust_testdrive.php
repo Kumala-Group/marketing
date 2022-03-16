@@ -55,8 +55,8 @@ class M_wuling_cust_testdrive extends CI_Model {
         $join   = [
 			'db_wuling.adm_sales as' 	=> 'as.id_sales = c.sales',
 	 		'db_wuling.s_suspect ss' 	=> 'ss.id_prospek = c.id_prospek',
-			'kmg.karyawan k' 			=> 'c.sales = k.id_karyawan',
-			'kmg.perusahaan p'			=> 'p.id_perusahaan = as.id_perusahaan',
+			'kumk6797_kmg.karyawan k' 			=> 'c.sales = k.id_karyawan',
+			'kumk6797_kmg.perusahaan p'			=> 'p.id_perusahaan = as.id_perusahaan',
 	 		'db_wuling.s_test_drive td'	=> 'td.id_prospek = c.id_prospek',
 	 		'db_wuling.p_model pm' 		=> 'pm.id_model = td.id_model',
 			'db_wuling.p_varian pv' 	=> 'pv.id_varian = td.id_varian',			           
@@ -65,7 +65,7 @@ class M_wuling_cust_testdrive extends CI_Model {
 			$where 	= "YEAR(DATE_FORMAT(td.tgl_jam, '%Y-%m-%d'))='$tahun' AND MONTH(DATE_FORMAT(td.tgl_jam, '%Y-%m-%d'))='$bulan' AND as.id_perusahaan='$id_perusahaan'";
 			//$where 	= "td.status='1' AND YEAR(DATE_FORMAT(td.tgl_jam, '%Y-%m-%d'))='$tahun' AND MONTH(DATE_FORMAT(td.tgl_jam, '%Y-%m-%d'))='$bulan' AND as.id_perusahaan='$id_perusahaan'";
 		} else {
-			//$id_perusahaan = q_data("GROUP_CONCAT(id_perusahaan)", 'kmg.perusahaan', ['id_brand' => 5])->result();
+			//$id_perusahaan = q_data("GROUP_CONCAT(id_perusahaan)", 'kumk6797_kmg.perusahaan', ['id_brand' => 5])->result();
 			$id_perusahaan = $this->db->query("SELECT GROUP_CONCAT(id_perusahaan) as id FROM perusahaan WHERE id_brand='5'")->row('id');
 			$where 	= "YEAR(DATE_FORMAT(td.tgl_jam, '%Y-%m-%d'))='$tahun' AND MONTH(DATE_FORMAT(td.tgl_jam, '%Y-%m-%d'))='$bulan' AND as.id_perusahaan IN($id_perusahaan)";
 			//$where 	= "td.status='1' AND YEAR(DATE_FORMAT(td.tgl_jam, '%Y-%m-%d'))='$tahun' AND MONTH(DATE_FORMAT(td.tgl_jam, '%Y-%m-%d'))='$bulan' AND as.id_perusahaan IN($id_perusahaan)";
@@ -116,8 +116,8 @@ class M_wuling_cust_testdrive extends CI_Model {
 			->from('db_wuling.s_customer c')
 			->join('db_wuling.adm_sales as', 'as.id_sales = c.sales')
 			->join('db_wuling.s_suspect ss', 'ss.id_prospek = c.id_prospek')
-			->join('kmg.karyawan k', 'c.sales = k.id_karyawan')
-			->join('kmg.perusahaan p', 'p.id_perusahaan=k.id_perusahaan')
+			->join('kumk6797_kmg.karyawan k', 'c.sales = k.id_karyawan')
+			->join('kumk6797_kmg.perusahaan p', 'p.id_perusahaan=k.id_perusahaan')
 			->join('db_wuling.s_test_drive td', 'td.id_prospek = c.id_prospek')
 			->join('db_wuling.p_model pm', 'pm.id_model = td.id_model')			
 			->join('db_wuling.p_varian v', 'v.id_varian = td.id_varian')			

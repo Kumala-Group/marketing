@@ -28,7 +28,7 @@ class M_wuling_dl_customer extends CI_Model
                                     dl.brand_lain,
                                     sc.nama_status_customer');
         $this->datatables->from('db_wuling.digital_leads_customer as dl');
-        $this->datatables->join('kmg.perusahaan p', 'dl.id_perusahaan = p.id_perusahaan', 'LEFT');
+        $this->datatables->join('kumk6797_kmg.perusahaan p', 'dl.id_perusahaan = p.id_perusahaan', 'LEFT');
         $this->datatables->join('db_wuling.regional r', 'dl.id_perusahaan = r.id_perusahaan', 'LEFT');
         $this->datatables->join('db_wuling.dl_status_customer sc', 'dl.id_status_customer = sc.id_status_customer', 'LEFT');
 
