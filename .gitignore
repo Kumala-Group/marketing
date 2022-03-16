@@ -22,3 +22,5 @@ application/logs/*
 
 #environment
 **M_marketing.php
+application/config/database.php
+application/config/config.php
