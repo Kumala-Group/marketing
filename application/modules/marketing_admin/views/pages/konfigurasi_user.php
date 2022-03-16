@@ -21,14 +21,9 @@
 							</li>
 							<li class="nav-item">
 								<a class="nav-link" data-toggle="tab" href="#tab2">
-									<p class="card-title m-0">Aktif</p>
+									<p class="card-title m-0">List</p>
 								</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link" data-toggle="tab" href="#tab3">
-									<p class="card-title m-0">Non Aktif</p>
-								</a>
-							</li>
+							</li>							
 						</ul>
 						<div class="tab-content px-1 pt-1">
 							<div class="tab-pane active" id="tab1">
@@ -54,7 +49,7 @@
 													</select>
 												</div> -->
 												<div class="form-group mb-1">
-													<input type="password" id="password" name="password" class="form-control" placeholder="Password" required autocomplete="off" readonly>
+													<input type="password" id="password" name="password" class="form-control" placeholder="Password" required autocomplete="off" readonly hidden>
 												</div>
 												<!-- <div class="form-group mb-1">
 													<input type="password" id="r_password" name="r_password" class="form-control" placeholder="Ulangi Password" required autocomplete="off">
@@ -83,110 +78,11 @@
 									</div>
 								</form>
 							</div>
-							<div class="tab-pane" id="tab2">
-								<!-- <div class="table-responsive"> -->
-									<!-- <table class="table table-sm table_aplikasi" id="table_user_aktif"> -->
-									<table id="table_user_aktif" class="table stripe hover table-bordered nowrap">	
-										<!-- <thead>
-											<tr>
-												<th>Status</th>
-												<th>NIK</th>
-												<th>Username</th>
-												<th>Profil</th>
-												<th>Nama</th>
-												<th>Jabatan</th>
-												<th>Perusahaan</th>
-												<th>Aksi</th>
-											</tr>
-										</thead>
-										<tbody>
-											<?php if (!empty($on)) foreach ($on as $r) : ?>
-												<tr>
-													<td>
-														<?php if ($r['nama_level'] == "IT Kumala" && $this->session->userdata('level') == 2) {
-														} else { ?>
-															<div class="form-group mb-0">
-																<input type="checkbox" class="form-control" onclick="update_status(<?= $r['id'] ?>, $(this).val())" <?= $r['status_aktif'] == "on" ? 'value="off" checked' : 'value="on"' ?>>
-															</div>
-														<?php  } ?>
-													</td>
-													<td><?= $r['nik'] ?></td>
-													<td><?= $r['username'] ?></td>
-													<td><?= $r['nama_level'] ?></td>
-													<td><?= $r['nama_lengkap'] ?></td>
-													<td><?= $r['nama_jabatan'] ?></td>
-													<td><?= $r['perusahaan'] ?></td>
-													<td>
-														<div class="form-group mb-0">
-															<div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-																<?php if ($r['nama_level'] == "IT Kumala" && $this->session->userdata('level') == 2) {
-																} else { ?>
-																	<button type="button" onclick="edit_data(<?= $r['id'] ?>);" class="btn btn-info"><i class="icon-ios-compose-outline"></i></button>
-																<?php  }
-																if ($this->session->userdata('level') == 1) : ?>
-																	<button type="button" onclick="hapus_data(<?= $r['id'] ?>,'<?= $r['username'] ?>');" class="btn btn-danger"><i class="icon-ios-trash-outline"></i></button>
-																<?php endif ?>
-															</div>
-														</div>
-													</td>
-												</tr>
-											<?php endforeach ?>
-										</tbody> -->
-									</table>
-								<!-- </div> -->
+							<div class="tab-pane" id="tab2">								
+								<table id="table_users" class="table stripe hover table-bordered nowrap">									
+								</table>
 							</div>
-							<div class="tab-pane" id="tab3">
-								<!-- <div class="table-responsive"> -->
-									<!-- <table class="table table-sm table_aplikasi" id="table_user_tidak_aktif"> -->
-									<table id="table_user_tidak_aktif" class="table stripe hover table-bordered nowrap">	
-										<!-- <thead>
-											<tr>
-												<th>Status</th>
-												<th>NIK</th>
-												<th>Username</th>
-												<th>Profil</th>
-												<th>Nama</th>
-												<th>Jabatan</th>
-												<th>Perusahaan</th>
-												<th>Aksi</th>
-											</tr>
-										</thead>
-										<tbody>
-											<?php if (!empty($off)) foreach ($off as $r) : ?>
-												<tr>
-													<td>
-														<?php if ($r['nama_level'] == "IT Kumala" && $this->session->userdata('level') == 2) {
-														} else { ?>
-															<div class="form-group mb-0">
-																<input type="checkbox" class="form-control" onclick="update_status(<?= $r['id'] ?>, $(this).val())" <?= $r['status_aktif'] == "on" ? 'value="off" checked' : 'value="on"' ?>>
-															</div>
-														<?php  } ?>
-													</td>
-													<td><?= $r['nik'] ?></td>
-													<td><?= $r['username'] ?></td>
-													<td><?= $r['nama_level'] ?></td>
-													<td><?= $r['nama_lengkap'] ?></td>
-													<td><?= $r['nama_jabatan'] ?></td>
-													<td><?= $r['perusahaan'] ?></td>
-													<td>
-														<div class="form-group mb-0">
-															<div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-																<?php if ($r['nama_level'] == "IT Kumala" && $this->session->userdata('level') == 2) {
-																} else { ?>
-																	<button type="button" onclick="edit_data(<?= $r['id'] ?>);" class="btn btn-info"><i class="icon-ios-compose-outline"></i></button>
-																<?php  }
-																if ($this->session->userdata('level') == 1) : ?>
-																	<button type="button" onclick="hapus_data(<?= $r['id'] ?>,'<?= $r['username'] ?>');" class="btn btn-danger"><i class="icon-ios-trash-outline"></i></button>
-																<?php endif ?>
-															</div>
-														</div>
-													</td>
-												</tr>
-											<?php endforeach ?>
-										</tbody> -->
-									</table>
-								<!-- </div> -->
-							</div>
+							
 						</div>
 					</div>
 				</div>
@@ -232,11 +128,6 @@
 	// 	//$("#username").val(nik);
 	// });
 
-	$('#btn-generate').click(function(e){
-		e.preventDefault();
-		generate_username();
-		generate_password();
-	});
 	
 	var form = $('#form');
 	$('#submit').click(function(e) {
@@ -244,7 +135,7 @@
 		var password = $('#password').val();
 		//var r_password = $('#r_password').val();
 		//if (password == r_password) {
-		if (password != '') {
+		//if (password != '') {
 			$('#coverage').val(coverage.toString());
 			$('#akses_menu').val(val.toString());
 			var data = form.serialize();
@@ -265,7 +156,7 @@
 					});
 				});
 			}
-		} else swal("", "Password tidak boleh kosong!", "error");
+		//} else swal("", "Password tidak boleh kosong!", "error");
 	});
 
 	function update_status(id, status) {
@@ -337,8 +228,7 @@
 				}, function() {
 					swal("", "User berhasil dihapus!", "success").then(function() {
 						//location.reload();
-						table_user_aktif.ajax.reload(null,false);
-						table_user_tidak_aktif.ajax.reload(null,false);
+						table_users.ajax.reload(null,false);						
 					});
 				});
 			}
@@ -412,6 +302,9 @@
 					username = suku_kata[0].substring(0, 1) + suku_kata[1].substring(0, 2);					
 					break;
 				case 3:
+				case 4:
+				case 5: 
+				case 6:
 					username = suku_kata[0].substring(0, 1) + suku_kata[1].substring(0, 1) + suku_kata[2].substring(0, 1);					
 					break;
 				default:
@@ -438,18 +331,19 @@
 	}
 
 	$(document).ready(function() {
+		
 		//datatable10
 		$.fn.dataTable.ext.errMode = 'none';
-		table_user_aktif = $("#table_user_aktif").DataTable({
+		table_users = $("#table_users").DataTable({
 			serverSide: true,
 			processing: true,
 			destroy: true,
 			order: [],
 			autoWidth: false,
-			pagingType: 'simple', 
+			pagingType: 'simple_numbers', 
 			ajax: {
 				type: "POST",
-				url: "<?= site_url('konfigurasi_user/get_user_aktif') ?>",				
+				url: "<?= site_url('konfigurasi_user/get_users') ?>",				
 			},
 			language: {
 				"processing": "Memproses, silahkan tunggu...",
@@ -470,7 +364,22 @@
 					data: "nama_lengkap",
 					title: "Nama Lengkap",
 					className: "dt-head-center",
-				},						
+				},
+				{
+					data: "status_aktif",
+					title: "Status Aktif",
+					width: "60px",
+					className: "dt-body-center",
+					render: function(data, type, row, meta) {
+						let html = '';
+						if (data == 'on') {
+							html = `<input data-id="${row.id}" type="checkbox" data-size="small" checked class="switchery sw-status"></input><span class="lbl"></span>`;
+						} else {
+							html = `<input data-id="${row.id}" type="checkbox" data-size="small" class="switchery sw-status"></input><span class="lbl"></span>`;
+						}
+						return html;
+					}
+				},
 				{
 					data: "id",
 					title: "Aksi",
@@ -485,73 +394,91 @@
 						return html;
 					},
 				},				
-			],				
+			],
+			drawCallback: function(settings, json) {
+                this.api().rows().every(function(rowIdx, tableLoop, rowLoop) {
+                    this.nodes().to$().find('.switchery').each(function(i, e) {
+                        var switchery = new Switchery(e, {
+                            color: '#3BAFDA',
+							size: 'small',
+                        })
+                    })
+                })
+            },
 			initComplete: function(settings, json) {			
-				$("#table_user_aktif").wrap("<div style='overflow:auto; width:100%;position:relative;'></div>");
-				
-
+				$("#table_users").wrap("<div style='overflow:auto; width:100%;position:relative;'></div>");				
 				$("#cboxLoadingGraphic").append("<i class='icon-spinner orange'></i>"); //let's add a custom loading icon
 			},
 		}).on('error.dt', function(e, settings, techNote, message) {
 			pesan('error', message);
 			console.log('Error DataTables: ', message);
-		}); //table_user_aktif	
-		table_user_tidak_aktif = $("#table_user_tidak_aktif").DataTable({
-			serverSide: true,
-			processing: true,
-			destroy: true,
-			order: [],
-			autoWidth: false,
-			pagingType: 'simple', 
-			ajax: {
-				type: "POST",
-				url: "<?= site_url('konfigurasi_user/get_user_non_aktif') ?>",				
-			},
-			language: {
-				"processing": "Memproses, silahkan tunggu...",
-				"emptyTable": "Data masih kosong..."
-			},
-			columns: [
-				{
-					data: "nik",
-					title: "NIK",	
-					className: "dt-head-center",
-				},
-				{
-					data: "username",
-					title: "Username",
-					className: "dt-head-center",	
-				},
-				{
-					data: "nama_lengkap",
-					title: "Nama Lengkap",
-					className: "dt-head-center",
-				},						
-				{
-					data: "id",
-					title: "Aksi",
-					className: "dt-body-center",
-					width: "70px",
-					orderable: false,
-					render: function ( data, type, row, meta ) {						
-						let html = '';
-						html = `<button type="button" onclick="edit_data('${data}');" class="btn btn-sm btn-info"><i class="icon-ios-compose"></i></button>
-								<button type="button" onclick="hapus_data('${data}','${row.username}');" class="btn btn-sm btn-danger"><i class="icon-trash2"></i></button>`;						
-						// return `<span style="text-align:center"><button type="button" onclick="hapus_data('${data}','${row.nama}');" class="btn btn-sm btn-danger"><i class="icon-trash2"></i></button></span>`;
-						return html;
-					},
-				},				
-			],				
-			initComplete: function(settings, json) {			
-				$("#table_user_tidak_aktif").wrap("<div style='overflow:auto; width:100%;position:relative;'></div>");
-				
+		}); //table_users	
+		
+	});//ready
 
-				$("#cboxLoadingGraphic").append("<i class='icon-spinner orange'></i>"); //let's add a custom loading icon
+	//function enable-disable user
+	$(document).on('change', '.sw-status', function() {
+		let id_user = $(this).data('id'),
+			//status = $(this).is(':checked');
+			status = $(this).is(':checked') === true ? 'on' : 'off';
+		$.ajax({
+			type: "POST",
+			//url: location,
+			url: "<?= base_url('konfigurasi_user/set_status') ?>",
+			data: {				
+				'id': id_user,
+				'status': status,
 			},
-		}).on('error.dt', function(e, settings, techNote, message) {
-			pesan('error', message);
-			console.log('Error DataTables: ', message);
-		}); //table_user_tidak_aktif	
+			dataType: "JSON",
+			success: function(result) {
+				if (result.status === true) {										
+					swal("", result.pesan, "success").then(function() {
+						table_users.ajax.reload(null, false);
+					});
+				} else {
+					swal("", result.pesan, "error").then(function() {
+						table_users.ajax.reload(null, false);
+					});
+				}
+			}
+		});
 	});
+
+	$('#btn-generate').click(function(e){
+		e.preventDefault();
+		generate_username();
+		generate_password();
+		let nama_lengkap = $('#nama_lengkap').val(),
+			nik = $('#nik').val(),
+			username = $('#username').val(),
+		 	password = $('#password').val();
+		$.ajax({
+			type: "POST",
+			//url: location,
+			url: "<?= base_url('konfigurasi_user/reset_password') ?>",
+			data: {			
+				'nama_lengkap': nama_lengkap,	
+				'nik': nik, 
+				'username': username, 
+				'password': password, 				
+			},
+			dataType: "JSON",
+			success: function(result) {
+				if (result.status === true) {										
+					swal(result.pesan + "\r\n"+nama_lengkap, "Username:"+ result.username + "\r\nPassword:"+ result.password, "success").then(function() {
+						location.reload();
+					});					
+					//location.reload();
+				} else {
+					swal(result.pesan, "", "error").then(function() {
+						location.reload();
+					});;
+					//location.reload();
+				}
+			}
+		});
+
+	});
+	
 
 </script>

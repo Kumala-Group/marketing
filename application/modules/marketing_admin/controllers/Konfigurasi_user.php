@@ -63,103 +63,56 @@ class Konfigurasi_user extends CI_Controller
 		}
 	}
 
-	public function get_user_aktif()
+	public function get_users()
 	{
 		$datatable = new Datatable;
 				
 		//* query utama *//		
 		$datatable->query = $this->db
-			->select("id, nik, username, nama_lengkap")
-			->from('kumalagroup.users')
-			->where('status_aktif','on');
+			->select("id, nik, username, nama_lengkap, status_aktif")
+			->from('kumalagroup.users');
 		
 		//* untuk filtering */		
 		$datatable->setColumns(
 			"id",
 			"nik",
 			"username",
-			"nama_lengkap"	
+			"nama_lengkap",
+			"status_aktif"	
 		);
 
 		//* untuk ordering by, kalo ndak dipake jangan dipanggil, komen saja
 		$datatable->orderBy('nik');
+		return $datatable->getJson();
 
 		//* output result datatable  
 		//* sudah format datatable_serverside
 		//* untuk langsung ke format json, gunakan getJson(); untuk langsung parsing ke view
-		$raw = $datatable->get();	
+		// $raw = $datatable->get();	
 		
-		//* untuk customisasi array */
-		//* datanya dibentuk ulang, terserah berapa field
-		//* pastikan untuk menyesuaikan dengan filtering setColumn
-        $recordsData = [];
-        foreach ($raw['data'] as $key => $value) {   			 									
-            $recordsData[] = [				
-                'id'       			=> $value->id,
-                'nik'       		=> $value->nik,
-                'username'       	=> $value->username,
-                'nama_lengkap'    	=> $value->nama_lengkap,				
-            ];
-        }
+		// //* untuk customisasi array */
+		// //* datanya dibentuk ulang, terserah berapa field
+		// //* pastikan untuk menyesuaikan dengan filtering setColumn
+        // $recordsData = [];
+        // foreach ($raw['data'] as $key => $value) {   			 									
+        //     $recordsData[] = [				
+        //         'id'       			=> $value->id,
+        //         'nik'       		=> $value->nik,
+        //         'username'       	=> $value->username,
+        //         'nama_lengkap'    	=> $value->nama_lengkap,				
+        //     ];
+        // }
 		
-        //* buat ulang response datatable_serverside
-        $response = [
-            'draw'            => $raw['draw'],
-            'recordsTotal'    => $raw['recordsTotal'],
-            'recordsFiltered' => $raw['recordsFiltered'],
-            'data'            => $recordsData
-        ];
-        return responseJson($response);
+        // //* buat ulang response datatable_serverside
+        // $response = [
+        //     'draw'            => $raw['draw'],
+        //     'recordsTotal'    => $raw['recordsTotal'],
+        //     'recordsFiltered' => $raw['recordsFiltered'],
+        //     'data'            => $recordsData
+        // ];
+        // return responseJson($response);
 	}
 
-	public function get_user_non_aktif()
-	{
-		$datatable = new Datatable;
-				
-		//* query utama *//		
-		$datatable->query = $this->db
-			->select("id, nik, username, nama_lengkap")
-			->from('kumalagroup.users')
-			->where('status_aktif','off');
-		
-		//* untuk filtering */		
-		$datatable->setColumns(
-			"id",
-			"nik",
-			"username",
-			"nama_lengkap"	
-		);
-
-		//* untuk ordering by, kalo ndak dipake jangan dipanggil, komen saja
-		$datatable->orderBy('nik');
-
-		//* output result datatable  
-		//* sudah format datatable_serverside
-		//* untuk langsung ke format json, gunakan getJson(); untuk langsung parsing ke view
-		$raw = $datatable->get();	
-		
-		//* untuk customisasi array */
-		//* datanya dibentuk ulang, terserah berapa field
-		//* pastikan untuk menyesuaikan dengan filtering setColumn
-        $recordsData = [];
-        foreach ($raw['data'] as $key => $value) {   			 									
-            $recordsData[] = [				
-                'id'       			=> $value->id,
-                'nik'       		=> $value->nik,
-                'username'       	=> $value->username,
-                'nama_lengkap'    	=> $value->nama_lengkap,				
-            ];
-        }
-		
-        //* buat ulang response datatable_serverside
-        $response = [
-            'draw'            => $raw['draw'],
-            'recordsTotal'    => $raw['recordsTotal'],
-            'recordsFiltered' => $raw['recordsFiltered'],
-            'data'            => $recordsData
-        ];
-        return responseJson($response);
-	}
 
 	function simpan($post)
 	{
@@ -175,7 +128,7 @@ class Konfigurasi_user extends CI_Controller
 				// 'id_level' 		=> $post['level'],
 				//'id_jabatan'	=> $q_user->row('id_jabatan'),
 				'coverage'		=> $post['coverage'],
-				'username'		=> $post['nik'],
+				'username'		=> $post['username'],
 				'password'		=> $hash,
 				'status_aktif'	=> 'on',
 				'tgl_insert'	=> date('Y-m-d H:i:s'),
@@ -201,12 +154,66 @@ class Konfigurasi_user extends CI_Controller
 		echo $status;
 	}
 
+	function reset_password()
+	{
+		$status		= false;
+		$pesan 		= 'Gagal Reset Password';
+		$nama_lengkap	= $this->input->post('nama_lengkap');
+		$nik  		= $this->input->post('nik');
+		$username 	= $this->input->post('username');
+		$password 	= $this->input->post('password');
+
+		$hash	= password_hash($password, PASSWORD_DEFAULT);		
+
+		$q_user = q_data("*", 'kumalagroup.users', ['nik' => $nik]);
+		if ($q_user->num_rows() == 0) {			
+			//user tidak ditemukan			
+			$pesan 		= 'Nik tidak ditemukan!';
+		} else {		
+			if (!empty($username) && !empty($password) && !empty($nama_lengkap) && !empty($nik)) {
+				$data = array(
+					'nama_lengkap'	=> $nama_lengkap,
+					'nik' 			=> $nik,
+					'username' 		=> $username,
+					'password' 		=> $hash,
+				);
+			}
+			$this->kumalagroup->update("users", $data, ['nik' => $nik]);
+			if ($this->kumalagroup->affected_rows() > 0 ) {
+				$status = true;
+				$pesan	= 'Berhasil update user';
+			}			
+		} 
+		
+		$result = ['status'=>$status,'pesan'=>$pesan, 'username'=>$username, 'password'=>$password];
+		responseJson($result);
+	}
+
 	function update($post)
 	{
 		$where['id'] = $post['id'];
 		$data['status_aktif'] = $post['status'];
 		$data['tgl_update'] = date('Y-m-d H:i:s');
 		$this->kumalagroup->update("users", $data, $where);
+	}
+
+	function set_status()
+	{
+		$id		= $this->input->post('id');
+		$status_aktif = $this->input->post('status');
+		$pesan	= 'Gagal update user';
+		$status	= false;		
+		
+		if(!empty($id) && !empty($status_aktif)) {			
+			$this->kumalagroup->update("users", ['status_aktif'=>$status_aktif], ['id'=>$id]);
+			if ($this->kumalagroup->affected_rows() > 0 ) {
+				$status = true;
+				$pesan	= 'Berhasil update user';
+			}
+		}
+
+		$result = ['status'=>$status,'pesan'=>$pesan];
+		responseJson($result);
 	}
 
 	function edit($post)

@@ -64,6 +64,9 @@
 	
 	<link rel="stylesheet" href="<?= base_url('assets/colorbox/colorbox.css')?>" />
 	<script src="<?= base_url('assets/colorbox/jquery.colorbox-min.js')?>"></script>
+
+	<!--switchery -->
+	<link rel="stylesheet" type="text/css" href="https://abpetkov.github.io/switchery/dist/switchery.min.css">
 	
 	
 	<style>
@@ -241,6 +244,9 @@
 	<script src="<?= base_url('assets/robust/app-assets/vendors/js/extensions/toastr.min.js') ?>"></script>
 	<script src="<?= base_url('assets/robust/app-assets/vendors/js/extensions/toastr-custom.js') ?>"></script>
 
+	<!--switchery -->		
+	<script src="https://abpetkov.github.io/switchery/dist/switchery.min.js"></script>	
+
 	
 
 	<script>
@@ -292,18 +298,19 @@
 			$.post("<?= base_url("notifikasi") ?>", {
 				'load': true
 			}, function(r) {
-				$('.counter').html('<a href="<?= base_url("notifikasi") ?>">' + r.count + " Baru</a>");
-				if (r.notifikasi == undefined) {
-					html = '<a href="javascript:void(0)" class="list-group-item"><p class="notification-text text-muted m-0">Tidak ada notifikasi untuk saat ini.</p></a>';
-					$('.dropdown-menu-footer').css('display', "none");
-				} else {
-					$.each(r.notifikasi, function(key, v) {
-						var status = v.status == 1 ? "text-muted" : "";
-						html += '<a href="javascript:void(0)" onclick="update_notifikasi(' + v.id + ',`<?= base_url() ?>' + v.link + '`);" class="list-group-item"><div class="media"><div class="media-body"><h6 class="media-heading ' + status + '">' + v.kategori + '</h6><p class="notification-text font-small-3 text-muted">' + v.deskripsi + '</p><small><time class="media-meta text-muted">' + v.time + '</time></small> </div> </div> </a>';
-					});
-					$('.dropdown-menu-footer').removeAttr("style");
-				}
-				$('#notifikasi').html(html);
+				//temporary ini biar ndak berat
+				// $('.counter').html('<a href="<?= base_url("notifikasi") ?>">' + r.count + " Baru</a>");
+				// if (r.notifikasi == undefined) {
+				// 	html = '<a href="javascript:void(0)" class="list-group-item"><p class="notification-text text-muted m-0">Tidak ada notifikasi untuk saat ini.</p></a>';
+				// 	$('.dropdown-menu-footer').css('display', "none");
+				// } else {
+				// 	$.each(r.notifikasi, function(key, v) {
+				// 		var status = v.status == 1 ? "text-muted" : "";
+				// 		html += '<a href="javascript:void(0)" onclick="update_notifikasi(' + v.id + ',`<?= base_url() ?>' + v.link + '`);" class="list-group-item"><div class="media"><div class="media-body"><h6 class="media-heading ' + status + '">' + v.kategori + '</h6><p class="notification-text font-small-3 text-muted">' + v.deskripsi + '</p><small><time class="media-meta text-muted">' + v.time + '</time></small> </div> </div> </a>';
+				// 	});
+				// 	$('.dropdown-menu-footer').removeAttr("style");
+				// }
+				// $('#notifikasi').html(html);
 			}, "json");
 		}
 
