@@ -24,13 +24,13 @@
                 ($index == 'konfigurasi_user') ? "active" : "",
                 base_url("konfigurasi_user")
             );
-            echo _child(
-                $menu_akses,
-                "User Profil",
-                "user_profil",
-                ($index == 'user_profil') ? "active" : "",
-                base_url("user_profil")
-            );
+            // echo _child(
+            //     $menu_akses,
+            //     "User Profil",
+            //     "user_profil",
+            //     ($index == 'user_profil') ? "active" : "",
+            //     base_url("user_profil")
+            // );
             echo "</ul></li>";
 
             // Dashboard

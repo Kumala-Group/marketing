@@ -11,10 +11,11 @@ class Berita extends CI_Controller
         parent::__construct();
         $this->load->model('m_marketing');
     }
+
     public function index()
     {
         $index = "berita";
-        if ($this->m_marketing->auth_login('admin_it,adm_mrktng', $index)) {
+        if ($this->m_marketing->auth_login('admin_it, adm_mrktng', $index)) {
             $post = $this->input->post();
             if ($post) {
                 if (!empty($post['simpan'])) $this->simpan($post);
@@ -36,11 +37,13 @@ class Berita extends CI_Controller
                 $d['carimobilku_berita'] = q_data("*", 'kumalagroup.beritas', ['website' => "carimobilku", 'type' => "berita"], "created_at")->result();
                 $d['carimobilku_promo']  = q_data("*", 'kumalagroup.beritas', ['website' => "carimobilku", 'type' => "promo"], "created_at")->result();
                 $d['carimobilku_tips']   = q_data("*", 'kumalagroup.beritas', ['website' => "carimobilku", 'type' => "tips"], "created_at")->result();
-                
+
                 $this->load->view('index', $d);
             }
         }
     }
+
+
     function simpan($post)
     {
         $status = 0;
@@ -96,6 +99,7 @@ class Berita extends CI_Controller
         }
         echo $status;
     }
+
     function edit($post)
     {
         $where['id'] = $post['id'];
@@ -108,6 +112,7 @@ class Berita extends CI_Controller
         // $d['description'] = $data->desc;
         echo json_encode($d);
     }
+
     function hapus($post)
     {
         $where['id'] = $post['id'];

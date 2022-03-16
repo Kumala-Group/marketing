@@ -40,7 +40,9 @@
                                 </a>
                             </li>
                         </ul>
+
                         <div class="tab-content px-1 pt-1">
+                            <!-- TAMBAH -->
                             <div class="tab-pane" id="tab1">
                                 <form id="form" class="form">
                                     <div class="form-body">
@@ -100,6 +102,7 @@
                                     </div>
                                 </form>
                             </div>
+                            <!-- start KUMALAGROUP tabs-->
                             <div class="tab-pane active" id="tab2">
                                 <ul class="nav nav-tabs">
                                     <li class="nav-item">
@@ -118,6 +121,7 @@
                                         </a>
                                     </li>
                                 </ul>
+                                <!-- start content tab -->
                                 <div class="tab-content px-1 pt-1">
                                     <div class="tab-pane active" id="child_tab2">
                                         <div class="table-responsive">
@@ -137,7 +141,7 @@
                                                             <td><?= $r->judul ?></td>
                                                             <td><?= ucwords($r->type) ?></td>
                                                             <td><?= substr(strip_tags($r->deskripsi), 0, 300) ?>...</td>
-                                                            <td><img src="<?= $img_server ?>assets/img_marketing/berita/<?= $r->gambar ?>" width="200px"></td>
+                                                            <td><img src="<?= $img_server ?>assets/img_marketing/berita/thumb/<?= $r->gambar ?>" width="200px"></td>
                                                             <td>
                                                                 <div class="form-group mb-0">
                                                                     <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
@@ -152,6 +156,7 @@
                                             </table>
                                         </div>
                                     </div>
+
                                     <div class="tab-pane" id="child_tab3">
                                         <div class="table-responsive">
                                             <table class="table table-sm table_aplikasi">
@@ -170,7 +175,7 @@
                                                             <td><?= $r->judul ?></td>
                                                             <td><?= ucwords($r->type) ?></td>
                                                             <td><?= substr(strip_tags($r->deskripsi), 0, 300) ?>...</td>
-                                                            <td><img src="<?= $img_server ?>assets/img_marketing/berita/<?= $r->gambar ?>" width="200px"></td>
+                                                            <td><img src="<?= $img_server ?>assets/img_marketing/berita/thumb/<?= $r->gambar ?>" width="200px"></td>
                                                             <td>
                                                                 <div class="form-group mb-0">
                                                                     <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
@@ -185,6 +190,7 @@
                                             </table>
                                         </div>
                                     </div>
+
                                     <div class="tab-pane" id="child_tab4">
                                         <div class="table-responsive">
                                             <table class="table table-sm table_aplikasi">
@@ -203,7 +209,7 @@
                                                             <td><?= $r->judul ?></td>
                                                             <td><?= ucwords($r->type) ?></td>
                                                             <td><?= substr(strip_tags($r->deskripsi), 0, 300) ?>...</td>
-                                                            <td><img src="<?= $img_server ?>assets/img_marketing/berita/<?= $r->gambar ?>" width="200px"></td>
+                                                            <td><img src="<?= $img_server ?>assets/img_marketing/berita/thumb/<?= $r->gambar ?>" width="200px"></td>
                                                             <td>
                                                                 <div class="form-group mb-0">
                                                                     <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
@@ -219,7 +225,11 @@
                                         </div>
                                     </div>
                                 </div>
+                                <!-- end content tab -->
                             </div>
+                            <!-- end KUMALAGROUP tabls -->
+
+                            <!-- start HONDA tabs -->
                             <div class="tab-pane" id="tab3">
                                 <ul class="nav nav-tabs">
                                     <li class="nav-item">
@@ -238,6 +248,7 @@
                                         </a>
                                     </li>
                                 </ul>
+                                <!-- start honda content tabs --> 
                                 <div class="tab-content px-1 pt-1">
                                     <div class="tab-pane active" id="child_tab5">
                                         <div class="table-responsive">
@@ -257,7 +268,7 @@
                                                             <td><?= $r->judul ?></td>
                                                             <td><?= ucwords($r->type) ?></td>
                                                             <td><?= substr(strip_tags($r->deskripsi), 0, 300) ?>...</td>
-                                                            <td><img src="<?= $img_server ?>assets/img_marketing/berita/<?= $r->gambar ?>" width="200px"></td>
+                                                            <td><img src="<?= $img_server ?>assets/img_marketing/berita/thumb/<?= $r->thumb ?>" width="200px"></td>
                                                             <td>
                                                                 <div class="form-group mb-0">
                                                                     <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
@@ -272,6 +283,7 @@
                                             </table>
                                         </div>
                                     </div>
+
                                     <div class="tab-pane" id="child_tab6">
                                         <div class="table-responsive">
                                             <table class="table table-sm table_aplikasi">
@@ -290,7 +302,7 @@
                                                             <td><?= $r->judul ?></td>
                                                             <td><?= ucwords($r->type) ?></td>
                                                             <td><?= substr(strip_tags($r->deskripsi), 0, 300) ?>...</td>
-                                                            <td><img src="<?= $img_server ?>assets/img_marketing/berita/<?= $r->gambar ?>" width="200px"></td>
+                                                            <td><img src="<?= $img_server ?>assets/img_marketing/berita/thumb/<?= $r->thumb ?>" width="200px"></td>
                                                             <td>
                                                                 <div class="form-group mb-0">
                                                                     <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
@@ -323,7 +335,7 @@
                                                             <td><?= $r->judul ?></td>
                                                             <td><?= ucwords($r->type) ?></td>
                                                             <td><?= substr(strip_tags($r->deskripsi), 0, 300) ?>...</td>
-                                                            <td><img src="<?= $img_server ?>assets/img_marketing/berita/<?= $r->gambar ?>" width="200px"></td>
+                                                            <td><img src="<?= $img_server ?>assets/img_marketing/berita/thumb/<?= $r->thumb ?>" width="200px"></td>
                                                             <td>
                                                                 <div class="form-group mb-0">
                                                                     <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
@@ -339,7 +351,11 @@
                                         </div>
                                     </div>
                                 </div>
+                                <!-- end honda content tabs --> 
                             </div>
+                            <!-- end HONDA tabs -->
+                            
+                            <!-- MAZDA -->
                             <div class="tab-pane" id="tab4">
                                 <ul class="nav nav-tabs">
                                     <li class="nav-item">
@@ -358,8 +374,8 @@
                                         </a>
                                     </li>
                                 </ul>
-                                <div class="tab-content px-1 pt-1">
-                                    
+                                <!-- start mazda content tabs -->
+                                <div class="tab-content px-1 pt-1">                                    
                                     <div class="tab-pane active" id="child_tab8">
                                         <div class="table-responsive">
                                             <table class="table table-sm table_aplikasi">
@@ -378,7 +394,7 @@
                                                             <td><?= $r->judul ?></td>
                                                             <td><?= ucwords($r->type) ?></td>
                                                             <td><?= substr(strip_tags($r->deskripsi), 0, 300) ?>...</td>
-                                                            <td><img src="<?= $img_server ?>assets/img_marketing/berita/<?= $r->gambar ?>" width="200px"></td>
+                                                            <td><img src="<?= $img_server ?>assets/img_marketing/berita/thumb/<?= $r->thumb ?>" width="200px"></td>
                                                             <td>
                                                                 <div class="form-group mb-0">
                                                                     <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
@@ -411,7 +427,7 @@
                                                             <td><?= $r->judul ?></td>
                                                             <td><?= ucwords($r->type) ?></td>
                                                             <td><?= substr(strip_tags($r->deskripsi), 0, 300) ?>...</td>
-                                                            <td><img src="<?= $img_server ?>assets/img_marketing/berita/<?= $r->gambar ?>" width="200px"></td>
+                                                            <td><img src="<?= $img_server ?>assets/img_marketing/berita/thumb/<?= $r->thumb ?>" width="200px"></td>
                                                             <td>
                                                                 <div class="form-group mb-0">
                                                                     <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
@@ -444,7 +460,7 @@
                                                             <td><?= $r->judul ?></td>
                                                             <td><?= ucwords($r->type) ?></td>
                                                             <td><?= substr(strip_tags($r->deskripsi), 0, 300) ?>...</td>
-                                                            <td><img src="<?= $img_server ?>assets/img_marketing/berita/<?= $r->gambar ?>" width="200px"></td>
+                                                            <td><img src="<?= $img_server ?>assets/img_marketing/berita/thumb/<?= $r->thumb ?>" width="200px"></td>
                                                             <td>
                                                                 <div class="form-group mb-0">
                                                                     <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
@@ -460,7 +476,10 @@
                                         </div>
                                     </div>
                                 </div>
+                                <!-- end mazda content tabs -->
                             </div>
+
+                            <!-- CARIMOBILKU -->
                             <div class="tab-pane" id="tab5">
                                 <ul class="nav nav-tabs">
                                     <li class="nav-item">
@@ -479,8 +498,8 @@
                                         </a>
                                     </li>
                                 </ul>
-                                <div class="tab-content px-1 pt-1">
-                                    
+                                <!-- start carimobilku content tabs -->
+                                <div class="tab-content px-1 pt-1">                                    
                                     <div class="tab-pane active" id="child_tab11">
                                         <div class="table-responsive">
                                             <table class="table table-sm table_aplikasi">
@@ -499,7 +518,7 @@
                                                             <td><?= $r->judul ?></td>
                                                             <td><?= ucwords($r->type) ?></td>
                                                             <td><?= substr(strip_tags($r->deskripsi), 0, 300) ?>...</td>
-                                                            <td><img src="<?= $img_server ?>assets/img_marketing/berita/<?= $r->gambar ?>" width="200px"></td>
+                                                            <td><img src="<?= $img_server ?>assets/img_marketing/berita/thumb/<?= $r->thumb ?>" width="200px"></td>
                                                             <td>
                                                                 <div class="form-group mb-0">
                                                                     <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
@@ -532,7 +551,7 @@
                                                             <td><?= $r->judul ?></td>
                                                             <td><?= ucwords($r->type) ?></td>
                                                             <td><?= substr(strip_tags($r->deskripsi), 0, 300) ?>...</td>
-                                                            <td><img src="<?= $img_server ?>assets/img_marketing/berita/<?= $r->gambar ?>" width="200px"></td>
+                                                            <td><img src="<?= $img_server ?>assets/img_marketing/berita/thumb/<?= $r->thumb ?>" width="200px"></td>
                                                             <td>
                                                                 <div class="form-group mb-0">
                                                                     <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
@@ -565,7 +584,7 @@
                                                             <td><?= $r->judul ?></td>
                                                             <td><?= ucwords($r->type) ?></td>
                                                             <td><?= substr(strip_tags($r->deskripsi), 0, 300) ?>...</td>
-                                                            <td><img src="<?= $img_server ?>assets/img_marketing/berita/<?= $r->gambar ?>" width="200px"></td>
+                                                            <td><img src="<?= $img_server ?>assets/img_marketing/berita/thumb/<?= $r->thumb ?>" width="200px"></td>
                                                             <td>
                                                                 <div class="form-group mb-0">
                                                                     <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
@@ -581,6 +600,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                <!-- end carimobilku content tabs -->
                             </div>
                         </div>
 
@@ -590,10 +610,14 @@
         </div>
     </div>
 </section>
+
+
 <script type="text/javascript">
+
     $("#judul").keyup(function() {
         $('#submit').removeAttr('disabled');
     });
+
     $('#submit').click(function(e) {
         var breakout = false;
         e.preventDefault();
