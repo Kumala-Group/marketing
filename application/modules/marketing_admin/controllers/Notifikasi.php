@@ -20,8 +20,8 @@ class Notifikasi extends CI_Controller
 			} else {
 				$d['content'] = "component/notifikasi";
 				$d['index'] = "";
-				$d['read'] = q_data("*", 'kumalagroup.notification', ['status' => 1], "created_at")->result();
-				$d['unread'] = q_data("*", 'kumalagroup.notification', ['status' => 0], "created_at")->result();
+				$d['read'] = q_data("*", 'kumk6797_kumalagroup.notification', ['status' => 1], "created_at")->result();
+				$d['unread'] = q_data("*", 'kumk6797_kumalagroup.notification', ['status' => 0], "created_at")->result();
 				$this->load->view('index', $d);
 			}
 		}
@@ -37,20 +37,20 @@ class Notifikasi extends CI_Controller
 	{
 		$where['id'] = $post['id'];
 		$data['status'] = 1;
-		$q = q_data("*", 'kumalagroup.notification', $where)->row()->status;
+		$q = q_data("*", 'kumk6797_kumalagroup.notification', $where)->row()->status;
 		if ($q == 0) $this->kumalagroup->update('notification', $data, $where);
 	}
 
 	function read_all()
 	{
-		//$q = q_data("*", 'kumalagroup.notification', $where)->row()->status;
+		//$q = q_data("*", 'kumk6797_kumalagroup.notification', $where)->row()->status;
 		$this->kumalagroup->update('notification', ['status'=>1], ['status'=>0]);
 		redirect(base_url().'notifikasi');
 	}
 
 	function load()
 	{
-		$data = q_data("*", 'kumalagroup.notification', [], "created_at")->result();
+		$data = q_data("*", 'kumk6797_kumalagroup.notification', [], "created_at")->result();
 		foreach ($data as $v) {
 			$arr['id'] = $v->id;
 			$arr['kategori'] = $v->judul;
@@ -66,7 +66,7 @@ class Notifikasi extends CI_Controller
 			elseif (floor($diff->days / 7) > 0) $arr['time'] = floor($diff->days / 7) . " minggu yang lalu";
 			$d['notifikasi'][] = $arr;
 		}
-		$d['count'] = q_data("*", 'kumalagroup.notification', ['status' => 0])->num_rows();
+		$d['count'] = q_data("*", 'kumk6797_kumalagroup.notification', ['status' => 0])->num_rows();
 		echo json_encode($d);
 	}
 }

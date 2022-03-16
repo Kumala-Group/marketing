@@ -25,34 +25,34 @@ class Konfigurasi_user extends CI_Controller
 			} else {
 				$d['content'] 	= "pages/konfigurasi_user";
 				$d['index']	 	= $index;
-				$d['level'] 	= q_data("*", 'kumalagroup.p_level', [])->result();
+				$d['level'] 	= q_data("*", 'kumk6797_kumalagroup.p_level', [])->result();
 				$d['hino'] 		= q_data("*", 'kmg.perusahaan', ['id_brand' => 3])->result();
 				$d['honda'] 	= q_data("*", 'kmg.perusahaan', ['id_brand' => 17])->result();
 				$d['mazda'] 	= q_data("*", 'kmg.perusahaan', ['id_brand' => 4])->result();
 				$d['mercedes'] 	= q_data("*", 'kmg.perusahaan', ['id_brand' => 18])->result();
 				$d['wuling'] 	= q_data("*", 'kmg.perusahaan', ['id_brand' => 5])->result();
-				$on  			= q_data("*", 'kumalagroup.users', ['status_aktif' => "on"])->result();
+				$on  			= q_data("*", 'kumk6797_kumalagroup.users', ['status_aktif' => "on"])->result();
 				foreach ($on as $v) {
 					$p = q_data("*", 'kmg.perusahaan', ['id_perusahaan' => $v->id_perusahaan])->row();
 					$arr['id'] 				= $v->id;
 					$arr['status_aktif'] 	= $v->status_aktif;
 					$arr['nik'] 			= $v->nik;
 					$arr['username'] 		= $v->username;
-					$arr['nama_level'] 		= '-';//q_data("*", 'kumalagroup.p_level', ['id' => $v->id_level])->row()->nama_level;
+					$arr['nama_level'] 		= '-';//q_data("*", 'kumk6797_kumalagroup.p_level', ['id' => $v->id_level])->row()->nama_level;
 					$arr['nama_lengkap'] 	= $v->nama_lengkap;
 					$arr['nama_jabatan'] 	= '-';//q_data("*", 'kmg.jabatan', ['id_jabatan' => $v->id_jabatan])->row()->nama_jabatan;
 					$arr['perusahaan'] 		= '-';// "$p->singkat-$p->lokasi";
 					$d['on'][] = $arr;
 				}
 				$arr = [];
-				$off = q_data("*", 'kumalagroup.users', ['status_aktif' => "off"])->result();
+				$off = q_data("*", 'kumk6797_kumalagroup.users', ['status_aktif' => "off"])->result();
 				foreach ($off as $v) {
 					$p = q_data("*", 'kmg.perusahaan', ['id_perusahaan' => $v->id_perusahaan])->row();
 					$arr['id'] 				= $v->id;
 					$arr['status_aktif'] 	= $v->status_aktif;
 					$arr['nik'] 			= $v->nik;
 					$arr['username'] 		= $v->username;
-					$arr['nama_level'] 		= '-';//q_data("*", 'kumalagroup.p_level', ['id' => $v->id_level])->row()->nama_level;
+					$arr['nama_level'] 		= '-';//q_data("*", 'kumk6797_kumalagroup.p_level', ['id' => $v->id_level])->row()->nama_level;
 					$arr['nama_lengkap'] 	= $v->nama_lengkap;
 					$arr['nama_jabatan'] 	= '-';//q_data("*", 'kmg.jabatan', ['id_jabatan' => $v->id_jabatan])->row()->nama_jabatan;
 					$arr['perusahaan'] 		= '-';//"$p->singkat-$p->lokasi";
@@ -70,7 +70,7 @@ class Konfigurasi_user extends CI_Controller
 		//* query utama *//		
 		$datatable->query = $this->db
 			->select("id, nik, username, nama_lengkap, status_aktif")
-			->from('kumalagroup.users');
+			->from('kumk6797_kumalagroup.users');
 		
 		//* untuk filtering */		
 		$datatable->setColumns(
@@ -119,7 +119,7 @@ class Konfigurasi_user extends CI_Controller
 		$status = 0;
 		$where = $post['id'];
 		$hash = password_hash($post['password'], PASSWORD_DEFAULT);
-		$q_user = q_data("*", 'kumalagroup.users', ['nik' => $post['nik']]);
+		$q_user = q_data("*", 'kumk6797_kumalagroup.users', ['nik' => $post['nik']]);
 		if ($q_user->num_rows() == 0) {			
 			$data	= [
 				'nama_lengkap'	=> $post['nama_lengkap'],
@@ -165,7 +165,7 @@ class Konfigurasi_user extends CI_Controller
 
 		$hash	= password_hash($password, PASSWORD_DEFAULT);		
 
-		$q_user = q_data("*", 'kumalagroup.users', ['nik' => $nik]);
+		$q_user = q_data("*", 'kumk6797_kumalagroup.users', ['nik' => $nik]);
 		if ($q_user->num_rows() == 0) {			
 			//user tidak ditemukan			
 			$pesan 		= 'Nik tidak ditemukan!';
@@ -219,8 +219,8 @@ class Konfigurasi_user extends CI_Controller
 	function edit($post)
 	{
 		$where 				= $post['id'];
-		$q_user 			= q_data("*", 'kumalagroup.users', ['id' => $where])->row();
-		$q_akses 			= q_data("*", 'kumalagroup.menu_akses', ['id_user' => $where])->row();
+		$q_user 			= q_data("*", 'kumk6797_kumalagroup.users', ['id' => $where])->row();
+		$q_akses 			= q_data("*", 'kumk6797_kumalagroup.menu_akses', ['id_user' => $where])->row();
 		$d['nik'] 			= $q_user->nik;
 		$d['level'] 		= $q_user->id_level;
 		$d['nama_lengkap'] 	= $q_user->nama_lengkap;

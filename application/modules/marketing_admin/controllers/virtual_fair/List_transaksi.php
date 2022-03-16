@@ -31,12 +31,12 @@ class List_transaksi extends \MX_Controller
                         'c.status',
                         'c.id'
                     );
-                    $table  = 'kumalagroup.konfirmasi_pembayaran kp';
+                    $table  = 'kumk6797_kumalagroup.konfirmasi_pembayaran kp';
                     $join   = array(
-                        'kumalagroup.checkout c' => 'c.kode = kp.kode_checkout',
+                        'kumk6797_kumalagroup.checkout c' => 'c.kode = kp.kode_checkout',
                         'kmg.perusahaan p' => 'p.id_perusahaan = c.cabang_tujuan',
-                        'kumalagroup.customer cs' => 'cs.customer = c.customer',
-                        'kumalagroup.reg_customer rs' => 'rs.id = cs.customer',
+                        'kumk6797_kumalagroup.customer cs' => 'cs.customer = c.customer',
+                        'kumk6797_kumalagroup.reg_customer rs' => 'rs.id = cs.customer',
                     );
                     if (!empty($this->request->brand) && empty($this->request->cabang)) {
                         $where =  array('p.id_brand' => $this->request->brand);

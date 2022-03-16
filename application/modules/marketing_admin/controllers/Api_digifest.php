@@ -14,7 +14,7 @@ class Api_digifest extends \MX_Controller
             $post = $this->input->post();
             if (!$post) $this->m_marketing->error404();
             else {
-                $q = q_data("*", 'kumalagroup.reg_customer', ['email' => $post['email']]);
+                $q = q_data("*", 'kumk6797_kumalagroup.reg_customer', ['email' => $post['email']]);
                 if ($q->num_rows() > 0)
                     $verify = password_verify($post['password'], $q->row('password'));
                 if (!empty($verify)) $response = [
@@ -39,9 +39,9 @@ class Api_digifest extends \MX_Controller
                 $nama = $post['nama'];
                 $email = $post['email'];
                 $password = password_hash($post['password'], PASSWORD_DEFAULT);
-                $q = q_data("*", 'kumalagroup.reg_customer', ['email' => $email]);
+                $q = q_data("*", 'kumk6797_kumalagroup.reg_customer', ['email' => $email]);
                 if ($q->num_rows() == 0) {
-                    $kode = $this->generateKode('CS-DG', 'kumalagroup.customer');
+                    $kode = $this->generateKode('CS-DG', 'kumk6797_kumalagroup.customer');
                     $this->kumalagroup->trans_start();
                     $data['nama'] = $nama;
                     $data['email'] = $email;
@@ -68,45 +68,45 @@ class Api_digifest extends \MX_Controller
     public function lineUp()
     {
         if ($this->m_marketing->auth_api()) {
-            $id = q_data("*", 'kumalagroup.brands', ['jenis' => $this->uri->segment(4)])->row('id');
+            $id = q_data("*", 'kumk6797_kumalagroup.brands', ['jenis' => $this->uri->segment(4)])->row('id');
             $id_produk = is_numeric($this->uri->segment(5))
                 ? $this->uri->segment(5)
                 : q_data_join(
                     ["ku.id"],
-                    'kumalagroup.units ku',
-                    ['kumalagroup.models km' => "km.id=ku.model"],
+                    'kumk6797_kumalagroup.units ku',
+                    ['kumk6797_kumalagroup.models km' => "km.id=ku.model"],
                     "km.nama_model like '" . $this->uri->segment(5) . "%' and ku.brand = $id"
                 )->row('id');
             if ($this->uri->segment(6)) {
                 $response = $this->uri->segment(6) == "360Drive"
-                    ? q_data("*", 'kumalagroup.units_detail', ['unit' => $id_produk, 'detail' => $this->uri->segment(6)])->result()
+                    ? q_data("*", 'kumk6797_kumalagroup.units_detail', ['unit' => $id_produk, 'detail' => $this->uri->segment(6)])->result()
                     : [
-                        "interior" => q_data("*", 'kumalagroup.units_detail', ['unit' => $id_produk, 'detail' => "360In"])->result(),
-                        "exterior" => q_data("*", 'kumalagroup.units_detail', ['unit' => $id_produk, 'detail' => "360Ex"])->result()
+                        "interior" => q_data("*", 'kumk6797_kumalagroup.units_detail', ['unit' => $id_produk, 'detail' => "360In"])->result(),
+                        "exterior" => q_data("*", 'kumk6797_kumalagroup.units_detail', ['unit' => $id_produk, 'detail' => "360Ex"])->result()
                     ];
             } elseif ($this->uri->segment(5)) {
                 $response['detail'] = q_data_join(
                     ["km.nama_model as nama", "ku.*"],
-                    'kumalagroup.units ku',
-                    ['kumalagroup.models km' => "km.id=ku.model"],
+                    'kumk6797_kumalagroup.units ku',
+                    ['kumk6797_kumalagroup.models km' => "km.id=ku.model"],
                     ['ku.id' => $id_produk]
                 )->row();
                 $response['spesifikasi'] =  q_data(
                     "*",
-                    'kumalagroup.units_detail',
+                    'kumk6797_kumalagroup.units_detail',
                     ['unit' => $id_produk, 'detail' => "spek"]
                 )->result();
                 $response['warna'] =  q_data_join(
                     ["kc.nama_warna", "ku.deskripsi", "ku.gambar"],
-                    'kumalagroup.units_detail ku',
-                    ['kumalagroup.colors kc' => "kc.id=ku.nama_detail"],
+                    'kumk6797_kumalagroup.units_detail ku',
+                    ['kumk6797_kumalagroup.colors kc' => "kc.id=ku.nama_detail"],
                     ['ku.unit' => $id_produk, 'ku.detail' => "warna"]
                 )->result();
             } else {
                 $response = q_data_join(
                     ["km.nama_model as nama", "ku.gambar", "ku.harga"],
-                    'kumalagroup.units ku',
-                    ['kumalagroup.models km' => "km.id=ku.model"],
+                    'kumk6797_kumalagroup.units ku',
+                    ['kumk6797_kumalagroup.models km' => "km.id=ku.model"],
                     array('ku.brand' => $id, 'ku.is_digifest' => 1),
                     array('km.nama_model', 'asc')
                 )->result();
@@ -120,7 +120,7 @@ class Api_digifest extends \MX_Controller
             $post = $this->input->post();
             if ($post) {
                 if (isset($post['gambar'])) {
-                    $data_post['name'] = q_data("*", 'kumalagroup.customer', ['customer' => $post['id']])->row('gambar');
+                    $data_post['name'] = q_data("*", 'kumk6797_kumalagroup.customer', ['customer' => $post['id']])->row('gambar');
                     $data_post['path'] = "./assets/img_marketing/customer/";
                     $q = $this->kumalagroup->update(
                         "customer",
@@ -141,7 +141,7 @@ class Api_digifest extends \MX_Controller
                         ? ["status" => "success", "msg" => "Data berhasil disimpan"]
                         : ["status" => "error", "msg" => "Data gagal disimpan"];
                 } elseif (isset($post['email'])) {
-                    $q = q_data("*", 'kumalagroup.reg_customer', ['id!=' => $post['id'], 'email' => $post['email']]);
+                    $q = q_data("*", 'kumk6797_kumalagroup.reg_customer', ['id!=' => $post['id'], 'email' => $post['email']]);
                     if ($q->num_rows() == 0) {
                         $this->kumalagroup->update("reg_customer", ['nama' => $post['nama']], ['id' => $post['id']]);
                         $data['tanggal_lahir'] = $post['tanggal_lahir'];
@@ -160,7 +160,7 @@ class Api_digifest extends \MX_Controller
                 $response = q_data_join(
                     "*",
                     "kumalagroup.reg_customer rc",
-                    ['kumalagroup.customer c' => "c.customer=rc.id"],
+                    ['kumk6797_kumalagroup.customer c' => "c.customer=rc.id"],
                     ['rc.id' => $this->uri->segment(4)]
                 )->row();
             }
@@ -171,14 +171,14 @@ class Api_digifest extends \MX_Controller
     public function main_stage()
     {
         if ($this->m_marketing->auth_api()) {
-            $response = q_data("*", 'kumalagroup.main_stage', ['id' => 1])->row();
+            $response = q_data("*", 'kumk6797_kumalagroup.main_stage', ['id' => 1])->row();
             return responseJson($response);
         }
     }
     public function rundown()
     {
         if ($this->m_marketing->auth_api()) {
-            $q = q_data("*", 'kumalagroup.rundown', "waktu like '" . $this->uri->segment(4) . "%'", ["waktu", "asc"])->result();
+            $q = q_data("*", 'kumk6797_kumalagroup.rundown', "waktu like '" . $this->uri->segment(4) . "%'", ["waktu", "asc"])->result();
             foreach ($q as $v) {
                 $date = explode(" ", $v->waktu);
                 $response[] = [
@@ -200,7 +200,7 @@ class Api_digifest extends \MX_Controller
                     $where = $post['unit'];
                     $data['jumlah'] = $post['jumlah'];
                     $data['customer'] = $post['customer'];
-                    $q = q_data("*", 'kumalagroup.keranjang', ['unit' => $where, 'customer' => $post['customer'], 'status' => 0]);
+                    $q = q_data("*", 'kumk6797_kumalagroup.keranjang', ['unit' => $where, 'customer' => $post['customer'], 'status' => 0]);
                     if ($q->num_rows() > 0)
                         $response = $this->kumalagroup->update('keranjang', $data, ['unit' => $where, 'customer' => $post['customer']])
                             ? ["status" => "success", "msg" => "Data berhasil diupdate", "id" => $q->row('id')]
@@ -220,11 +220,11 @@ class Api_digifest extends \MX_Controller
                 if ($this->uri->segment(4)) {
                     $response = q_data_join(
                         "k.id,k.unit,b.jenis as brand,m.nama_model as model,k.jumlah",
-                        'kumalagroup.keranjang k',
+                        'kumk6797_kumalagroup.keranjang k',
                         [
-                            'kumalagroup.units u' => "u.id=k.unit",
-                            'kumalagroup.brands b' => "u.brand=b.id",
-                            'kumalagroup.models m' => "u.model=m.id"
+                            'kumk6797_kumalagroup.units u' => "u.id=k.unit",
+                            'kumk6797_kumalagroup.brands b' => "u.brand=b.id",
+                            'kumk6797_kumalagroup.models m' => "u.model=m.id"
                         ],
                         ['customer' => $this->uri->segment(4), 'status' => 0],
                         ['b.jenis', 'asc']
@@ -253,9 +253,9 @@ class Api_digifest extends \MX_Controller
             $post = (object) $this->input->post();
             if (!$post) $this->m_marketing->error404();
             else {
-                $kode = $this->generateKode('INV-DG', 'kumalagroup.checkout', $post->kd);
+                $kode = $this->generateKode('INV-DG', 'kumk6797_kumalagroup.checkout', $post->kd);
 
-                $diskon = q_data('*', 'kumalagroup.masterSet', array('item' => 'diskon'))->result();
+                $diskon = q_data('*', 'kumk6797_kumalagroup.masterSet', array('item' => 'diskon'))->result();
                 $hariIni = date('Y-m-d');
                 $tanggalAwal = tgl_sql($diskon[0]->val);
                 $tanggalAkhir = tgl_sql($diskon[1]->val);
@@ -308,13 +308,13 @@ class Api_digifest extends \MX_Controller
                 $detail = q_data_join(
                     "c.kode,rc.nama,rc.email,cs.telepon,p.nama as provinsi,c.uang_muka,
                     c.diskon,c.status,c.created_at,b.jenis,c.cabang_tujuan",
-                    'kumalagroup.checkout c',
+                    'kumk6797_kumalagroup.checkout c',
                     [
-                        'kumalagroup.reg_customer rc' => "rc.id=c.customer",
-                        'kumalagroup.customer cs' => "rc.id=cs.customer",
+                        'kumk6797_kumalagroup.reg_customer rc' => "rc.id=c.customer",
+                        'kumk6797_kumalagroup.customer cs' => "rc.id=cs.customer",
                         'db_honda.provinsi p' => "p.id_provinsi=c.provinsi",
                         'kmg.perusahaan kp' => 'kp.id_perusahaan=c.cabang_tujuan',
-                        'kumalagroup.brands b' => 'b.id=kp.id_brand'
+                        'kumk6797_kumalagroup.brands b' => 'b.id=kp.id_brand'
                     ],
                     ['c.kode' => $kdinvdg[0]]
                 )->row();
@@ -328,11 +328,11 @@ class Api_digifest extends \MX_Controller
                 )->row();
                 $result = q_data_join(
                     "k.id,k.unit,b.jenis as brand,m.nama_model as model,k.jumlah",
-                    'kumalagroup.keranjang k',
+                    'kumk6797_kumalagroup.keranjang k',
                     [
-                        'kumalagroup.units u' => "u.id=k.unit",
-                        'kumalagroup.brands b' => "u.brand=b.id",
-                        'kumalagroup.models m' => "u.model=m.id"
+                        'kumk6797_kumalagroup.units u' => "u.id=k.unit",
+                        'kumk6797_kumalagroup.brands b' => "u.brand=b.id",
+                        'kumk6797_kumalagroup.models m' => "u.model=m.id"
                     ],
                     ['k.kode_checkout' => $kdinvdg[0], 'k.status' => 1],
                     'k.id'
@@ -345,7 +345,7 @@ class Api_digifest extends \MX_Controller
                     where kode_checkout=kumalagroup.checkout.kode) as item',
                     'uang_muka', 'status', 'diskon'
                 );
-                $table  = 'kumalagroup.checkout';
+                $table  = 'kumk6797_kumalagroup.checkout';
                 $where = array('customer' => $this->uri->segment(4));
                 $list = q_data_datatable($select, $table, null, $where, null, array('id', 'desc'));
                 $response = array();
@@ -453,7 +453,7 @@ class Api_digifest extends \MX_Controller
                 'browser' => $post->browser,
                 'tanggal' => date('Y-m-d')
             );
-            $q = q_data("*", 'kumalagroup.visitor', $where);
+            $q = q_data("*", 'kumk6797_kumalagroup.visitor', $where);
             if ($q->num_rows() > 0) {
                 $this->kumalagroup->update('visitor', array(
                     'visit' => $q->row('visit') + 1

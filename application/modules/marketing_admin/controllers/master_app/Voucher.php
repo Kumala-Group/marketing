@@ -19,7 +19,7 @@ class Voucher extends CI_Controller
             } else {
                 $d['content'] = "pages/master_app/voucher";
                 $d['index'] = $index;
-                $d['data'] = q_data("*", 'kumalagroup.vouchers', [], "updated_at")->result();
+                $d['data'] = q_data("*", 'kumk6797_kumalagroup.vouchers', [], "updated_at")->result();
                 $this->load->view('index', $d);
             }
         }
@@ -31,7 +31,7 @@ class Voucher extends CI_Controller
         $data['judul'] = $post['judul'];
         $data['deskripsi'] = $post['deskripsi'];
         $data['tanggal_berlaku'] = tgl_sql($post['tanggal']);
-        $q_level = q_data("*", 'kumalagroup.vouchers', $where);
+        $q_level = q_data("*", 'kumk6797_kumalagroup.vouchers', $where);
         if ($q_level->num_rows() == 0) {
             $data['created_at'] = date('Y-m-d H:i:s');
             $data['updated_at'] = date('Y-m-d H:i:s');
@@ -47,7 +47,7 @@ class Voucher extends CI_Controller
     function edit($post)
     {
         $where['id'] = $post['id'];
-        $data = q_data("*", 'kumalagroup.vouchers', $where)->row();
+        $data = q_data("*", 'kumk6797_kumalagroup.vouchers', $where)->row();
         $d['judul'] = $data->judul;
         $d['deskripsi'] = $data->deskripsi;
         $d['tanggal'] = tgl_sql($data->tanggal_berlaku);

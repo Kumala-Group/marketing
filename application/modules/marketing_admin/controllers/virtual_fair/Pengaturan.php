@@ -29,7 +29,7 @@ class Pengaturan extends \CI_Controller
                 $this->load->view('index', array(
                     'content' => 'pages/virtual_fair/pengaturan',
                     'index' => 'pengaturan',
-                    'data' => q_data('*', 'kumalagroup.masterSet', null)->result()
+                    'data' => q_data('*', 'kumk6797_kumalagroup.masterSet', null)->result()
                 ));
             }
         }

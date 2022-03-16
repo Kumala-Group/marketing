@@ -27,7 +27,7 @@ class Activity extends CI_Controller
                 $d['index'] = $index;
                 $d['activity'] = q_data("*", 'db_wuling.event_jenis', [])->result();
                 $where['nik'] = $this->session->userdata('nik');
-                $coverage = q_data("*", 'kumalagroup.users', $where)->row('coverage');
+                $coverage = q_data("*", 'kumk6797_kumalagroup.users', $where)->row('coverage');
                 if (!empty($coverage)) {
                     $d['lokasi'] = q_data_join(
                         "l.id_event_lokasi,a.event_area,l.lokasi",

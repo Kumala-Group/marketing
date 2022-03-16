@@ -19,43 +19,43 @@ class Tipe extends CI_Controller
             } else {
                 $d['content'] = "pages/master_app/tipe";
                 $d['index'] = $index;
-                $d['brand'] = q_data("*", 'kumalagroup.brands', [])->result();
-                $hino = q_data("*", 'kumalagroup.types', ['brand' => 3])->result();
+                $d['brand'] = q_data("*", 'kumk6797_kumalagroup.brands', [])->result();
+                $hino = q_data("*", 'kumk6797_kumalagroup.types', ['brand' => 3])->result();
                 foreach ($hino as $v) {
                     $arr['id'] = $v->id;
-                    $arr['_model'] = q_data("*", 'kumalagroup.models', ['id' => $v->model])->row()->nama_model;
+                    $arr['_model'] = q_data("*", 'kumk6797_kumalagroup.models', ['id' => $v->model])->row()->nama_model;
                     $arr['nama_tipe'] = $v->nama_tipe;
                     $d['hino'][] = $arr;
                 }
                 $arr = [];
-                $honda = q_data("*", 'kumalagroup.types', ['brand' => 17])->result();
+                $honda = q_data("*", 'kumk6797_kumalagroup.types', ['brand' => 17])->result();
                 foreach ($honda as $v) {
                     $arr['id'] = $v->id;
-                    $arr['_model'] = q_data("*", 'kumalagroup.models', ['id' => $v->model])->row()->nama_model;
+                    $arr['_model'] = q_data("*", 'kumk6797_kumalagroup.models', ['id' => $v->model])->row()->nama_model;
                     $arr['nama_tipe'] = $v->nama_tipe;
                     $d['honda'][] = $arr;
                 }
                 $arr = [];
-                $mazda = q_data("*", 'kumalagroup.types', ['brand' => 4])->result();
+                $mazda = q_data("*", 'kumk6797_kumalagroup.types', ['brand' => 4])->result();
                 foreach ($mazda as $v) {
                     $arr['id'] = $v->id;
-                    $arr['_model'] = q_data("*", 'kumalagroup.models', ['id' => $v->model])->row()->nama_model;
+                    $arr['_model'] = q_data("*", 'kumk6797_kumalagroup.models', ['id' => $v->model])->row()->nama_model;
                     $arr['nama_tipe'] = $v->nama_tipe;
                     $d['mazda'][] = $arr;
                 }
                 $arr = [];
-                $mercedes = q_data("*", 'kumalagroup.types', ['brand' => 18])->result();
+                $mercedes = q_data("*", 'kumk6797_kumalagroup.types', ['brand' => 18])->result();
                 foreach ($mercedes as $v) {
                     $arr['id'] = $v->id;
-                    $arr['_model'] = q_data("*", 'kumalagroup.models', ['id' => $v->model])->row()->nama_model;
+                    $arr['_model'] = q_data("*", 'kumk6797_kumalagroup.models', ['id' => $v->model])->row()->nama_model;
                     $arr['nama_tipe'] = $v->nama_tipe;
                     $d['mercedes'][] = $arr;
                 }
                 $arr = [];
-                $wuling = q_data("*", 'kumalagroup.types', ['brand' => 5])->result();
+                $wuling = q_data("*", 'kumk6797_kumalagroup.types', ['brand' => 5])->result();
                 foreach ($wuling as $v) {
                     $arr['id'] = $v->id;
-                    $arr['_model'] = q_data("*", 'kumalagroup.models', ['id' => $v->model])->row()->nama_model;
+                    $arr['_model'] = q_data("*", 'kumk6797_kumalagroup.models', ['id' => $v->model])->row()->nama_model;
                     $arr['nama_tipe'] = $v->nama_tipe;
                     $d['wuling'][] = $arr;
                 }
@@ -70,7 +70,7 @@ class Tipe extends CI_Controller
         $data['brand'] = $post['brand'];
         $data['model'] = $post['model'];
         $data['nama_tipe'] = $post['tipe'];
-        $q_brand = q_data("*", 'kumalagroup.types', $where);
+        $q_brand = q_data("*", 'kumk6797_kumalagroup.types', $where);
         if ($q_brand->num_rows() == 0) {
             $data['created_at'] = date('Y-m-d H:i:s');
             $data['updated_at'] = date('Y-m-d H:i:s');
@@ -86,7 +86,7 @@ class Tipe extends CI_Controller
     function edit($post)
     {
         $where['id'] = $post['id'];
-        $data = q_data("*", 'kumalagroup.types', $where)->row();
+        $data = q_data("*", 'kumk6797_kumalagroup.types', $where)->row();
         $d['brand'] = $data->brand;
         $d['model'] = $data->model;
         $d['tipe'] = $data->nama_tipe;

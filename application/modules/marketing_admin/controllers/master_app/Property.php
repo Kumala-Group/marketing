@@ -29,7 +29,7 @@ class Property extends CI_Controller
     function datatable($post)
     {
         $select = ["nama", "daerah", "alamat", "gambar", "map_url", "id"];
-        $table = 'kumalagroup.property';
+        $table = 'kumk6797_kumalagroup.property';
         $where = empty($post['jenis']) ? null : ['jenis' => $post['jenis']];
         $list = q_data_datatable($select, $table, null, $where);
         echo q_result_datatable($select, $table, null, $where, $list ?? []);
@@ -74,7 +74,7 @@ class Property extends CI_Controller
                 $galeri[] = curl_post($this->m_marketing->img_server . "post_img", $data_post);
             }
 
-        $q_brand = q_data("*", 'kumalagroup.property', ['id' => $where]);
+        $q_brand = q_data("*", 'kumk6797_kumalagroup.property', ['id' => $where]);
         if ($q_brand->num_rows() == 0) {
             $data['gambar']     = $gambar;
             $data['denah']      = $denah;
@@ -93,13 +93,13 @@ class Property extends CI_Controller
         } elseif ($q_brand->num_rows() > 0 && !empty($where)) {
             if (!empty($_FILES['gambar'])) {
                 $data['gambar'] = $gambar;
-                $data_post['name'] = q_data("*", 'kumalagroup.property', ['id' => $where])->row('gambar');
+                $data_post['name'] = q_data("*", 'kumk6797_kumalagroup.property', ['id' => $where])->row('gambar');
                 $data_post['path'] = "./assets/img_marketing/property/";
                 curl_post($this->m_marketing->img_server . "delete_img", $data_post);
             }
             if (!empty($_FILES['denah'])) {
                 $data['denah'] = $denah;
-                $data_post['name'] = q_data("*", 'kumalagroup.property', ['id' => $where])->row('denah');
+                $data_post['name'] = q_data("*", 'kumk6797_kumalagroup.property', ['id' => $where])->row('denah');
                 $data_post['path'] = "./assets/img_marketing/property/denah/";
                 curl_post($this->m_marketing->img_server . "delete_img", $data_post);
             }
@@ -120,7 +120,7 @@ class Property extends CI_Controller
     function edit($post)
     {
         $where = $post['id'];
-        $data = q_data("*", 'kumalagroup.property', ['id' => $where])->row();
+        $data = q_data("*", 'kumk6797_kumalagroup.property', ['id' => $where])->row();
         $d['nama'] = $data->nama;
         $d['jenis'] = $data->jenis;
         $d['daerah'] = $data->daerah;
@@ -133,20 +133,20 @@ class Property extends CI_Controller
         $d['listrik'] = $data->listrik;
         $d['sumber_air'] = $data->sumber_air;
         $d['keterangan'] = $data->keterangan;
-        $d['galeri'] = q_data("id,img", 'kumalagroup.image_galeri', ['id_ref' => $where, 'jenis' => "property"])->result();
+        $d['galeri'] = q_data("id,img", 'kumk6797_kumalagroup.image_galeri', ['id_ref' => $where, 'jenis' => "property"])->result();
         echo json_encode($d);
     }
     function hapus($post)
     {
         $where = $post['id'];
-        $img = q_data("*", 'kumalagroup.property', ['id' => $where])->row();
+        $img = q_data("*", 'kumk6797_kumalagroup.property', ['id' => $where])->row();
         $data_post['name'] = $img->gambar;
         $data_post['path'] = "./assets/img_marketing/property/";
         curl_post($this->m_marketing->img_server . "delete_img", $data_post);
         $data_post['name'] = $img->denah;
         $data_post['path'] = "./assets/img_marketing/property/denah/";
         curl_post($this->m_marketing->img_server . "delete_img", $data_post);
-        $galeri = q_data("*", 'kumalagroup.image_galeri', ['id_ref' => $where, 'jenis' => "property"])->result();
+        $galeri = q_data("*", 'kumk6797_kumalagroup.image_galeri', ['id_ref' => $where, 'jenis' => "property"])->result();
         foreach ($galeri as $v) {
             $data_post['name'] = $v->img;
             $data_post['path'] = "./assets/img_marketing/property/galeri/";
@@ -160,7 +160,7 @@ class Property extends CI_Controller
     function hapus_galeri($post)
     {
         $where = $post['id'];
-        $data_post['name'] = q_data("*", 'kumalagroup.image_galeri', ['id' => $where])->row('img');
+        $data_post['name'] = q_data("*", 'kumk6797_kumalagroup.image_galeri', ['id' => $where])->row('img');
         $data_post['path'] = "./assets/img_marketing/property/galeri/";
         curl_post($this->m_marketing->img_server . "delete_img", $data_post);
         $response =  $this->kumalagroup->delete('image_galeri', ['id' => $where])

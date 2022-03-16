@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class mLayanan extends Model
 {
-    protected $table = 'kumalagroup.layanan';
+    protected $table = 'kumk6797_kumalagroup.layanan';
 
     public function toUnit()
     {

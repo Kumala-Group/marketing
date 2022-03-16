@@ -34,51 +34,51 @@ class Otomotif extends CI_Controller
                 $d['content'] = "pages/master_app/otomotif";
                 $d['index'] = $index;
                 $d['img_server'] = $this->m_marketing->img_server;
-                $d['brand'] = q_data("*", 'kumalagroup.brands', [])->result();
-                $hino = q_data("*", 'kumalagroup.units', ['brand' => 3,'is_deleted' => '0'], ["updated_at", 'asc'])->result();
+                $d['brand'] = q_data("*", 'kumk6797_kumalagroup.brands', [])->result();
+                $hino = q_data("*", 'kumk6797_kumalagroup.units', ['brand' => 3,'is_deleted' => '0'], ["updated_at", 'asc'])->result();
                 foreach ($hino as $v) {
                     $arr['id'] = $v->id;
-                    $arr['_model'] = q_data("*", 'kumalagroup.models', ['id' => $v->model])->row()->nama_model;
+                    $arr['_model'] = q_data("*", 'kumk6797_kumalagroup.models', ['id' => $v->model])->row()->nama_model;
                     $arr['harga'] = $v->harga;
                     $arr['gambar'] = $v->gambar;
                     $arr['is_digifest'] = $v->is_digifest;
                     $d['hino'][] = $arr;
                 }
                 $arr = [];
-                $honda = q_data("*", 'kumalagroup.units', ['brand' => 17,'is_deleted' => '0'], ["updated_at", 'asc'])->result();
+                $honda = q_data("*", 'kumk6797_kumalagroup.units', ['brand' => 17,'is_deleted' => '0'], ["updated_at", 'asc'])->result();
                 foreach ($honda as $v) {
                     $arr['id'] = $v->id;
-                    $arr['_model'] = q_data("*", 'kumalagroup.models', ['id' => $v->model])->row()->nama_model;
+                    $arr['_model'] = q_data("*", 'kumk6797_kumalagroup.models', ['id' => $v->model])->row()->nama_model;
                     $arr['harga'] = $v->harga;
                     $arr['gambar'] = $v->gambar;
                     $arr['is_digifest'] = $v->is_digifest;
                     $d['honda'][] = $arr;
                 }
                 $arr = [];
-                $mazda = q_data("*", 'kumalagroup.units', ['brand' => 4,'is_deleted' => '0'], ["updated_at", 'asc'])->result();
+                $mazda = q_data("*", 'kumk6797_kumalagroup.units', ['brand' => 4,'is_deleted' => '0'], ["updated_at", 'asc'])->result();
                 foreach ($mazda as $v) {
                     $arr['id'] = $v->id;
-                    $arr['_model'] = q_data("*", 'kumalagroup.models', ['id' => $v->model])->row()->nama_model;
+                    $arr['_model'] = q_data("*", 'kumk6797_kumalagroup.models', ['id' => $v->model])->row()->nama_model;
                     $arr['harga'] = $v->harga;
                     $arr['gambar'] = $v->gambar;
                     $arr['is_digifest'] = $v->is_digifest;
                     $d['mazda'][] = $arr;
                 }
                 $arr = [];
-                $mercedes = q_data("*", 'kumalagroup.units', ['brand' => 18,'is_deleted' => '0'], ["updated_at", 'asc'])->result();
+                $mercedes = q_data("*", 'kumk6797_kumalagroup.units', ['brand' => 18,'is_deleted' => '0'], ["updated_at", 'asc'])->result();
                 foreach ($mercedes as $v) {
                     $arr['id'] = $v->id;
-                    $arr['_model'] = q_data("*", 'kumalagroup.models', ['id' => $v->model])->row()->nama_model;
+                    $arr['_model'] = q_data("*", 'kumk6797_kumalagroup.models', ['id' => $v->model])->row()->nama_model;
                     $arr['harga'] = $v->harga;
                     $arr['gambar'] = $v->gambar;
                     $arr['is_digifest'] = $v->is_digifest;
                     $d['mercedes'][] = $arr;
                 }
                 $arr = [];
-                $wuling = q_data("*", 'kumalagroup.units', ['brand' => 5,'is_deleted' => '0'], ["updated_at", 'asc'])->result();
+                $wuling = q_data("*", 'kumk6797_kumalagroup.units', ['brand' => 5,'is_deleted' => '0'], ["updated_at", 'asc'])->result();
                 foreach ($wuling as $v) {
                     $arr['id'] = $v->id;
-                    $arr['_model'] = q_data("*", 'kumalagroup.models', ['id' => $v->model])->row()->nama_model;
+                    $arr['_model'] = q_data("*", 'kumk6797_kumalagroup.models', ['id' => $v->model])->row()->nama_model;
                     $arr['harga'] = $v->harga;
                     $arr['gambar'] = $v->gambar;
                     $arr['is_digifest'] = $v->is_digifest;
@@ -133,7 +133,7 @@ class Otomotif extends CI_Controller
                 $gambar_detail[] = curl_post($this->m_marketing->img_server . "post_img", $data_post);
             }
 
-        $q_brand = q_data("*", 'kumalagroup.units', ['id' => $where]);
+        $q_brand = q_data("*", 'kumk6797_kumalagroup.units', ['id' => $where]);
         if ($q_brand->num_rows() == 0) {
             $data['gambar'] = $gambar;
             if ($brosur) $data['brosur'] = $brosur;
@@ -173,13 +173,13 @@ class Otomotif extends CI_Controller
         } elseif ($q_brand->num_rows() > 0 && !empty($where)) {
             if (!empty($_FILES['gambar'])) {
                 $data['gambar'] = $gambar;
-                $data_post['name'] = q_data("*", 'kumalagroup.units', ['id' => $where])->row()->gambar;
+                $data_post['name'] = q_data("*", 'kumk6797_kumalagroup.units', ['id' => $where])->row()->gambar;
                 $data_post['path'] = "./assets/img_marketing/otomotif/";
                 curl_post($this->m_marketing->img_server . "delete_img", $data_post);
             }
             if (!empty($_FILES['brosur'])) if ($brosur) {
                 $data['brosur'] = $brosur;
-                $data_post['name'] = q_data("*", 'kumalagroup.units', ['id' => $where])->row()->brosur;
+                $data_post['name'] = q_data("*", 'kumk6797_kumalagroup.units', ['id' => $where])->row()->brosur;
                 $data_post['path'] = "./assets/img_marketing/otomotif/brosur/";
                 curl_post($this->m_marketing->img_server . "delete_img", $data_post);
             }
@@ -193,10 +193,10 @@ class Otomotif extends CI_Controller
                 if (!empty($post['i_warna'])) if (in_array($i, $post['i_warna']))
                     $data['gambar'] = $gambar_warna[array_search($i, $post['i_warna'])];
                 else unset($data['gambar']);
-                $q = q_data("*", 'kumalagroup.units_detail', ['nama_detail' => $post['id_warna'][$i], 'unit' => $where]);
+                $q = q_data("*", 'kumk6797_kumalagroup.units_detail', ['nama_detail' => $post['id_warna'][$i], 'unit' => $where]);
                 if ($q->num_rows() > 0) {
                     if (!empty($post['i_warna'])) if (in_array($i, $post['i_warna'])) {
-                        $data_post['name'] = q_data("*", 'kumalagroup.units_detail', ['nama_detail' => $post['id_warna'][$i], 'unit' => $where])->row()->gambar;
+                        $data_post['name'] = q_data("*", 'kumk6797_kumalagroup.units_detail', ['nama_detail' => $post['id_warna'][$i], 'unit' => $where])->row()->gambar;
                         $data_post['path'] = "./assets/img_marketing/otomotif/warna/";
                         if (!empty($data_post['name'])) curl_post($this->m_marketing->img_server . "delete_img", $data_post);
                     }
@@ -225,10 +225,10 @@ class Otomotif extends CI_Controller
                 if (!empty($post['i_detail'])) if (in_array($i, $post['i_detail']))
                     $data['gambar'] = $gambar_detail[array_search($i, $post['i_detail'])];
                 else unset($data['gambar']);
-                $q = q_data("*", 'kumalagroup.units_detail', ['id' => $post['id_detail'][$i]]);
+                $q = q_data("*", 'kumk6797_kumalagroup.units_detail', ['id' => $post['id_detail'][$i]]);
                 if ($q->num_rows() > 0) {
                     if (!empty($post['i_detail'])) if (in_array($i, $post['i_detail'])) {
-                        $data_post['name'] = q_data("*", 'kumalagroup.units_detail', ['id' => $post['id_detail'][$i]])->row()->gambar;
+                        $data_post['name'] = q_data("*", 'kumk6797_kumalagroup.units_detail', ['id' => $post['id_detail'][$i]])->row()->gambar;
                         $data_post['path'] = "./assets/img_marketing/otomotif/detail/";
                         curl_post($this->m_marketing->img_server . "delete_img", $data_post);
                     }
@@ -248,33 +248,33 @@ class Otomotif extends CI_Controller
     function edit($post)
     {
         $where = $post['id'];
-        $data = q_data("*", 'kumalagroup.units', ['id' => $where])->row();
+        $data = q_data("*", 'kumk6797_kumalagroup.units', ['id' => $where])->row();
         $d['brand'] = $data->brand;
         $d['model'] = $data->model;
         $d['harga'] = separator_harga($data->harga);
         $d['deskripsi'] = $data->deskripsi;
         $d['video'] = $data->video;
-        $d['detail'] = q_data("*", 'kumalagroup.units_detail', ['unit' => $where, 'detail' => "detail"])->result();
-        $d['spek'] = q_data("*", 'kumalagroup.units_detail', ['unit' => $where, 'detail' => "spek"])->result();
+        $d['detail'] = q_data("*", 'kumk6797_kumalagroup.units_detail', ['unit' => $where, 'detail' => "detail"])->result();
+        $d['spek'] = q_data("*", 'kumk6797_kumalagroup.units_detail', ['unit' => $where, 'detail' => "spek"])->result();
         echo json_encode($d);
     }
     function hapus($post)
     {
         $where = $post['id'];
-        $img = q_data("*", 'kumalagroup.units', ['id' => $where])->row();
+        $img = q_data("*", 'kumk6797_kumalagroup.units', ['id' => $where])->row();
         $data_post['name'] = $img->gambar;
         $data_post['path'] = "./assets/img_marketing/otomotif/";
         curl_post($this->m_marketing->img_server . "delete_img", $data_post);
         $data_post['name'] = $img->brosur;
         $data_post['path'] = "./assets/img_marketing/otomotif/brosur/";
         curl_post($this->m_marketing->img_server . "delete_img", $data_post);
-        $warna = q_data("*", 'kumalagroup.units_detail', ['unit' => $where, 'detail' => "warna"])->result();
+        $warna = q_data("*", 'kumk6797_kumalagroup.units_detail', ['unit' => $where, 'detail' => "warna"])->result();
         foreach ($warna as $v) {
             $data_post['name'] = $v->gambar;
             $data_post['path'] = "./assets/img_marketing/otomotif/warna/";
             curl_post($this->m_marketing->img_server . "delete_img", $data_post);
         }
-        $detail = q_data("*", 'kumalagroup.units_detail', ['unit' => $where, 'detail' => "detail"])->result();
+        $detail = q_data("*", 'kumk6797_kumalagroup.units_detail', ['unit' => $where, 'detail' => "detail"])->result();
         foreach ($detail as $v) {
             $data_post['name'] = $v->gambar;
             $data_post['path'] = "./assets/img_marketing/otomotif/detail/";
@@ -288,7 +288,7 @@ class Otomotif extends CI_Controller
         if (!$post) $this->m_marketing->error404();
         else {
             $where['id'] = $post['id'];
-            $data_post['name'] = q_data("*", 'kumalagroup.units_detail', $where)->row()->gambar;
+            $data_post['name'] = q_data("*", 'kumk6797_kumalagroup.units_detail', $where)->row()->gambar;
             $data_post['path'] = "./assets/img_marketing/otomotif/detail/";
             curl_post($this->m_marketing->img_server . "delete_img", $data_post);
             $this->kumalagroup->delete('units_detail', $where);
@@ -297,9 +297,9 @@ class Otomotif extends CI_Controller
     function load_warna($post)
     {
         $where['model'] = $post['model'];
-        $data = q_data("*", 'kumalagroup.colors', $where)->result();
+        $data = q_data("*", 'kumk6797_kumalagroup.colors', $where)->result();
         foreach ($data as $v) :
-            $r = !empty($post['id']) ? q_data("*", 'kumalagroup.units_detail', ['unit' => $post['id'], 'nama_detail' => $v->id]) : null;
+            $r = !empty($post['id']) ? q_data("*", 'kumk6797_kumalagroup.units_detail', ['unit' => $post['id'], 'nama_detail' => $v->id]) : null;
             $hex = !empty($r) ? ($r->num_rows() > 0 ? $r->row()->deskripsi : "") : "" ?>
             <div class="col-md-4 col-sm-6">
                 <div class="form-group mb-1">

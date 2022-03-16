@@ -17,7 +17,7 @@ class Marketing_home extends CI_Controller
 			$password = strip_tags($post['password']);
 			$where['username'] = preg_replace('#<script(.*?)>(.*?)</script>#is', '', $username);
 			$password = preg_replace('#<script(.*?)>(.*?)</script>#is', '', $password);
-			$q_user = q_data("*", 'kumalagroup.users', $where);
+			$q_user = q_data("*", 'kumk6797_kumalagroup.users', $where);
 			if ($q_user->num_rows() > 0) {
 				$r = $q_user->row();
 				$status = $r->status_aktif;
@@ -35,7 +35,7 @@ class Marketing_home extends CI_Controller
 					$s_data['foto'] = $r->foto;
 					$s_data['nama_lengkap'] = $r->nama_lengkap;
 					$s_data['level'] = $r->id_level;
-					$s_data['url'] = q_data("*", 'kumalagroup.p_level', ['id' => $r->id_level])->row()->url;
+					$s_data['url'] = q_data("*", 'kumk6797_kumalagroup.p_level', ['id' => $r->id_level])->row()->url;
 					$this->session->set_userdata($s_data);
 					$status = 1;
 				}
@@ -46,7 +46,7 @@ class Marketing_home extends CI_Controller
 			else {
 				if ($this->session->userdata('logged_in') == "marketing_admin") redirect($this->session->userdata('url'), 'refresh');
 				else {
-					$d['logo'] = q_data("*", 'kumalagroup.partners', [])->result();
+					$d['logo'] = q_data("*", 'kumk6797_kumalagroup.partners', [])->result();
 					$d['version'] = $this->db->select('versi_update')->where('brand', 'MARKETING')->order_by('id_versi', 'desc')->limit('1')->get('db_helpdesk.update_versi')->row();
 
 					$this->load->view('login', $d);

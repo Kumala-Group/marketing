@@ -11,8 +11,8 @@ class Test_drive extends CI_Controller
 		parent::__construct();
 		$this->load->model('m_marketing');
 		$this->load->model('m_wuling_marketing_support');
-		$this->coverage = q_data("*", 'kumalagroup.users', ['nik' => $this->session->userdata('nik')])->row('coverage');
-		$this->id_perusahaan = q_data("*", 'kumalagroup.users', ['nik' => $this->session->userdata('nik')])->row('id_perusahaan');
+		$this->coverage = q_data("*", 'kumk6797_kumalagroup.users', ['nik' => $this->session->userdata('nik')])->row('coverage');
+		$this->id_perusahaan = q_data("*", 'kumk6797_kumalagroup.users', ['nik' => $this->session->userdata('nik')])->row('id_perusahaan');
 	}
 
 	public function index()

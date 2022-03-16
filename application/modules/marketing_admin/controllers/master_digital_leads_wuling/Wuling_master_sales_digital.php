@@ -57,7 +57,7 @@ class Wuling_master_sales_digital extends CI_Controller
             ");
             $this->datatables->from('db_wuling.dl_sales d');
             $this->datatables->join('kmg.perusahaan p', 'd.id_perusahaan = p.id_perusahaan', 'LEFT');
-            $this->datatables->join('kumalagroup.users k', 'd.id_sales = k.id', 'LEFT');
+            $this->datatables->join('kumk6797_kumalagroup.users k', 'd.id_sales = k.id', 'LEFT');
             echo $this->datatables->generate();
         }
     }

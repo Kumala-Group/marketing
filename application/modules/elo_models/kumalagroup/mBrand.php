@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class mBrand extends Model
 {
-    protected $table = 'kumalagroup.brands';
+    protected $table = 'kumk6797_kumalagroup.brands';
 
     public function toUnit()
     {

@@ -3,7 +3,7 @@
     <div class="main-menu-content">
         <ul id="main-menu-navigation" data-menu="menu-navigation" class="navigation navigation-main">
             <?php
-            $q_akses = q_data("*", 'kumalagroup.menu_akses', ['id_user' => $this->session->userdata('id_user')])->row();
+            $q_akses = q_data("*", 'kumk6797_kumalagroup.menu_akses', ['id_user' => $this->session->userdata('id_user')])->row();
             $menu_akses = explode(",", $q_akses->akses_menu);
 
             echo single_menu(

@@ -19,7 +19,7 @@ class User_profil extends CI_Controller
             } else {
                 $d['content'] = "pages/user_profil";
                 $d['index'] = $index;
-                $d['profil'] = q_data("*", 'kumalagroup.p_level', [])->result();
+                $d['profil'] = q_data("*", 'kumk6797_kumalagroup.p_level', [])->result();
                 $this->load->view('index', $d);
             }
         }
@@ -32,7 +32,7 @@ class User_profil extends CI_Controller
         $data['level'] = $post['level'];
         $data['deskripsi'] = $post['deskripsi'];
         $data['url'] = $post['url'];
-        $q_level = q_data("*", 'kumalagroup.p_level', $where);
+        $q_level = q_data("*", 'kumk6797_kumalagroup.p_level', $where);
         if ($q_level->num_rows() == 0) {
             $this->kumalagroup->insert("p_level", $data);
             $status = 1;
@@ -45,7 +45,7 @@ class User_profil extends CI_Controller
     function edit($post)
     {
         $where['id'] = $post['id'];
-        $data = q_data("*", 'kumalagroup.p_level', $where)->row();
+        $data = q_data("*", 'kumk6797_kumalagroup.p_level', $where)->row();
         $d['nama_level'] = $data->nama_level;
         $d['level'] = $data->level;
         $d['deskripsi'] = $data->deskripsi;

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class mCheckout extends Model
 {
-    protected $table = 'kumalagroup.checkout';
+    protected $table = 'kumk6797_kumalagroup.checkout';
 
     public function toKeranjang()
     {

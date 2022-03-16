@@ -4,7 +4,7 @@ class M_wuling_marketing_support extends CI_Model
     public function activity()
     {
         $nik['nik'] = $this->session->userdata('nik');
-        $coverage   = q_data("*", 'kumalagroup.users', $nik)->row('coverage');
+        $coverage   = q_data("*", 'kumk6797_kumalagroup.users', $nik)->row('coverage');
 
         $select = ["ej.event_jenis", "e.event", "e.tgl_mulai", "e.tgl_selesai", "el.lokasi", "concat('Rp. ',FORMAT(e.total_biaya, 0, 'de_DE')) as total_biaya", "e.id_event"];
         $tabel  = 'db_wuling.event e';

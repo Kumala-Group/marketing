@@ -26,7 +26,7 @@ class Main_stage extends CI_Controller
                     echo json_encode($response, JSON_PRETTY_PRINT);
                 } elseif (!empty($post['rundown'])) $this->rundown($post);
                 elseif (!empty($post['getrundown'])) {
-                    $q = q_data("*", 'kumalagroup.rundown', [], ["waktu", "asc"])->result();
+                    $q = q_data("*", 'kumk6797_kumalagroup.rundown', [], ["waktu", "asc"])->result();
                     foreach ($q as $v) {
                         $date = explode(" ", $v->waktu);
                         $response[] = [
@@ -46,7 +46,7 @@ class Main_stage extends CI_Controller
             } else {
                 $d['content'] = "pages/virtual_fair/main_stage";
                 $d['index'] = $index;
-                $d['data'] = q_data("*", 'kumalagroup.main_stage', ['id' => 1])->row();
+                $d['data'] = q_data("*", 'kumk6797_kumalagroup.main_stage', ['id' => 1])->row();
                 $this->load->view('index', $d);
             }
         }
@@ -70,7 +70,7 @@ class Main_stage extends CI_Controller
             $data['id'] = $post['id'][$i];
             $data['waktu'] = date("Y-m-d H:i:s",  strtotime(tgl_sql($post['tanggal'][$i]) . " " . $post['waktu'][$i]));
             $data['judul'] = $post['judul'][$i];
-            $q = q_data("*", 'kumalagroup.rundown', ['id' => $post['id'][$i]]);
+            $q = q_data("*", 'kumk6797_kumalagroup.rundown', ['id' => $post['id'][$i]]);
             $r = $q->num_rows() > 0
                 ? $this->kumalagroup->update('rundown', $data, ['id' => $post['id'][$i]])
                 : $this->kumalagroup->insert('rundown', $data);

@@ -12,8 +12,8 @@ class Laporan_survei_do extends CI_Controller
 		$this->load->model('m_marketing');
 		$this->load->model('m_hino_laporan_survei_do');
 		
-		$this->coverage = q_data("*", 'kumalagroup.users', ['nik'=>$this->session->userdata('nik')])->row('coverage');
-		$this->id_perusahaan = q_data("*", 'kumalagroup.users', ['nik'=>$this->session->userdata('nik')])->row('id_perusahaan');
+		$this->coverage = q_data("*", 'kumk6797_kumalagroup.users', ['nik'=>$this->session->userdata('nik')])->row('coverage');
+		$this->id_perusahaan = q_data("*", 'kumk6797_kumalagroup.users', ['nik'=>$this->session->userdata('nik')])->row('id_perusahaan');
                 
 	}
 

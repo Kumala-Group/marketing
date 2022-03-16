@@ -18,7 +18,7 @@ class Lokasi_event extends CI_Controller
                 elseif (!empty($post['hapus'])) $this->hapus($post);
                 elseif (!empty($post['datatable'])) {
                     $where['nik'] = $this->session->userdata('nik');
-                    $coverage = q_data("*", 'kumalagroup.users', $where)->row('coverage');
+                    $coverage = q_data("*", 'kumk6797_kumalagroup.users', $where)->row('coverage');
                     echo q_datatable_join(
                         "l.id_event_lokasi,a.event_area,l.lokasi",
                         'db_honda.event_lokasi l',

@@ -18,7 +18,7 @@ class Area_event extends CI_Controller
                 elseif (!empty($post['hapus'])) $this->hapus($post);
                 elseif (!empty($post['datatable'])) {
                     $where['nik'] = $this->session->userdata('nik');
-                    $coverage = q_data("*", 'kumalagroup.users', $where)->row('coverage');
+                    $coverage = q_data("*", 'kumk6797_kumalagroup.users', $where)->row('coverage');
                     echo q_datatable(
                         "id_event_area,event_area",
                         'db_honda.event_area',

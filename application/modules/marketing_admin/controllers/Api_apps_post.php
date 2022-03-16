@@ -77,9 +77,9 @@ class Api_apps_post extends CI_Controller
             if (!$post) $this->m_marketing->error404();
             else {
                 $where = $post['id_customer'];
-                $u = q_data("*", 'kumalagroup.reg_customer', ['id' => $where, 'email' => $post['email']]);
+                $u = q_data("*", 'kumk6797_kumalagroup.reg_customer', ['id' => $where, 'email' => $post['email']]);
                 if ($u->num_rows() == 0) {
-                    $q = q_data("*", 'kumalagroup.reg_customer', ['id!=' => $where, 'email' => $post['email']]);
+                    $q = q_data("*", 'kumk6797_kumalagroup.reg_customer', ['id!=' => $where, 'email' => $post['email']]);
                     if ($q->num_rows() == 0) $data['email'] = $post['email'];
                     else $error = 1;
                 }
@@ -97,7 +97,7 @@ class Api_apps_post extends CI_Controller
                     if (!empty($post['foto_profil'])) {
                         $data_post['path'] = "./assets/img_marketing/customer/";
 
-                        $img = q_data("*", 'kumalagroup.customer', ['customer' => $where])->row()->gambar;
+                        $img = q_data("*", 'kumk6797_kumalagroup.customer', ['customer' => $where])->row()->gambar;
                         if (!empty($img)) {
                             $data_post['name'] = $img;
                             curl_post($this->m_marketing->img_server . "delete_img", $data_post);
@@ -140,7 +140,7 @@ class Api_apps_post extends CI_Controller
                 $nama = $post['nama'];
                 $email = $post['email'];
                 $password = password_hash($post['password'], PASSWORD_DEFAULT);
-                $q = q_data("*", 'kumalagroup.reg_customer', ['email' => $email]);
+                $q = q_data("*", 'kumk6797_kumalagroup.reg_customer', ['email' => $email]);
                 if ($q->num_rows() == 0) {
                     $data['nama'] = $nama;
                     $data['email'] = $email;
@@ -180,7 +180,7 @@ class Api_apps_post extends CI_Controller
             if (!$post) $this->m_marketing->error404();
             else {
                 $where['email'] = $post['email'];
-                $q = q_data("*", 'kumalagroup.reg_customer', $where);
+                $q = q_data("*", 'kumk6797_kumalagroup.reg_customer', $where);
                 if ($q->num_rows() > 0) $verify = password_verify($post['password'], $q->row()->password);
                 if (!empty($verify)) {
                     $d['id'] = $q->row()->id;
@@ -205,7 +205,7 @@ class Api_apps_post extends CI_Controller
             if (!$post) $this->m_marketing->error404();
             else {
                 $where['id'] = $post['id_customer'];
-                $q = q_data("*", 'kumalagroup.reg_customer', $where);
+                $q = q_data("*", 'kumk6797_kumalagroup.reg_customer', $where);
                 if ($q->num_rows() > 0) $verify = password_verify($post['password_lama'], $q->row()->password);
                 if (!empty($verify)) {
                     $data['password'] = password_hash($post['password_baru'], PASSWORD_DEFAULT);

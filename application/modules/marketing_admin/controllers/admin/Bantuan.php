@@ -17,8 +17,8 @@ class Bantuan extends CI_Controller
             } else {
                 $d['content'] = "pages/admin/bantuan";
                 $d['index'] = $index;
-                $d['kumalagroup'] = q_data("*", 'kumalagroup.contacts', ['website' => "kumalagroup"], "updated_at")->result();
-                $d['honda'] = q_data("*", 'kumalagroup.contacts', ['website' => "honda"], "updated_at")->result();
+                $d['kumalagroup'] = q_data("*", 'kumk6797_kumalagroup.contacts', ['website' => "kumalagroup"], "updated_at")->result();
+                $d['honda'] = q_data("*", 'kumk6797_kumalagroup.contacts', ['website' => "honda"], "updated_at")->result();
                 $this->load->view('index', $d);
             }
         }

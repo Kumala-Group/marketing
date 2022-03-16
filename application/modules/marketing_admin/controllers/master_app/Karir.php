@@ -19,7 +19,7 @@ class Karir extends CI_Controller
             } else {
                 $d['content'] = "pages/master_app/karir";
                 $d['index'] = $index;
-                $d['data'] = q_data("*", 'kumalagroup.karirs', [], "updated_at")->result();
+                $d['data'] = q_data("*", 'kumk6797_kumalagroup.karirs', [], "updated_at")->result();
                 $this->load->view('index', $d);
             }
         }
@@ -31,7 +31,7 @@ class Karir extends CI_Controller
         $data['posisi'] = $post['posisi'];
         $data['jumlah'] = $post['jumlah'];
         $data['deskripsi'] = $post['deskripsi'];
-        $q_level = q_data("*", 'kumalagroup.karirs', $where);
+        $q_level = q_data("*", 'kumk6797_kumalagroup.karirs', $where);
         if ($q_level->num_rows() == 0) {
             $data['created_at'] = date('Y-m-d H:i:s');
             $data['updated_at'] = date('Y-m-d H:i:s');
@@ -47,7 +47,7 @@ class Karir extends CI_Controller
     function edit($post)
     {
         $where['id'] = $post['id'];
-        $data = q_data("*", 'kumalagroup.karirs', $where)->row();
+        $data = q_data("*", 'kumk6797_kumalagroup.karirs', $where)->row();
         $d['posisi'] = $data->posisi;
         $d['jumlah'] = $data->jumlah;
         $d['deskripsi'] = $data->deskripsi;

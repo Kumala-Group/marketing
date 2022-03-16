@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class mSoalTes extends Model
 {
-    protected $table = 'kumalagroup.soal';
+    protected $table = 'kumk6797_kumalagroup.soal';
     protected $primaryKey = 'id';
     protected $keyType = 'integer';
 

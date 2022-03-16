@@ -20,7 +20,7 @@ class Brand extends CI_Controller
                 $d['content'] = "pages/master_app/brand";
                 $d['index'] = $index;
                 $d['img_server'] = $this->m_marketing->img_server;
-                $d['data'] = q_data("*", 'kumalagroup.brands', [])->result();
+                $d['data'] = q_data("*", 'kumk6797_kumalagroup.brands', [])->result();
                 $this->load->view('index', $d);
             }
         }
@@ -40,7 +40,7 @@ class Brand extends CI_Controller
             $nama_gambar = curl_post($this->m_marketing->img_server . "post_img", $data_post);
         }
 
-        $q_brand = q_data("*", 'kumalagroup.brands', $where);
+        $q_brand = q_data("*", 'kumk6797_kumalagroup.brands', $where);
         if ($q_brand->num_rows() == 0) {
             $data['foto'] = $nama_gambar;
             $data['created_at'] = date('Y-m-d H:i:s');
@@ -50,7 +50,7 @@ class Brand extends CI_Controller
         } elseif ($q_brand->num_rows() > 0 && !empty($where)) {
             if (!empty($_FILES['gambar'])) {
                 $data['foto'] = $nama_gambar;
-                $data_post['name'] = q_data("*", 'kumalagroup.brands', $where)->row()->foto;
+                $data_post['name'] = q_data("*", 'kumk6797_kumalagroup.brands', $where)->row()->foto;
                 curl_post($this->m_marketing->img_server . "delete_img", $data_post);
             }
             $data['updated_at'] = date('Y-m-d H:i:s');
@@ -62,7 +62,7 @@ class Brand extends CI_Controller
     function edit($post)
     {
         $where['id'] = $post['id'];
-        $data = q_data("*", 'kumalagroup.brands', $where)->row();
+        $data = q_data("*", 'kumk6797_kumalagroup.brands', $where)->row();
         $d['jenis'] = $data->jenis;
         $d['url'] = $data->url;
         echo json_encode($d);
@@ -70,7 +70,7 @@ class Brand extends CI_Controller
     function hapus($post)
     {
         $where['id'] = $post['id'];
-        $data_post['name'] = q_data("*", 'kumalagroup.brands', $where)->row()->foto;
+        $data_post['name'] = q_data("*", 'kumk6797_kumalagroup.brands', $where)->row()->foto;
         $data_post['path'] = "./assets/img_marketing/head/";
         if ($this->kumalagroup->delete('brands', $where)) {
             curl_post($this->m_marketing->img_server . "delete_img", $data_post);

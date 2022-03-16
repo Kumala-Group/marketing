@@ -14,7 +14,7 @@ class Login_ticketing extends CI_Controller {
 		$this->form_validation->set_rules('username', 'Username', 'required');
 		$this->form_validation->set_rules('password', 'Password', 'required');
 
-		$d['logo']    = $this->db->select('*')->get('kumalagroup.partners')->result();
+		$d['logo']    = $this->db->select('*')->get('kumk6797_kumalagroup.partners')->result();
 		$d['version'] = $this->db->select('MAX(versi_update) as versi_update')->where('brand', 'KMG')->get('db_helpdesk.update_versi')->row();
 
 		if ($this->form_validation->run() == FALSE){

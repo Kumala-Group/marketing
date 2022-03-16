@@ -17,10 +17,10 @@ class Tiket extends CI_Controller
             } else {
                 $d['content'] = "pages/admin/tiket";
                 $d['index'] = $index;
-                $data = q_data("*", 'kumalagroup.tickets', [], "updated_at")->result();
+                $data = q_data("*", 'kumk6797_kumalagroup.tickets', [], "updated_at")->result();
                 foreach ($data as $v) {
                     $arr['id'] = $v->id;
-                    $arr['acara'] = q_data("*", 'kumalagroup.events', ['id' => $v->acara])->row()->judul;
+                    $arr['acara'] = q_data("*", 'kumk6797_kumalagroup.events', ['id' => $v->acara])->row()->judul;
                     $arr['nama'] = $v->nama;
                     $arr['email'] = $v->email;
                     $arr['harga'] = $v->harga;

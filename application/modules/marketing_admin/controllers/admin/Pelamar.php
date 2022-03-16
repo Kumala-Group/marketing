@@ -24,7 +24,7 @@ class Pelamar extends CI_Controller
 				$d['content'] = "pages/admin/pelamar";
 				$d['index'] = $index;
 				// $d['img_server'] = $this->m_marketing->img_server;
-				// $d['data'] = q_data("*", 'kumalagroup.pelamars', [], "updated_at", false, false)->result();
+				// $d['data'] = q_data("*", 'kumk6797_kumalagroup.pelamars', [], "updated_at", false, false)->result();
 				//function q_data($select, $table, $where, $order = false, $group = false, $limit = false)
 				$this->load->view('index', $d);
 			}
@@ -40,7 +40,7 @@ class Pelamar extends CI_Controller
 		//id	email	nama	posisi	telepon	alamat	pendidikan	pengalaman	training	alasan	status	foto	cv	surat_lamaran	created_at	updated_at
 		$datatable->query = $this->db
 			->select("id, email, nama, posisi, telepon, alamat, pendidikan, foto, cv, surat_lamaran")
-			->from('kumalagroup.pelamars');
+			->from('kumk6797_kumalagroup.pelamars');
 		
 		//* untuk filtering */		
 		$datatable->setColumns(
@@ -132,7 +132,7 @@ class Pelamar extends CI_Controller
 	function hapus($post)
 	{
 		$where['id'] = $post['id'];
-		$d = q_data("*", 'kumalagroup.pelamars', $where)->row();
+		$d = q_data("*", 'kumk6797_kumalagroup.pelamars', $where)->row();
 		$data_post['path'] = "./assets/img_marketing/pelamar/";
 		$data_post['name'] = $d->foto;
 		curl_post($this->m_marketing->img_server . "delete_img", $data_post);

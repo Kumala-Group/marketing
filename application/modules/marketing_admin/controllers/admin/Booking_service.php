@@ -19,7 +19,7 @@ class Booking_service extends CI_Controller
             } else {
                 $d['content'] = "pages/admin/booking_service";
                 $d['index'] = $index;
-                $data = q_data("*", 'kumalagroup.booking_service', [], "updated_at")->result();
+                $data = q_data("*", 'kumk6797_kumalagroup.booking_service', [], "updated_at")->result();
                 foreach ($data as $v) {
                     $perusahaan = q_data("*", 'kmg.perusahaan', ['id_perusahaan' => $v->id_perusahaan])->row();
                     

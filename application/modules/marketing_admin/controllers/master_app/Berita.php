@@ -25,18 +25,18 @@ class Berita extends CI_Controller
                 $d['content']            = "pages/master_app/berita";
                 $d['index']              = $index;
                 $d['img_server']         = $this->m_marketing->img_server;
-                $d['berita']             = q_data("*", 'kumalagroup.beritas', ['website' => "kumalagroup", 'type' => "berita"], "created_at")->result();
-                $d['promo']              = q_data("*", 'kumalagroup.beritas', ['website' => "kumalagroup", 'type' => "promo"], "created_at")->result();
-                $d['tips']               = q_data("*", 'kumalagroup.beritas', ['website' => "kumalagroup", 'type' => "tips"], "created_at")->result();
-                $d['honda_berita']       = q_data("*", 'kumalagroup.beritas', ['website' => "honda", 'type' => "berita"], "created_at")->result();
-                $d['honda_promo']        = q_data("*", 'kumalagroup.beritas', ['website' => "honda", 'type' => "promo"], "created_at")->result();
-                $d['honda_tips']         = q_data("*", 'kumalagroup.beritas', ['website' => "honda", 'type' => "tips"], "created_at")->result();
-                $d['mazda_berita']       = q_data("*", 'kumalagroup.beritas', ['website' => "mazda", 'type' => "berita"], "created_at")->result();
-                $d['mazda_promo']        = q_data("*", 'kumalagroup.beritas', ['website' => "mazda", 'type' => "promo"], "created_at")->result();
-                $d['mazda_tips']         = q_data("*", 'kumalagroup.beritas', ['website' => "mazda", 'type' => "tips"], "created_at")->result();
-                $d['carimobilku_berita'] = q_data("*", 'kumalagroup.beritas', ['website' => "carimobilku", 'type' => "berita"], "created_at")->result();
-                $d['carimobilku_promo']  = q_data("*", 'kumalagroup.beritas', ['website' => "carimobilku", 'type' => "promo"], "created_at")->result();
-                $d['carimobilku_tips']   = q_data("*", 'kumalagroup.beritas', ['website' => "carimobilku", 'type' => "tips"], "created_at")->result();
+                $d['berita']             = q_data("*", 'kumk6797_kumalagroup.beritas', ['website' => "kumalagroup", 'type' => "berita"], "created_at")->result();
+                $d['promo']              = q_data("*", 'kumk6797_kumalagroup.beritas', ['website' => "kumalagroup", 'type' => "promo"], "created_at")->result();
+                $d['tips']               = q_data("*", 'kumk6797_kumalagroup.beritas', ['website' => "kumalagroup", 'type' => "tips"], "created_at")->result();
+                $d['honda_berita']       = q_data("*", 'kumk6797_kumalagroup.beritas', ['website' => "honda", 'type' => "berita"], "created_at")->result();
+                $d['honda_promo']        = q_data("*", 'kumk6797_kumalagroup.beritas', ['website' => "honda", 'type' => "promo"], "created_at")->result();
+                $d['honda_tips']         = q_data("*", 'kumk6797_kumalagroup.beritas', ['website' => "honda", 'type' => "tips"], "created_at")->result();
+                $d['mazda_berita']       = q_data("*", 'kumk6797_kumalagroup.beritas', ['website' => "mazda", 'type' => "berita"], "created_at")->result();
+                $d['mazda_promo']        = q_data("*", 'kumk6797_kumalagroup.beritas', ['website' => "mazda", 'type' => "promo"], "created_at")->result();
+                $d['mazda_tips']         = q_data("*", 'kumk6797_kumalagroup.beritas', ['website' => "mazda", 'type' => "tips"], "created_at")->result();
+                $d['carimobilku_berita'] = q_data("*", 'kumk6797_kumalagroup.beritas', ['website' => "carimobilku", 'type' => "berita"], "created_at")->result();
+                $d['carimobilku_promo']  = q_data("*", 'kumk6797_kumalagroup.beritas', ['website' => "carimobilku", 'type' => "promo"], "created_at")->result();
+                $d['carimobilku_tips']   = q_data("*", 'kumk6797_kumalagroup.beritas', ['website' => "carimobilku", 'type' => "tips"], "created_at")->result();
 
                 $this->load->view('index', $d);
             }
@@ -71,7 +71,7 @@ class Berita extends CI_Controller
             $nama_gambar = curl_post($this->m_marketing->img_server . "post_img", $data_post);
         }
 
-        $q_brand = q_data("*", 'kumalagroup.beritas', $where);
+        $q_brand = q_data("*", 'kumk6797_kumalagroup.beritas', $where);
         if ($q_brand->num_rows() == 0) {
             $data['thumb'] = $nama_thumb;
             $data['gambar'] = $nama_gambar;
@@ -80,7 +80,7 @@ class Berita extends CI_Controller
             $this->kumalagroup->insert("beritas", $data);
             $status = 1;
         } elseif ($q_brand->num_rows() > 0 && !empty($where)) {
-            $file = q_data("*", 'kumalagroup.beritas', $where)->row();
+            $file = q_data("*", 'kumk6797_kumalagroup.beritas', $where)->row();
             if (!empty($_FILES['thumb'])) {
                 $data['thumb'] = $nama_thumb;
                 $data_post['name'] = $file->thumb;
@@ -103,7 +103,7 @@ class Berita extends CI_Controller
     function edit($post)
     {
         $where['id'] = $post['id'];
-        $data = q_data("*", 'kumalagroup.beritas', $where)->row();
+        $data = q_data("*", 'kumk6797_kumalagroup.beritas', $where)->row();
         $d['website'] = $data->website;
         $d['judul'] = $data->judul;
         $d['tipe'] = $data->type;
@@ -116,7 +116,7 @@ class Berita extends CI_Controller
     function hapus($post)
     {
         $where['id'] = $post['id'];
-        $file = q_data("*", 'kumalagroup.beritas', $where)->row();
+        $file = q_data("*", 'kumk6797_kumalagroup.beritas', $where)->row();
         $data_post['name'] = $file->thumb;
         $data_post['path'] = "./assets/img_marketing/berita/thumb/";
         curl_post($this->m_marketing->img_server . "delete_img", $data_post);

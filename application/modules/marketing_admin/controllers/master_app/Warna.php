@@ -19,39 +19,39 @@ class Warna extends CI_Controller
             } else {
                 $d['content'] = "pages/master_app/warna";
                 $d['index'] = $index;
-                $d['brand'] = q_data("*", 'kumalagroup.brands', [])->result();
-                $hino = q_data("*", 'kumalagroup.colors', ['brand' => 3])->result();
+                $d['brand'] = q_data("*", 'kumk6797_kumalagroup.brands', [])->result();
+                $hino = q_data("*", 'kumk6797_kumalagroup.colors', ['brand' => 3])->result();
                 foreach ($hino as $v) {
                     $arr['id'] = $v->id;
-                    $arr['_model'] = q_data("*", 'kumalagroup.models', ['id' => $v->model])->row()->nama_model;
+                    $arr['_model'] = q_data("*", 'kumk6797_kumalagroup.models', ['id' => $v->model])->row()->nama_model;
                     $arr['nama_warna'] = $v->nama_warna;
                     $d['hino'][] = $arr;
                 }
-                $honda = q_data("*", 'kumalagroup.colors', ['brand' => 17])->result();
+                $honda = q_data("*", 'kumk6797_kumalagroup.colors', ['brand' => 17])->result();
                 foreach ($honda as $v) {
                     $arr['id'] = $v->id;
-                    $arr['_model'] = q_data("*", 'kumalagroup.models', ['id' => $v->model])->row()->nama_model;
+                    $arr['_model'] = q_data("*", 'kumk6797_kumalagroup.models', ['id' => $v->model])->row()->nama_model;
                     $arr['nama_warna'] = $v->nama_warna;
                     $d['honda'][] = $arr;
                 }
-                $mazda = q_data("*", 'kumalagroup.colors', ['brand' => 4])->result();
+                $mazda = q_data("*", 'kumk6797_kumalagroup.colors', ['brand' => 4])->result();
                 foreach ($mazda as $v) {
                     $arr['id'] = $v->id;
-                    $arr['_model'] = q_data("*", 'kumalagroup.models', ['id' => $v->model])->row()->nama_model;
+                    $arr['_model'] = q_data("*", 'kumk6797_kumalagroup.models', ['id' => $v->model])->row()->nama_model;
                     $arr['nama_warna'] = $v->nama_warna;
                     $d['mazda'][] = $arr;
                 }
-                $mercedes = q_data("*", 'kumalagroup.colors', ['brand' => 18])->result();
+                $mercedes = q_data("*", 'kumk6797_kumalagroup.colors', ['brand' => 18])->result();
                 foreach ($mercedes as $v) {
                     $arr['id'] = $v->id;
-                    $arr['_model'] = q_data("*", 'kumalagroup.models', ['id' => $v->model])->row()->nama_model;
+                    $arr['_model'] = q_data("*", 'kumk6797_kumalagroup.models', ['id' => $v->model])->row()->nama_model;
                     $arr['nama_warna'] = $v->nama_warna;
                     $d['mercedes'][] = $arr;
                 }
-                $wuling = q_data("*", 'kumalagroup.colors', ['brand' => 5])->result();
+                $wuling = q_data("*", 'kumk6797_kumalagroup.colors', ['brand' => 5])->result();
                 foreach ($wuling as $v) {
                     $arr['id'] = $v->id;
-                    $arr['_model'] = q_data("*", 'kumalagroup.models', ['id' => $v->model])->row()->nama_model;
+                    $arr['_model'] = q_data("*", 'kumk6797_kumalagroup.models', ['id' => $v->model])->row()->nama_model;
                     $arr['nama_warna'] = $v->nama_warna;
                     $d['wuling'][] = $arr;
                 }
@@ -66,7 +66,7 @@ class Warna extends CI_Controller
         $data['brand'] = $post['brand'];
         $data['model'] = $post['model'];
         $data['nama_warna'] = $post['warna'];
-        $q_brand = q_data("*", 'kumalagroup.colors', $where);
+        $q_brand = q_data("*", 'kumk6797_kumalagroup.colors', $where);
         if ($q_brand->num_rows() == 0) {
             $data['created_at'] = date('Y-m-d H:i:s');
             $data['updated_at'] = date('Y-m-d H:i:s');
@@ -82,7 +82,7 @@ class Warna extends CI_Controller
     function edit($post)
     {
         $where['id'] = $post['id'];
-        $data = q_data("*", 'kumalagroup.colors', $where)->row();
+        $data = q_data("*", 'kumk6797_kumalagroup.colors', $where)->row();
         $d['brand'] = $data->brand;
         $d['model'] = $data->model;
         $d['warna'] = $data->nama_warna;
@@ -91,7 +91,7 @@ class Warna extends CI_Controller
     function hapus($post)
     {
         $where = $post['id'];
-        $warna = q_data("*", 'kumalagroup.units_detail', ['nama_detail' => $where])->result();
+        $warna = q_data("*", 'kumk6797_kumalagroup.units_detail', ['nama_detail' => $where])->result();
         foreach ($warna as $v) {
             $data_post['name'] = $v->gambar;
             $data_post['path'] = "./assets/img_marketing/otomotif/warna/";

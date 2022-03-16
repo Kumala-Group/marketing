@@ -15,8 +15,8 @@ class List_user extends CI_Controller
             if ($post) {
                 if (!empty($post['datatable'])) {
                     $select = ["r.nama", "r.email", "c.telepon", "DATE_FORMAT(r.registered_at, '%d-%m-%Y') as tanggal"];
-                    $table  = 'kumalagroup.reg_customer r';
-                    $join   = ['kumalagroup.customer c' => "r.id = c.customer"];
+                    $table  = 'kumk6797_kumalagroup.reg_customer r';
+                    $join   = ['kumk6797_kumalagroup.customer c' => "r.id = c.customer"];
                     $list = q_data_datatable($select, $table, $join, null, null, array('r.id', 'desc'));
                     echo q_result_datatable($select, $table, $join, null, $list ?? []);
                 }

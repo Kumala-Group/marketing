@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class mSlider extends Model
 {
-    protected $table = 'kumalagroup.sliders';
+    protected $table = 'kumk6797_kumalagroup.sliders';
     protected $primaryKey = 'id';
     protected $keyType = 'integer';
 

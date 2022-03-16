@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class mPesertaTes extends Model
 {
-    protected $table = 'kumalagroup.peserta_tes';
+    protected $table = 'kumk6797_kumalagroup.peserta_tes';
     protected $primaryKey = 'id';
     protected $keyType = 'integer';
 

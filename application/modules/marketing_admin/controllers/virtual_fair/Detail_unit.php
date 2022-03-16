@@ -18,7 +18,7 @@ class Detail_unit extends CI_Controller
                 else if (!empty($post['loadDetail'])) {
                     $response = q_data(
                         "*",
-                        'kumalagroup.units_detail',
+                        'kumk6797_kumalagroup.units_detail',
                         'unit=\'' . $post['model'] . '\' and detail in (\'360In\',\'360Drive\')'
                     )->result();
                     echo json_encode($response, JSON_PRETTY_PRINT);
@@ -26,7 +26,7 @@ class Detail_unit extends CI_Controller
             } else {
                 $d['content'] = "pages/virtual_fair/detail_unit";
                 $d['index'] = $index;
-                $d['brand'] = q_data("*", 'kumalagroup.brands', [])->result();
+                $d['brand'] = q_data("*", 'kumk6797_kumalagroup.brands', [])->result();
                 $this->load->view('index', $d);
             }
         }
@@ -38,7 +38,7 @@ class Detail_unit extends CI_Controller
         $data['detail'] = "360Drive";
         $data['nama_detail'] = "Video 360 Test Drive";
         $data['deskripsi'] = $post['test_drive'];
-        $q = q_data("*", 'kumalagroup.units_detail', ['unit' => $post['model'], 'detail' => "360Drive"]);
+        $q = q_data("*", 'kumk6797_kumalagroup.units_detail', ['unit' => $post['model'], 'detail' => "360Drive"]);
         if ($q->num_rows() > 0)
             $this->kumalagroup->update('units_detail', $data, ['unit' => $post['model'], 'detail' => "360Drive"]);
         else
@@ -47,7 +47,7 @@ class Detail_unit extends CI_Controller
         $data['detail'] = "360In";
         $data['nama_detail'] = "360 Interior";
         $data['deskripsi'] = $post['interior'];
-        $q = q_data("*", 'kumalagroup.units_detail', ['unit' => $post['model'], 'detail' => "360In"]);
+        $q = q_data("*", 'kumk6797_kumalagroup.units_detail', ['unit' => $post['model'], 'detail' => "360In"]);
         if ($q->num_rows() > 0)
             $this->kumalagroup->update('units_detail', $data, ['unit' => $post['model'], 'detail' => "360In"]);
         else
@@ -56,7 +56,7 @@ class Detail_unit extends CI_Controller
         $kode = $this->m_marketing->generate_kode(5);
 
         if (!empty($_FILES['exterior'])) {
-            $q = q_data("*", 'kumalagroup.units_detail', ['unit' => $post['model'], 'detail' => "360Ex"]);
+            $q = q_data("*", 'kumk6797_kumalagroup.units_detail', ['unit' => $post['model'], 'detail' => "360Ex"]);
             if ($q->num_rows() > 0) {
                 foreach ($q->result() as $v) {
                     $data_post['name'] = $v->gambar;
@@ -90,8 +90,8 @@ class Detail_unit extends CI_Controller
     function loadModel($post)
     {
         $where = $post['brand'];
-        $data = q_data_join("u.id,m.nama_model", 'kumalagroup.units u', [
-            'kumalagroup.models m' => "m.id=u.model"
+        $data = q_data_join("u.id,m.nama_model", 'kumk6797_kumalagroup.units u', [
+            'kumk6797_kumalagroup.models m' => "m.id=u.model"
         ], ['u.brand' => $where, 'u.is_digifest' => 1])->result() ?>
         <option value="" selected disabled>-- Silahkan Pilih Model --</option>
         <?php foreach ($data as $v) : ?>

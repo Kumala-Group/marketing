@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class mImgGaleri extends Model
 {
-    protected $table = 'kumalagroup.image_galeri';
+    protected $table = 'kumk6797_kumalagroup.image_galeri';
     protected $primaryKey = 'id';
     protected $keyType = 'integer';
 

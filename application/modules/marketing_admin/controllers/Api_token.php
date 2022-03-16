@@ -17,10 +17,10 @@ class Api_token extends CI_Controller
             } else {
                 $d['content'] = "pages/api_token";
                 $d['index'] = '';
-                $data = q_data("*", 'kumalagroup.api_token', [])->result();
+                $data = q_data("*", 'kumk6797_kumalagroup.api_token', [])->result();
                 foreach ($data as $v) {
                     $arr['id'] = $v->id;
-                    $arr['username'] = q_data("*", 'kumalagroup.users', ['id' => $v->username])->row()->username;
+                    $arr['username'] = q_data("*", 'kumk6797_kumalagroup.users', ['id' => $v->username])->row()->username;
                     $arr['token'] = $v->token;
                     $d['data'][] = $arr;
                 }
@@ -32,9 +32,9 @@ class Api_token extends CI_Controller
     {
         $status = 0;
         $where['username'] = $post['username'];
-        $u = q_data("*", 'kumalagroup.users', $where);
+        $u = q_data("*", 'kumk6797_kumalagroup.users', $where);
         if ($u->num_rows() > 0) {
-            $q = q_data("*", 'kumalagroup.api_token', ['username' => $u->row()->id])->num_rows();
+            $q = q_data("*", 'kumk6797_kumalagroup.api_token', ['username' => $u->row()->id])->num_rows();
             if ($q == 0) {
                 $data['username'] = $u->row()->id;
                 $data['token'] = $this->acak_token();

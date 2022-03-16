@@ -17,7 +17,7 @@ class Saran extends CI_Controller
             } else {
                 $d['content'] = "pages/admin/saran";
                 $d['index'] = $index;
-                $d['data'] = q_data("*", 'kumalagroup.saran', [], "updated_at")->result();
+                $d['data'] = q_data("*", 'kumk6797_kumalagroup.saran', [], "updated_at")->result();
                 $this->load->view('index', $d);
             }
         }

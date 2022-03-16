@@ -20,12 +20,12 @@ class Model extends CI_Controller
             } else {
                 $d['content'] = "pages/master_app/model";
                 $d['index'] = $index;
-                $d['brand'] = q_data("*", 'kumalagroup.brands', [])->result();
-                $d['hino'] = q_data("*", 'kumalagroup.models', ['brand' => 3])->result();
-                $d['honda'] = q_data("*", 'kumalagroup.models', ['brand' => 17])->result();
-                $d['mazda'] = q_data("*", 'kumalagroup.models', ['brand' => 4])->result();
-                $d['mercedes'] = q_data("*", 'kumalagroup.models', ['brand' => 18])->result();
-                $d['wuling'] = q_data("*", 'kumalagroup.models', ['brand' => 5])->result();
+                $d['brand'] = q_data("*", 'kumk6797_kumalagroup.brands', [])->result();
+                $d['hino'] = q_data("*", 'kumk6797_kumalagroup.models', ['brand' => 3])->result();
+                $d['honda'] = q_data("*", 'kumk6797_kumalagroup.models', ['brand' => 17])->result();
+                $d['mazda'] = q_data("*", 'kumk6797_kumalagroup.models', ['brand' => 4])->result();
+                $d['mercedes'] = q_data("*", 'kumk6797_kumalagroup.models', ['brand' => 18])->result();
+                $d['wuling'] = q_data("*", 'kumk6797_kumalagroup.models', ['brand' => 5])->result();
                 $this->load->view('index', $d);
             }
         }
@@ -36,7 +36,7 @@ class Model extends CI_Controller
         $where['id'] = $post['id'];
         $data['brand'] = $post['brand'];
         $data['nama_model'] = $post['model'];
-        $q_brand = q_data("*", 'kumalagroup.models', $where);
+        $q_brand = q_data("*", 'kumk6797_kumalagroup.models', $where);
         if ($q_brand->num_rows() == 0) {
             $data['created_at'] = date('Y-m-d H:i:s');
             $data['updated_at'] = date('Y-m-d H:i:s');
@@ -52,7 +52,7 @@ class Model extends CI_Controller
     function edit($post)
     {
         $where['id'] = $post['id'];
-        $data = q_data("*", 'kumalagroup.models', $where)->row();
+        $data = q_data("*", 'kumk6797_kumalagroup.models', $where)->row();
         $d['brand'] = $data->brand;
         $d['model'] = $data->nama_model;
         echo json_encode($d);
@@ -65,7 +65,7 @@ class Model extends CI_Controller
     function load($post)
     {
         $where['brand'] = $post['brand'];
-        $data = q_data("*", 'kumalagroup.models', $where)->result() ?>
+        $data = q_data("*", 'kumk6797_kumalagroup.models', $where)->result() ?>
         <option value="" selected disabled>-- Silahkan Pilih Model --</option>
         <?php foreach ($data as $v) : ?>
             <option value="<?= $v->id ?>"><?= $v->nama_model ?></option>

@@ -24,12 +24,12 @@ class Dealer extends \MX_Controller
                 $d['content'] = "pages/master_app/dealer";
                 $d['index'] = $index;
                 $d['img_server'] = $this->m_marketing->img_server;
-                // $d['brand'] = q_data("*", 'kumalagroup.brands', [])->result();
-                $d['hino'] = q_data("*", 'kumalagroup.dealers', ['brand' => 3], "updated_at")->result();
-                $d['honda'] = q_data("*", 'kumalagroup.dealers', ['brand' => 17], "updated_at")->result();
-                $d['wuling'] = q_data("*", 'kumalagroup.dealers', ['brand' => 5], "updated_at")->result();
-                $d['mazda'] = q_data("*", 'kumalagroup.dealers', ['brand' => 4], "updated_at")->result();
-                $d['mercedes'] = q_data("*", 'kumalagroup.dealers', ['brand' => 18, "updated_at"])->result();
+                // $d['brand'] = q_data("*", 'kumk6797_kumalagroup.brands', [])->result();
+                $d['hino'] = q_data("*", 'kumk6797_kumalagroup.dealers', ['brand' => 3], "updated_at")->result();
+                $d['honda'] = q_data("*", 'kumk6797_kumalagroup.dealers', ['brand' => 17], "updated_at")->result();
+                $d['wuling'] = q_data("*", 'kumk6797_kumalagroup.dealers', ['brand' => 5], "updated_at")->result();
+                $d['mazda'] = q_data("*", 'kumk6797_kumalagroup.dealers', ['brand' => 4], "updated_at")->result();
+                $d['mercedes'] = q_data("*", 'kumk6797_kumalagroup.dealers', ['brand' => 18, "updated_at"])->result();
                 $this->load->view('index', $d);
             }
         }
@@ -53,7 +53,7 @@ class Dealer extends \MX_Controller
             $nama_gambar = curl_post($this->m_marketing->img_server . "post_img", $data_post);
         }
 
-        $q_brand = q_data("*", 'kumalagroup.dealers', $where);
+        $q_brand = q_data("*", 'kumk6797_kumalagroup.dealers', $where);
         if ($q_brand->num_rows() == 0) {
             $data['gambar'] = $nama_gambar;
             $data['created_at'] = date('Y-m-d H:i:s');
@@ -63,7 +63,7 @@ class Dealer extends \MX_Controller
         } elseif ($q_brand->num_rows() > 0 && !empty($where)) {
             if (!empty($_FILES['gambar'])) {
                 $data['gambar'] = $nama_gambar;
-                $data_post['name'] = q_data("*", 'kumalagroup.dealers', $where)->row()->gambar;
+                $data_post['name'] = q_data("*", 'kumk6797_kumalagroup.dealers', $where)->row()->gambar;
                 curl_post($this->m_marketing->img_server . "delete_img", $data_post);
             }
             $data['updated_at'] = date('Y-m-d H:i:s');
@@ -76,7 +76,7 @@ class Dealer extends \MX_Controller
     function edit($post)
     {
         $where['id'] = $post['id'];
-        $data = q_data("*", 'kumalagroup.dealers', $where)->row();
+        $data = q_data("*", 'kumk6797_kumalagroup.dealers', $where)->row();
         $d['judul'] = $data->judul;
         $d['area'] = $data->area;
         $d['brand'] = $data->brand;
@@ -89,7 +89,7 @@ class Dealer extends \MX_Controller
     function hapus($post)
     {
         $where['id'] = $post['id'];
-        $data_post['name'] = q_data("*", 'kumalagroup.dealers', $where)->row()->gambar;
+        $data_post['name'] = q_data("*", 'kumk6797_kumalagroup.dealers', $where)->row()->gambar;
         $data_post['path'] = "./assets/img_marketing/dealer/";
         if ($this->kumalagroup->delete('dealers', $where)) {
             curl_post($this->m_marketing->img_server . "delete_img", $data_post);

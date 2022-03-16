@@ -19,7 +19,7 @@ class Partner extends CI_Controller
                 $d['content'] = "pages/master_app/partner";
                 $d['index'] = $index;
                 $d['img_server'] = $this->m_marketing->img_server;
-                $d['data'] = q_data("*", 'kumalagroup.partners', [], "updated_at")->result();
+                $d['data'] = q_data("*", 'kumk6797_kumalagroup.partners', [], "updated_at")->result();
                 $this->load->view('index', $d);
             }
         }
@@ -37,14 +37,14 @@ class Partner extends CI_Controller
             $data['gambar'] = curl_post($this->m_marketing->img_server . "post_img", $data_post);
         }
 
-        $q_brand = q_data("*", 'kumalagroup.partners', $where);
+        $q_brand = q_data("*", 'kumk6797_kumalagroup.partners', $where);
         if ($q_brand->num_rows() == 0) {
             $data['created_at'] = date('Y-m-d H:i:s');
             $data['updated_at'] = date('Y-m-d H:i:s');
             $this->kumalagroup->insert("partners", $data);
             $status = 1;
         } elseif ($q_brand->num_rows() > 0 && !empty($where)) {
-            $data_post['name'] = q_data("*", 'kumalagroup.partners', $where)->row()->gambar;
+            $data_post['name'] = q_data("*", 'kumk6797_kumalagroup.partners', $where)->row()->gambar;
             curl_post($this->m_marketing->img_server . "delete_img", $data_post);
             $data['updated_at'] = date('Y-m-d H:i:s');
             $this->kumalagroup->update("partners", $data, $where);
@@ -55,7 +55,7 @@ class Partner extends CI_Controller
     function hapus($post)
     {
         $where['id'] = $post['id'];
-        $data_post['name'] = q_data("*", 'kumalagroup.partners', $where)->row()->gambar;
+        $data_post['name'] = q_data("*", 'kumk6797_kumalagroup.partners', $where)->row()->gambar;
         $data_post['path'] = "./assets/img_marketing/partner/";
         curl_post($this->m_marketing->img_server . "delete_img", $data_post);
         $this->kumalagroup->delete('partners', $where);
