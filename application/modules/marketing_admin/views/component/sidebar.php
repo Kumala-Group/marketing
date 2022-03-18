@@ -139,74 +139,74 @@
             );
             echo "</ul></li>";
 
-            echo open_parent("icon-ipad", "Apps");
-            echo _child(
-                $menu_akses,
-                "Acara",
-                "acara",
-                ($index == 'acara') ? "active" : "",
-                base_url("aplikasi/acara")
-            );
-            echo _child(
-                $menu_akses,
-                "Sparepart",
-                "sparepart",
-                ($index == 'sparepart') ? "active" : "",
-                base_url("aplikasi/sparepart")
-            );
-            echo _child(
-                $menu_akses,
-                "Voucher",
-                "voucher",
-                ($index == 'voucher') ? "active" : "",
-                base_url("aplikasi/voucher")
-            );
-            echo "</ul></li>";
+            // echo open_parent("icon-ipad", "Apps");
+            // echo _child(
+            //     $menu_akses,
+            //     "Acara",
+            //     "acara",
+            //     ($index == 'acara') ? "active" : "",
+            //     base_url("aplikasi/acara")
+            // );
+            // echo _child(
+            //     $menu_akses,
+            //     "Sparepart",
+            //     "sparepart",
+            //     ($index == 'sparepart') ? "active" : "",
+            //     base_url("aplikasi/sparepart")
+            // );
+            // echo _child(
+            //     $menu_akses,
+            //     "Voucher",
+            //     "voucher",
+            //     ($index == 'voucher') ? "active" : "",
+            //     base_url("aplikasi/voucher")
+            // );
+            // echo "</ul></li>";
 
-            echo open_parent("icon-ios-pulse-strong", "Virtual Fair");
-            echo _child(
-                $menu_akses,
-                "Dashboard",
-                "dashboard_digifest",
-                ($index == 'dashboard_digifest') ? "active" : "",
-                base_url("virtual_fair/dashboard")
-            );
-            echo _child(
-                $menu_akses,
-                "Customer",
-                "list_user",
-                ($index == 'list_user') ? "active" : "",
-                base_url("virtual_fair/list_user")
-            );
-            echo _child(
-                $menu_akses,
-                "Transaksi",
-                "list_transaksi",
-                ($index == 'list_transaksi') ? "active" : "",
-                base_url("virtual_fair/list_transaksi")
-            );
-            echo _child(
-                $menu_akses,
-                "Main Stage",
-                "main_stage",
-                ($index == 'main_stage') ? "active" : "",
-                base_url("virtual_fair/main_stage")
-            );
-            echo _child(
-                $menu_akses,
-                "Detail Unit",
-                "detail_unit",
-                ($index == 'detail_unit') ? "active" : "",
-                base_url("virtual_fair/detail_unit")
-            );
-            echo _child(
-                $menu_akses,
-                "Pengaturan",
-                "pengaturan",
-                ($index == 'pengaturan') ? "active" : "",
-                base_url("virtual_fair/pengaturan")
-            );
-            echo "</ul></li>";
+            // echo open_parent("icon-ios-pulse-strong", "Virtual Fair");
+            // echo _child(
+            //     $menu_akses,
+            //     "Dashboard",
+            //     "dashboard_digifest",
+            //     ($index == 'dashboard_digifest') ? "active" : "",
+            //     base_url("virtual_fair/dashboard")
+            // );
+            // echo _child(
+            //     $menu_akses,
+            //     "Customer",
+            //     "list_user",
+            //     ($index == 'list_user') ? "active" : "",
+            //     base_url("virtual_fair/list_user")
+            // );
+            // echo _child(
+            //     $menu_akses,
+            //     "Transaksi",
+            //     "list_transaksi",
+            //     ($index == 'list_transaksi') ? "active" : "",
+            //     base_url("virtual_fair/list_transaksi")
+            // );
+            // echo _child(
+            //     $menu_akses,
+            //     "Main Stage",
+            //     "main_stage",
+            //     ($index == 'main_stage') ? "active" : "",
+            //     base_url("virtual_fair/main_stage")
+            // );
+            // echo _child(
+            //     $menu_akses,
+            //     "Detail Unit",
+            //     "detail_unit",
+            //     ($index == 'detail_unit') ? "active" : "",
+            //     base_url("virtual_fair/detail_unit")
+            // );
+            // echo _child(
+            //     $menu_akses,
+            //     "Pengaturan",
+            //     "pengaturan",
+            //     ($index == 'pengaturan') ? "active" : "",
+            //     base_url("virtual_fair/pengaturan")
+            // );
+            // echo "</ul></li>";
 
             echo open_parent("icon-ios-pulse-strong", "Used Car");
             echo _child(
