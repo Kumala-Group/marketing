@@ -9,6 +9,16 @@ class Konfigurasi_user extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->model('m_marketing');
+		
+		// $pass = 'pkF^h73LH';
+		// $salt = '$2y$10$nbMBuQpYVYk7KbZsfM5O2u2Q7XchrTLH5mY0iy9NeH12BfjNhev/y';
+		// $hash = password_hash($pass, PASSWORD_DEFAULT);
+		// $verifiy = password_verify($pass, $salt);
+		// if ($verifiy) {
+		// 	debug($verifiy);
+		// } else {
+		// 	debug($pass, $salt, $hash);
+		// }
 	}
 
 	public function index()
@@ -118,14 +128,14 @@ class Konfigurasi_user extends CI_Controller
 	{
 		$status = 0;
 		$where = $post['id'];
-		$hash = password_hash($post['password'], PASSWORD_DEFAULT);
+		$hash = password_hash($post['username'], PASSWORD_DEFAULT);
 		$q_user = q_data("*", 'kumk6797_kumalagroup.users', ['nik' => $post['nik']]);
 		if ($q_user->num_rows() == 0) {			
 			$data	= [
 				'nama_lengkap'	=> $post['nama_lengkap'],
 				'nik'			=> $post['nik'],
 				//'id_perusahaan'	=> $q_user->row('id_perusahaan'),
-				// 'id_level' 		=> $post['level'],
+				'id_level' 		=> '1', // $post['level'],
 				//'id_jabatan'	=> $q_user->row('id_jabatan'),
 				'coverage'		=> $post['coverage'],
 				'username'		=> $post['username'],
@@ -142,7 +152,7 @@ class Konfigurasi_user extends CI_Controller
 			$status = 1;			
 		} elseif ($q_user->num_rows() > 0 && !empty($where)) {
 			//$data['id_level'] = $post['level'];
-			if (!empty($post['password'])) $data['password'] = $hash;
+			//if (!empty($post['password'])) $data['password'] = $hash;
 			//$data['coverage'] = $post['coverage'];
 			$data['tgl_update'] = date('Y-m-d H:i:s');
 			$this->kumalagroup->update("users", $data, ['id' => $where]);
@@ -164,6 +174,7 @@ class Konfigurasi_user extends CI_Controller
 		$password 	= $this->input->post('password');
 
 		$hash	= password_hash($password, PASSWORD_DEFAULT);		
+		
 
 		$q_user = q_data("*", 'kumk6797_kumalagroup.users', ['nik' => $nik]);
 		if ($q_user->num_rows() == 0) {			

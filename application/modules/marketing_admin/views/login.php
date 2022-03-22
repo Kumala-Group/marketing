@@ -7,8 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
     <meta name="description" content="Robust admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
     <meta name="keywords" content="admin template, robust admin template, dashboard template, flat admin template, responsive admin template, web app">
-    <meta name="author" content="PIXINVENT">
-    <title>Marketing Kumala GroupXX</title>
+    <meta name="author" content="KumalaGroup">
+    <title>Marketing Kumala Group</title>
     <link rel="apple-touch-icon" sizes="60x60" href="<?= base_url() ?>assets/robust/app-assets/images/ico/apple-icon-60.png">
     <link rel="apple-touch-icon" sizes="76x76" href="<?= base_url() ?>assets/robust/app-assets/images/ico/apple-icon-76.png">
     <link rel="apple-touch-icon" sizes="120x120" href="<?= base_url() ?>assets/robust/app-assets/images/ico/apple-icon-120.png">
@@ -122,6 +122,8 @@
     <script src="<?= base_url() ?>assets/robust/app-assets/js/core/app-menu.js" type="text/javascript"></script>
     <script src="<?= base_url() ?>assets/robust/app-assets/js/core/app.js" type="text/javascript"></script>
     <script src="<?= base_url() ?>assets/img_marketing/dist/jquery.validate.min.js"></script>
+    <script src="<?= base_url('assets/img_marketing/dist/sweetalert.min.js') ?>"></script>
+
     <script>
         var form = $('#form');
         $('#submit').click(function(e) {
@@ -129,11 +131,16 @@
             var data = form.serialize();
             if (form.valid()) {
                 $.post(location, data, function(r) {
-                    if (r == 1) location.reload();
+                    if (r == 1) {
+                        swal("Berhasil", "Login sukses!", "success").then(function() {                            
+                            location.reload();
+                        });
+                    }
                     else {
-                        form.trigger('reset');
-                        $('#error').html("Username atau Password anda salah!");
-                        $('#error').css('display', "block");
+                        swal("Kesalahan", "Username atau Password salah!", "warning").then(function() {
+                            form.trigger('reset');
+                            unload();
+                        });                        
                     }
                 });
             }

@@ -10,7 +10,7 @@ class Marketing_home extends CI_Controller
 
 	public function index()
 	{
-		$status = 0;
+		$status = 0;		
 		$post = $this->input->post();
 		if ($post) {
 			$username = strip_tags($post['username']);
