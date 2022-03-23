@@ -263,10 +263,10 @@ class Konfigurasi_user extends CI_Controller
 						echo child_edit($menu_akses, "User Profil", "user_profil", "");
 						echo close_parent_head_edit();
 
-						echo child_edit($menu_akses, "<strong>Dashboard (Header)</strong>", "dashboard", "");
-						echo open_parent_head_edit("", "Wuling");
-						echo child_edit($menu_akses, "Controlling Survei DO", "wuling_ctrl_survey_do", "");
-						echo close_parent_head_edit();
+						// echo child_edit($menu_akses, "<strong>Dashboard (Header)</strong>", "dashboard", "");
+						// echo open_parent_head_edit("", "Wuling");
+						// echo child_edit($menu_akses, "Controlling Survei DO", "wuling_ctrl_survey_do", "");
+						// echo close_parent_head_edit();
 
 						echo child_edit($menu_akses, "<strong>Manajemen Aplikasi (Header)</strong>", "manajemen_aplikasi", "");
 						echo open_parent_head_edit("", "Pustaka");
@@ -277,7 +277,7 @@ class Konfigurasi_user extends CI_Controller
 						echo close_parent_head_edit();
 
 						echo open_parent_head_edit("", "Website");
-						echo child_edit($menu_akses, "Karir", "karir", "");
+						// echo child_edit($menu_akses, "Karir", "karir", "");
 						echo child_edit($menu_akses, "Partner", "partner", "");
 						echo child_edit($menu_akses, "Property", "property", "");
 						echo close_parent_head_edit();
@@ -290,20 +290,20 @@ class Konfigurasi_user extends CI_Controller
 						echo child_edit($menu_akses, "Slider", "slider", "");
 						echo close_parent_head_edit();
 
-						echo open_parent_head_edit("", "Apps");
-						echo child_edit($menu_akses, "Acara", "acara", "");
-						echo child_edit($menu_akses, "Sparepart", "sparepart", "");
-						echo child_edit($menu_akses, "Voucher", "voucher", "");
-						echo close_parent_head_edit();
+						// echo open_parent_head_edit("", "Apps");
+						// echo child_edit($menu_akses, "Acara", "acara", "");
+						// echo child_edit($menu_akses, "Sparepart", "sparepart", "");
+						// echo child_edit($menu_akses, "Voucher", "voucher", "");
+						// echo close_parent_head_edit();
 
-						echo open_parent_head_edit("", "Virtual Fair");
-						echo child_edit($menu_akses, "Dashboard", "dashboard_digifest", "");
-						echo child_edit($menu_akses, "Customer", "list_user", "");
-						echo child_edit($menu_akses, "Transaksi", "list_transaksi", "");
-						echo child_edit($menu_akses, "Main Stage", "main_stage", "");
-						echo child_edit($menu_akses, "Detail Unit", "detail_unit", "");
-						echo child_edit($menu_akses, "Pengaturan", "pengaturan", "");
-						echo close_parent_head_edit();
+						// echo open_parent_head_edit("", "Virtual Fair");
+						// echo child_edit($menu_akses, "Dashboard", "dashboard_digifest", "");
+						// echo child_edit($menu_akses, "Customer", "list_user", "");
+						// echo child_edit($menu_akses, "Transaksi", "list_transaksi", "");
+						// echo child_edit($menu_akses, "Main Stage", "main_stage", "");
+						// echo child_edit($menu_akses, "Detail Unit", "detail_unit", "");
+						// echo child_edit($menu_akses, "Pengaturan", "pengaturan", "");
+						// echo close_parent_head_edit();
 
 						echo open_parent_head_edit("", "Used Car");
 						echo child_edit($menu_akses, "Inventori", "ucinventori", "");
@@ -319,7 +319,7 @@ class Konfigurasi_user extends CI_Controller
 						echo child_edit($menu_akses, "Penawaran", "penawaran", "");
 						echo close_parent_head_edit();
 
-						echo child_edit($menu_akses, "Pelamar", "pelamar", "");
+						// echo child_edit($menu_akses, "Pelamar", "pelamar", "");
 
 						echo open_parent_head_edit("", "Apps Admin");
 						echo child_edit($menu_akses, "Booking Service", "booking_service", "");

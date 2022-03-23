@@ -78,13 +78,13 @@
             echo "</ul></li>";
 
             echo open_parent("icon-ios-monitor-outline", "Website");
-            echo _child(
-                $menu_akses,
-                "Karir",
-                "karir",
-                ($index == 'karir') ? "active" : "",
-                base_url("aplikasi/karir")
-            );
+            // echo _child(
+            //     $menu_akses,
+            //     "Karir",
+            //     "karir",
+            //     ($index == 'karir') ? "active" : "",
+            //     base_url("aplikasi/karir")
+            // );
             echo _child(
                 $menu_akses,
                 "Partner",
@@ -259,14 +259,14 @@
             );
             echo "</ul></li>";
 
-            echo single_menu(
-                $menu_akses,
-                "icon-ios-email-outline",
-                "Pelamar",
-                "pelamar",
-                ($index == 'pelamar') ? "active" : "",
-                base_url("admin/pelamar")
-            );
+            // echo single_menu(
+            //     $menu_akses,
+            //     "icon-ios-email-outline",
+            //     "Pelamar",
+            //     "pelamar",
+            //     ($index == 'pelamar') ? "active" : "",
+            //     base_url("admin/pelamar")
+            // );
 
             echo open_parent("icon-ios-download-outline", "Apps Admin");
             echo _child(
