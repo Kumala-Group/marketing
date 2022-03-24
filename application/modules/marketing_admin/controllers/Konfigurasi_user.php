@@ -151,7 +151,7 @@ class Konfigurasi_user extends CI_Controller
 			$this->kumalagroup->insert("menu_akses", $data);
 			$status = 1;			
 		} elseif ($q_user->num_rows() > 0 && !empty($where)) {
-			//$data['id_level'] = $post['level'];
+			$data['id_level'] = '1';//$post['level'];
 			//if (!empty($post['password'])) $data['password'] = $hash;
 			//$data['coverage'] = $post['coverage'];
 			$data['tgl_update'] = date('Y-m-d H:i:s');
