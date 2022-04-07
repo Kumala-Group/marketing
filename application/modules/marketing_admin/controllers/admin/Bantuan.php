@@ -30,7 +30,7 @@ class Bantuan extends CI_Controller
             $post = $this->input->post();
             if (!$post) $this->m_marketing->error404();
             else {
-                debug($post);
+                
                 $data['nama'] = $post['nama'];
                 $data['telepon'] = $post['telepon'];
                 $data['email'] = $post['email'];
