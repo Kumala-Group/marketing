@@ -17,6 +17,7 @@ class MazdaBeranda extends Controller
             ->get();
         $inventories = MazdaUnit::with(array('toModels'))
             ->whereBrand('4')
+            ->whereisDeleted('0')
             ->orderBy('created_at', 'desc')
             ->get();
         $blogs = BeritaModel::where('type', '!=', 'promo')
