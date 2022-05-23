@@ -130,7 +130,7 @@ class Api_website extends CI_Controller
                         ["km.nama_model", "ku.gambar", "ku.harga", "ku.deskripsi"],
                         'kumk6797_kumalagroup.units ku',
                         ['kumk6797_kumalagroup.models km' => "km.id=ku.model"],
-                        ['ku.brand' => $id_brand_honda],
+                        ['ku.brand' => $id_brand_honda, 'ku.is_deleted'=>'0'],
                         "ku.updated_at",
                         [],
                         $this->uri->segment(4)
