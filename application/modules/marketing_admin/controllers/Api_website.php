@@ -64,7 +64,7 @@ class Api_website extends CI_Controller
                 $id_brand = q_data("*", 'kumk6797_kumalagroup.brands', ['jenis' => $this->uri->segment(4)])->row()->id;
                 $d['head'] =  q_data("*", 'kumk6797_kumalagroup.heads', ['jenis' => $this->uri->segment(4)])->row();
                 $d['dealer'] = q_data("*", 'kumk6797_kumalagroup.dealers', ['brand' => $id_brand], [], "area")->result();
-                $otomotif = q_data("*", 'kumk6797_kumalagroup.units', ['brand' => $id_brand], "created_at")->result();
+                $otomotif = q_data("*", 'kumk6797_kumalagroup.units', ['brand' => $id_brand, 'is_deleted'=>'0'], "created_at")->result();
                 foreach ($otomotif as $v) {
                     $arr['id'] = $v->id;
                     $arr['model'] = q_data("*", 'kumk6797_kumalagroup.models', ['id' => $v->model])->row()->nama_model;
