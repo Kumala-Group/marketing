@@ -194,6 +194,8 @@ class Api_website extends CI_Controller
     }
     public function get_area()
     {
+        header("Access-Control-Allow-Origin: *");
+        header("Access-Control-Allow-Headers: *");
         $kota        = array("Makassar","Gorontalo","Ternate","Mamuju","Samarinda","Balikpapan","Gowa",
                       "Sidrap","Bulukumba","Bau-Bau","Palu","Pare-pare","Manado","Kendari","Kolaka",
                       "Bali","Tomohon","Palopo","Bone","Bandung","Jakarta");
@@ -210,6 +212,8 @@ class Api_website extends CI_Controller
     }
     public function area_dealers()
     {
+        header("Access-Control-Allow-Origin: *");
+        header("Access-Control-Allow-Headers: *");
         $area = $this->input->post('area');
         
         $dealers = mDealers::whereArea($area)->whereBrand(17)->get();
