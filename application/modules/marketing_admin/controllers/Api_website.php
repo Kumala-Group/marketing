@@ -1,4 +1,8 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php
+
+use app\modules\elo_models\kumalagroup\mDealers;
+
+ if (!defined('BASEPATH')) exit('No direct script access allowed');
 
 class Api_website extends CI_Controller
 {
@@ -188,4 +192,65 @@ class Api_website extends CI_Controller
             echo json_encode(empty($d) ? [] : $d);
         }
     }
+    public function get_area()
+    {
+        $kota        = array("Makassar","Gorontalo","Ternate","Mamuju","Samarinda","Balikpapan","Gowa",
+                      "Sidrap","Bulukumba","Bau-Bau","Palu","Pare-pare","Manado","Kendari","Kolaka",
+                      "Bali","Tomohon","Palopo","Bone","Bandung","Jakarta");
+        $jumlah_kota = count($kota);
+        sort($kota);
+        $area = [];
+        for($index = 0;$index < $jumlah_kota;$index++)
+        {
+            $area[] = ['id'=>$kota[$index],'text'=>$kota[$index]];
+        }
+        
+        echo json_encode(empty($area) ? [] : $area);
+        
+    }
+    public function area_dealers()
+    {
+        $area = $this->input->post('area');
+        
+        $dealers = mDealers::whereArea($area)->whereBrand(17)->get();
+
+       
+        $html = '';
+        foreach($dealers as $value)
+        {
+            $html .= '
+                <div class="card col-md-5 m-1 flex-column">
+                    <div class="card-header">'.$value->judul.'</div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12 ">
+                                <img height="140px" width="240px" src="'.base_url('assets/img_marketing/dealer/'.$value->gambar).'">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 ">
+                                <hr>
+                                <p class="card-text">
+                                    '.$value->alamat.'
+                                </p>
+                                <br>
+                                <p class="card-text">
+                                    Telp/Fax : '.$value->telp.'
+                                </p>
+                                
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 ">
+                                <a href="'.$value->map.'">Cek Google Maps</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            ';
+        }
+        
+        echo json_encode(empty($html) ? [] : $html);
+    }
+    
 }

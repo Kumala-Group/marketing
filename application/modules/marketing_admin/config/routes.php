@@ -135,6 +135,8 @@ $route['api/(:any)/password_cust']                                    	= "market
 
 //api honda
 $route['api/(:any)/s_honda']                                         	= "marketing_admin/api_website/slider_honda";
+$route['api/(:any)/get_area']                                         	= "marketing_admin/api_website/get_area";
+$route['api/(:any)/area_dealers']                                         	= "marketing_admin/api_website/area_dealers";
 $route['api/(:any)/p_honda']                                         	= "marketing_admin/api_website/produk_honda";
 $route['api/(:any)/p_honda/(:any)']                                  	= "marketing_admin/api_website/produk_honda";
 $route['api/(:any)/b_honda']                                         	= "marketing_admin/api_website/berita_honda";
