@@ -196,15 +196,13 @@ class Api_website extends CI_Controller
     {
         header("Access-Control-Allow-Origin: *");
         header("Access-Control-Allow-Headers: *");
-        $kota        = array("Makassar","Gorontalo","Ternate","Mamuju","Samarinda","Balikpapan","Gowa",
-                      "Sidrap","Bulukumba","Bau-Bau","Palu","Pare-pare","Manado","Kendari","Kolaka",
-                      "Bali","Tomohon","Palopo","Bone","Bandung","Jakarta");
-        $jumlah_kota = count($kota);
-        sort($kota);
+
+        $kota        = mDealers::whereBrand(17)->groupBy('area')->get();
+        
         $area = [];
-        for($index = 0;$index < $jumlah_kota;$index++)
+        foreach($kota as $item)
         {
-            $area[] = ['id'=>$kota[$index],'text'=>$kota[$index]];
+            $area[] = ['id'=>$item->area,'text'=>$item->area];
         }
         
         echo json_encode(empty($area) ? [] : $area);
@@ -228,7 +226,7 @@ class Api_website extends CI_Controller
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-12 ">
-                                <img height="140px" width="240px" src="https://kumalagroup.id/assets/img_marketing/dealer/'.$value->gambar.'">
+                                <img height="140px" width="240px" src="https://kumalagroup.id/assets/img_marketing/assets/img_marketing/dealer/'.$value->gambar.'">
                             </div>
                         </div>
                         <div class="row">
