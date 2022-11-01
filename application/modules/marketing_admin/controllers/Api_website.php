@@ -226,7 +226,7 @@ class Api_website extends CI_Controller
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-12 ">
-                                <img height="140px" width="240px" src="https://kumalagroup.id/assets/img_marketing/assets/img_marketing/dealer/'.$value->gambar.'">
+                                <img height="140px" width="240px" src="https://kumalagroup.id/assets/img_marketing/dealer/'.$value->gambar.'">
                             </div>
                         </div>
                         <div class="row">
