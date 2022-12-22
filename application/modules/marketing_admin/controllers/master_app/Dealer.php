@@ -102,7 +102,7 @@ class Dealer extends \MX_Controller
 
         $kota        = array("Makassar","Gorontalo","Ternate","Mamuju","Samarinda","Balikpapan","Gowa",
                       "Sidrap","Bulukumba","Bau-Bau","Palu","Pare-pare","Manado","Kendari","Kolaka",
-                      "Bali","Tomohon","Palopo","Bone","Bandung","Jakarta","Parung");
+                      "Bali","Tomohon","Palopo","Bone","Bandung","Jakarta","Bogor");
         $jumlah_kota = count($kota);
         sort($kota);
         $area = array();
